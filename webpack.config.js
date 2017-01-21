@@ -21,9 +21,9 @@ var config = {
   entry: './src/index.js',
   devtool: 'source-map',
   output: {
-    path: __dirname + '/lib',
+    path: __dirname + '/dist',
     filename: outputFile,
-    publicPath: __dirname + '/example'
+    publicPath: __dirname + '/public'
   },
   module: {
     loaders: [
@@ -59,7 +59,7 @@ var config = {
 
 if (env === 'dev') {
   new WebpackDevServer(webpack(config), {
-    contentBase: './example',
+    contentBase: './public',
     hot: true,
     debug: true
   }).listen(port, host, function (err, result) {
