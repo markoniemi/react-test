@@ -54,7 +54,7 @@
     "react-addons-test-utils": "15.2.0",
     "react-dom": "15.2.0",
     "watch": "0.16.0",
-    "webpack": "1.12.2",
+    "webpack": "1.14.0",
     "webpack-dev-server": "1.11.0"
   }
 }

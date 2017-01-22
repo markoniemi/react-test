@@ -1,5 +1,5 @@
 import React from 'react';
-// import Users from './Users.js';
+import UsersContainer from './UsersContainer';
 import { addUser } from '../actions/UserActions'
 import { Button } from 'react-bootstrap';
 import { Glyphicon } from 'react-bootstrap';
@@ -9,10 +9,12 @@ import store from '../stores/Store';
 
 export default class App extends React.Component {
   render() {
+      console.log(store);
       return (
         <Provider store={store}>
           <Panel header="Users" >
             <p>Hello world</p>
+            <UsersContainer/>
             <Button bsStyle="primary" onClick={this.newUser}><Glyphicon glyph="glyphicon glyphicon-plus"/></Button>
           </Panel>
         </Provider>
