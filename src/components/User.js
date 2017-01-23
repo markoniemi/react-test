@@ -28,7 +28,15 @@ export default class User extends React.Component {
     // };
   }
   render() {
-    renderUser();
+    // renderUser();
+    const user = this.props.user;
+    // {onDelete ? this.renderDelete() : null }
+    return (
+      <tr>
+        <td ref="username" onClick={this.edit}>{user.username}</td>
+        <td ref="email">{user.email}</td>
+      </tr>
+    );
     // const editing = this.state.editing;
     //
     // return (editing ? this.renderEdit() : this.renderUser());
@@ -54,12 +62,13 @@ export default class User extends React.Component {
   //   );
   // }
   renderUser() {
-    const onDelete = this.props.onDelete;
+    // const onDelete = this.props.onDelete;
+    const user = this.props.user;
+        // {onDelete ? this.renderDelete() : null }
     return (
         <tr>
-        <td ref="username" onClick={this.edit}>{this.props.user.username}</td>
-        <td ref="email">{this.props.user.email}</td>
-        {onDelete ? this.renderDelete() : null }
+        <td ref="username" onClick={this.edit}>{user.username}</td>
+        <td ref="email">{user.email}</td>
         </tr>
     );
   }

@@ -8,7 +8,7 @@ import { ADD_USER, REMOVE_USER, RESET_USERS } from '../actions/UserActions';
 //         age: action.age
 //     }
 // ]
-export default function(state = [], action) {
+export default function(state = [{username: "user1", email: "email"}], action) {
     switch (action.type) {
         case ADD_USER:
             return state.slice().concat(action.user);

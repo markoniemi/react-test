@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import Users from './Users';
-import store from '../stores/Store';
+// import store from '../stores/Store';
 
 const UsersContainer = React.createClass({
 
@@ -18,10 +18,19 @@ const UsersContainer = React.createClass({
 
 });
 
+// Which part of the Redux global state does our component want to receive as props?
 const mapStateToProps = function(store) {
   return {
     users: store.users
   };
 };
+
+// Which action creators does it want to receive by props?
+// function mapDispatchToProps(dispatch) {
+//   return {
+//     addUser: (user) => dispatch(addUser(user)),
+//     removeUser: (index) => dispatch(removeUser(index)),
+//   }
+// }
 
 export default connect(mapStateToProps)(UsersContainer);
