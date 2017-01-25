@@ -7,13 +7,12 @@ export default class Users extends React.Component {
     super(props);
 
     this.renderUser = this.renderUser.bind(this);
-    this.users = props.users;
   }
   render() {
     return (
     <Table>
       <tbody>
-      {this.users.map(this.renderUser)}
+      {this.props.users.map(this.renderUser)}
       </tbody>
     </Table>);
   }
