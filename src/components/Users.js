@@ -16,15 +16,15 @@ export default class Users extends React.Component {
       </tbody>
     </Table>);
   }
-        // onEdit={this.props.onEdit.bind(null, user)}
-        // onDelete={this.props.onDelete.bind(null, user.id)}/>
       // <tr key={user.username}>
       //   <td>{user.username}</td><td>{user.email}</td>
       // </tr>
   renderUser(user) {
     // change key to user.id
     return (
-        <User user={user} key={user.username}/>
+        <User user={user} key={user.index}
+        onEdit={this.props.onEdit.bind(null, user)}
+        onDelete={this.props.onDelete.bind(null, user.id)}/>
     );
   }
 }
