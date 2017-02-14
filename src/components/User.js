@@ -5,15 +5,8 @@ import { Glyphicon } from 'react-bootstrap';
 import { editUser } from '../actions/UserActions'
 import store from '../stores/Store';
 
-// export default const User = ({name, age}) => (
-//         <tr>
-//         <td ref="username" onClick={this.edit}>{this.props.user.username}</td>
-//         <td ref="email">{this.props.user.email}</td>
-//         {onDelete ? this.renderDelete() : null }
-//         </tr>
-// );
-
 export default class User extends React.Component {
+  // TODO add static propTypes
   constructor(props) {
     super(props);
     this.finishEdit = this.finishEdit.bind(this);
@@ -21,21 +14,17 @@ export default class User extends React.Component {
     this.edit = this.edit.bind(this);
     this.renderEdit = this.renderEdit.bind(this);
     this.renderUser = this.renderUser.bind(this);
+    this.handleChangeUsername = this.handleChangeUsername.bind(this);
+    this.handleChangeEmail = this.handleChangeEmail.bind(this);
     this.state = {
-        editing: false
+      editing: false,
+      username: this.props.user.username || '',
+      email: this.props.user.email || '',
+      index: this.props.user.index || 0
     };
   }
   render() {
-    // renderUser();
     const user = this.props.user;
-    // return (
-    //   <tr>
-    //     <td ref="username" onClick={this.edit}>{user.username}</td>
-    //     <td ref="email">{user.email}</td>
-    //   </tr>
-    // );
-        // {onDelete ? this.renderDelete() : null }
-
     const editing = this.state.editing;
 
     return (editing ? this.renderEdit() : this.renderUser());
@@ -46,11 +35,11 @@ export default class User extends React.Component {
         <td>
         <FormControl type="text" bsSize="medium"
           autoFocus={true}
-          defaultValue={this.props.user.username} ref="username"/>
+          defaultValue={this.props.user.username} ref="username" onChange={this.handleChangeUsername}/>
         </td>
         <td>
         <FormControl type="text" bsSize="medium"
-          defaultValue={this.props.user.email} ref="email" onKeyPress={this.checkEnter}/>
+          defaultValue={this.props.user.email} ref="email" onKeyPress={this.checkEnter} onChange={this.handleChangeEmail}/>
         </td>
         <td>
         <Button bsSize="small" className="pull-right" onClick={this.finishEdit}>
@@ -66,7 +55,7 @@ export default class User extends React.Component {
     return (
         <tr>
         <td ref="username" onClick={this.edit}>{user.username}</td>
-        <td ref="email">{user.email}</td>
+        <td ref="email" onClick={this.edit}>{user.email}</td>
         {onDelete ? this.renderDelete() : null }
         </tr>
     );
@@ -76,24 +65,31 @@ export default class User extends React.Component {
       editing: true
     });
   }
+  handleChangeUsername(event){
+    this.setState({
+      username: event.target.value
+    });
+  }
+  handleChangeEmail(event){
+    this.setState({
+      email: event.target.value
+    });
+  }
   checkEnter(e) {
     if(e.key === 'Enter') {
       this.finishEdit(e);
     }
   }
   finishEdit(e) {
-    // TODO use state instead of refs
-    this.props.user.username = this.refs.username.value;
-    this.props.user.email = this.refs.email.value;
-    this.props.onEdit(this.props.user);
 
     this.setState({
       editing: false
     });
-    // TODO get index somehow
-    var user = {username: this.props.user.username, email: this.props.user.email, index: 0};
-    store.dispatch(editUser(0, user ));
-    // store.dispatch(changeEmail(this.props.user.email));
+    // TODO change index to id
+    var user = {username: this.state.username, email: this.state.email, index: this.state.index};
+    // TODO is onEdit atribute needed?
+    this.props.onEdit(user);
+    store.dispatch(editUser(user.index, user ));
   }
   renderDelete() {
     return (
