@@ -1,8 +1,8 @@
 import React, {PropTypes} from 'react';
-import { FormControl } from 'react-bootstrap';
-import { Button } from 'react-bootstrap';
-import { Glyphicon } from 'react-bootstrap';
-import { editUser } from '../actions/UserActions'
+import {FormControl} from 'react-bootstrap';
+import {Button} from 'react-bootstrap';
+import {Glyphicon} from 'react-bootstrap';
+import {editUser} from '../actions/UserActions'
 import store from '../stores/Store';
 
 export default class User extends React.Component {
@@ -23,65 +23,70 @@ export default class User extends React.Component {
       index: this.props.user.index || 0
     };
   }
+
   render() {
     const user = this.props.user;
-    const editing = this.state.editing;
+    return (this.state.editing ? this.renderEdit() : this.renderUser());
+  }
 
-    return (editing ? this.renderEdit() : this.renderUser());
-  }
-  renderEdit() {
-    return (
-        <tr>
-        <td>
-        <FormControl type="text" bsSize="medium"
-          autoFocus={true}
-          defaultValue={this.props.user.username} ref="username" onChange={this.handleChangeUsername}/>
-        </td>
-        <td>
-        <FormControl type="text" bsSize="medium"
-          defaultValue={this.props.user.email} ref="email" onKeyPress={this.checkEnter} onChange={this.handleChangeEmail}/>
-        </td>
-        <td>
-        <Button bsSize="small" className="pull-right" onClick={this.finishEdit}>
-        <Glyphicon glyph="glyphicon glyphicon-ok"/>
-        </Button>
-        </td>
-        </tr>
-    );
-  }
   renderUser() {
-    const onDelete = this.props.onDelete;
     const user = this.props.user;
     return (
-        <tr>
+      <tr>
         <td ref="username" onClick={this.edit}>{user.username}</td>
         <td ref="email" onClick={this.edit}>{user.email}</td>
-        {onDelete ? this.renderDelete() : null }
-        </tr>
+        {this.props.onDelete ? this.renderDelete() : null }
+      </tr>
     );
   }
+
+  renderEdit() {
+    return (
+      <tr>
+        <td>
+          <FormControl type="text" bsSize="medium"
+                       autoFocus={true}
+                       defaultValue={this.props.user.username} ref="username" onChange={this.handleChangeUsername}/>
+        </td>
+        <td>
+          <FormControl type="text" bsSize="medium"
+                       defaultValue={this.props.user.email} ref="email" onKeyPress={this.checkEnter}
+                       onChange={this.handleChangeEmail}/>
+        </td>
+        <td>
+          <Button bsSize="small" className="pull-right" onClick={this.finishEdit}>
+            <Glyphicon glyph="glyphicon glyphicon-ok"/>
+          </Button>
+        </td>
+      </tr>
+    );
+  }
+
   edit() {
     this.setState({
       editing: true
     });
   }
-  handleChangeUsername(event){
+
+  handleChangeUsername(event) {
     this.setState({
       username: event.target.value
     });
   }
-  handleChangeEmail(event){
+
+  handleChangeEmail(event) {
     this.setState({
       email: event.target.value
     });
   }
+
   checkEnter(e) {
-    if(e.key === 'Enter') {
+    if (e.key === 'Enter') {
       this.finishEdit(e);
     }
   }
-  finishEdit(e) {
 
+  finishEdit(e) {
     this.setState({
       editing: false
     });
@@ -89,15 +94,16 @@ export default class User extends React.Component {
     var user = {username: this.state.username, email: this.state.email, index: this.state.index};
     // TODO is onEdit atribute needed?
     this.props.onEdit(user);
-    store.dispatch(editUser(user.index, user ));
+    store.dispatch(editUser(user.index, user));
   }
+
   renderDelete() {
     return (
-        <td>
+      <td>
         <Button bsSize="small" className="pull-right" onClick={this.props.onDelete}>
-        <Glyphicon glyph="glyphicon glyphicon-remove"/>
+          <Glyphicon glyph="glyphicon glyphicon-remove"/>
         </Button>
-        </td>
+      </td>
     );
   }
 }

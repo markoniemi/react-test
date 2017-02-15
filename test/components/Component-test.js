@@ -8,7 +8,7 @@ var spy = sinon.spy();
 describe('Given an instance of the Component', () => {
   describe('when we render the component', () => {
     before(() => {
-      component = TestUtils.renderIntoDocument(<Component onRender={ spy } />);
+      component = TestUtils.renderIntoDocument(<Component onRender={ spy }/>);
     });
     it('should render a paragraph', () => {
       var paragraph = TestUtils.scryRenderedDOMComponentsWithTag(component, 'p');
