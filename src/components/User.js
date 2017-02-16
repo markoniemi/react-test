@@ -2,7 +2,7 @@ import React, {PropTypes} from 'react';
 import {FormControl} from 'react-bootstrap';
 import {Button} from 'react-bootstrap';
 import {Glyphicon} from 'react-bootstrap';
-import {editUser} from '../actions/UserActions'
+import {editUser} from '../actions/UserActions';
 import store from '../stores/Store';
 
 export default class User extends React.Component {
@@ -25,7 +25,6 @@ export default class User extends React.Component {
   }
 
   render() {
-    const user = this.props.user;
     return (this.state.editing ? this.renderEdit() : this.renderUser());
   }
 
@@ -82,17 +81,17 @@ export default class User extends React.Component {
 
   checkEnter(e) {
     if (e.key === 'Enter') {
-      this.finishEdit(e);
+      this.finishEdit();
     }
   }
 
-  finishEdit(e) {
+  finishEdit() {
+    // TODO change index to id
+    var user = {username: this.state.username, email: this.state.email, index: this.state.index};
     this.setState({
       editing: false
     });
-    // TODO change index to id
-    var user = {username: this.state.username, email: this.state.email, index: this.state.index};
-    // TODO is onEdit atribute needed?
+    // TODO is onEdit attribute needed?
     this.props.onEdit(user);
     store.dispatch(editUser(user.index, user));
   }

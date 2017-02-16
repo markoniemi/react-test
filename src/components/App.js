@@ -1,6 +1,6 @@
 import React from 'react';
 import UsersContainer from './UsersContainer';
-import {addUser} from '../actions/UserActions'
+import {addUser} from '../actions/UserActions';
 import {Button} from 'react-bootstrap';
 import {Glyphicon} from 'react-bootstrap';
 import {Panel} from 'react-bootstrap';

@@ -7,23 +7,23 @@ export function addUser(user) {
   return {
     type: ADD_USER,
     user: user
-  }
+  };
 }
 export function removeUser(index) {
   return {
     type: REMOVE_USER,
     index: index
-  }
+  };
 }
 export function editUser(index, user) {
   return {
     type: EDIT_USER,
     index: index,
     user: user
-  }
+  };
 }
 export function resetUsers() {
   return {
     type: RESET_USERS
-  }
+  };
 }
