@@ -26,50 +26,36 @@ var config = {
     publicPath: __dirname + '/public'
   },
   module: {
-    loaders: [
+    rules: [
       {
         test: /(\.jsx|\.js)$/,
-        loader: 'babel',
+        loader: 'babel-loader',
         exclude: /(node_modules)/,
         query: {
           presets: ['react', 'es2015']
         }
       }, {
         test: /\.css$/,
-        loader: 'style!css'
+        loader: 'style-loader!css-loader'
       }, {
         test: /\.json$/,
-        loader: 'json'
+        loader: 'json-loader'
       }, {
         test: /\.(eot|woff|woff2|ttf|svg|png|jpe?g|gif)(\?\S*)?$/,
-        loader: 'url?limit=100000@name=[name][ext]'
-      },
-      {
-        test: /(\.jsx|\.js)$/,
-        exclude: /(node_modules|index.js)/,
-        // include: path.resolve('./src'),
-        // test: /.+-test\.jsx?$/,
-        // include: path.resolve('./test'),
-        loader: 'istanbul-instrumenter-loader'
+        loader: 'url-loader?limit=100000@name=[name][ext]'
       }
-      // }, {
+      // {
       //   test: /(\.jsx|\.js)$/,
-      //   loader: "eslint-loader",
-      //   exclude: /node_modules/
+      //   exclude: /(node_modules|index.js)/,
+      //   include: path.resolve('./test'),
+      //   loader: 'istanbul-instrumenter-loader',
+      //   enforce: 'post'
+      // }
     ]
-    // rules: [
-    //   // instrument only testing sources with Istanbul
-    //   {
-    //     test: /\.js$/,
-    //     include: path.resolve('./test'),
-    //     loader: 'istanbul-instrumenter-loader',
-    //     enforce: 'post'
-    //   }
-    // ]
   },
   resolve: {
-    root: path.resolve('./src'),
-    extensions: ['', '.js', '.jsx']
+    modules: [ 'src', 'node_modules' ],
+    extensions: ['.js', '.jsx']
   },
   plugins: plugins
 };
@@ -77,8 +63,8 @@ var config = {
 if (env === 'dev') {
   new WebpackDevServer(webpack(config), {
     contentBase: './public',
-    hot: true,
-    debug: true
+    hot: true
+    // debug: true
   }).listen(port, host, function (err, result) {
     if (err) {
       console.log(err);

@@ -1,7 +1,7 @@
 import {ADD_USER, REMOVE_USER, EDIT_USER, RESET_USERS} from '../actions/UserActions';
 
-// export default function(state = [{username: "user1", email: "email", index: 0}], action) {
-export default function (state = [], action) {
+export default function(state = [{username: "user1", email: "email", index: 0}], action) {
+// export default function (state = [], action) {
   switch (action.type) {
     case ADD_USER:
       // TODO create proper index or id

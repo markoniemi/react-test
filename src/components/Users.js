@@ -10,10 +10,10 @@ export default class Users extends React.Component {
   }
 
   render() {
+        // {this.props.users.map(this.renderUser)}
     return (
       <Table>
         <tbody>
-        {this.props.users.map(this.renderUser)}
         </tbody>
       </Table>);
   }
