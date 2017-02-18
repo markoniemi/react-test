@@ -11,7 +11,7 @@ export class UsersContainer extends React.Component {
 
   render() {
     return (
-      <Users users={this.users} onEdit={this.onEdit} onDelete={this.onDelete}/>
+      <Users users={this.props.users} onEdit={this.onEdit} onDelete={this.onDelete}/>
     );
   }
 

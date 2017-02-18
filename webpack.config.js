@@ -43,14 +43,14 @@ var config = {
       }, {
         test: /\.(eot|woff|woff2|ttf|svg|png|jpe?g|gif)(\?\S*)?$/,
         loader: 'url-loader?limit=100000@name=[name][ext]'
+      },
+      {
+        test: /(\.jsx|\.js)$/,
+        exclude: /(node_modules|index.js)/,
+        // include: path.resolve('./test'),
+        loader: 'istanbul-instrumenter-loader',
+        enforce: 'post'
       }
-      // {
-      //   test: /(\.jsx|\.js)$/,
-      //   exclude: /(node_modules|index.js)/,
-      //   include: path.resolve('./test'),
-      //   loader: 'istanbul-instrumenter-loader',
-      //   enforce: 'post'
-      // }
     ]
   },
   resolve: {
