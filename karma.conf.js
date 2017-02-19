@@ -13,6 +13,7 @@ module.exports = function (config) {
     plugins: [
       'karma-chrome-launcher',
       'karma-coverage-istanbul-reporter',
+      'karma-junit-reporter',
       'karma-phantomjs-launcher',
       'karma-chai',
       'karma-mocha',
@@ -25,16 +26,16 @@ module.exports = function (config) {
     preprocessors: {
       'tests.webpack.js': ['webpack', 'sourcemap']
     },
-    reporters: ['mocha', 'coverage-istanbul'],
+    reporters: ['mocha', 'coverage-istanbul', 'junit'],
     coverageIstanbulReporter: {
-      reports: ['html', 'lcovonly', 'text-summary'],
-      dir: './coverage',
-      fixWebpackSourcePaths: true,
-      'report-config': {
-        html: {
-          subdir: 'html'
-        }
-      }
+      reports: ['html', 'lcov'],
+      dir: 'reports/coverage',
+      file: 'lcov.info',
+      fixWebpackSourcePaths: true
+    },
+    junitReporter: {
+      outputDir: 'reports/test',
+      useBrowserName: false
     },
     webpack: webpackConfig,
     webpackMiddleware: {
