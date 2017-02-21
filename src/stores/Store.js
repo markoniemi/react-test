@@ -9,8 +9,9 @@ export const reducers = combineReducers({
   users: usersReducer
 });
 
-const logger = createLogger();
-const middleware = applyMiddleware(logger);
+var middlewares = [];
+// middlewares.push(createLogger());
+const middleware = applyMiddleware(...middlewares);
 
 const store = createStore(reducers, middleware);
 export default store;

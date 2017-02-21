@@ -16,6 +16,9 @@ if (env === 'build') {
 } else {
   outputFile = appName + '.js';
 }
+// plugins.push(new webpack.SourceMapDevToolPlugin({
+//   test: /(\.jsx|\.js)$/
+// }));
 
 var config = {
   entry: './src/index.js',
@@ -44,11 +47,18 @@ var config = {
       }, {
         test: /\.(eot|woff|woff2|ttf|svg|png|jpe?g|gif)(\?\S*)?$/,
         loader: 'url-loader?limit=100000@name=[name][ext]'
+      },
+      {
+        test: /(\.jsx|\.js)$/,
+        exclude: /(node_modules|index.js)/,
+        // include: path.resolve('./test'),
+        loader: 'istanbul-instrumenter-loader',
+        enforce: 'post'
       }
     ]
   },
   resolve: {
-    modules: [ 'src', 'node_modules' ],
+    modules: ['src', 'node_modules', 'test'],
     extensions: ['.js', '.jsx']
   },
   plugins: plugins
