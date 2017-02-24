@@ -12,7 +12,6 @@ export default class App extends React.Component {
     return (
       <Provider store={store}>
         <Panel header="Users">
-          <p>Hello world</p>
           <UsersContainer/>
           <Button bsStyle="primary" onClick={this.newUser}><Glyphicon glyph="glyphicon glyphicon-plus"/></Button>
         </Panel>

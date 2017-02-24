@@ -61,6 +61,10 @@ var config = {
     modules: ['src', 'node_modules', 'test'],
     extensions: ['.js', '.jsx']
   },
+  externals: {
+    'react/lib/ExecutionEnvironment': true,
+    'react/lib/ReactContext': true
+  },
   plugins: plugins
 };
 

@@ -1,16 +1,12 @@
-import Users from '../../src/components/Users.js';
 import User from '../../src/components/User.js';
 import {shallow, mount, render} from 'enzyme';
 import React from 'react';
 
-var onEditSpy = sinon.spy();
-var onDeleteSpy = sinon.spy();
-
-describe('Users component', () => {
+describe('User component', () => {
   describe('render', () => {
     it('should render a user', () => {
-      var users = [{username: 'username', email: 'email', index: 0}];
-      const wrapper = shallow(<Users users={users} onEdit={ onEditSpy } onDelete={onDeleteSpy}/>);
+      var user = {username: 'username', email: 'email', index: 0};
+      const wrapper = shallow(<User user={user}/>);
       console.log(wrapper.html());
 
       expect(wrapper.find(User)).to.have.length.of(1, 'Expected to have element with tag <User>');
