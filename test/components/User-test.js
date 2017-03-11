@@ -7,9 +7,9 @@ describe('User component', () => {
     it('should render a user', () => {
       var user = {username: 'username', email: 'email', index: 0};
       const wrapper = shallow(<User user={user}/>);
-      console.log(wrapper.html());
+      console.log(wrapper.debug());
 
-      expect(wrapper.find(User)).to.have.length.of(1, 'Expected to have element with tag <User>');
+      expect(wrapper.find('tr')).to.have.length.of(1, 'Expected to have element with tag <User>');
       // expect(wrapper.prop('users')).to.have.length.of(1, 'Expected to have one user');
     });
   });
