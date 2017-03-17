@@ -7,10 +7,10 @@ describe('User component', () => {
     it('should render a user', () => {
       var user = {username: 'username', email: 'email', index: 0};
       const wrapper = shallow(<User user={user}/>);
-      console.log(wrapper.debug());
 
-      expect(wrapper.find('tr')).to.have.length.of(1, 'Expected to have element with tag <User>');
-      // expect(wrapper.prop('users')).to.have.length.of(1, 'Expected to have one user');
+      assert.equal(wrapper.find('tr').length, 1, 'Expected to have element <tr>');
+      assert.equal(wrapper.find('td').at(0).text(), 'username', 'Expected to have element <td>');
+      assert.equal(wrapper.find('td').at(1).text(), 'email', 'Expected to have element <td>');
     });
   });
 });
