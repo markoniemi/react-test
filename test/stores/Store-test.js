@@ -1,6 +1,6 @@
+import {assert} from 'chai';
 import store from '../../src/stores/Store';
 import {ADD_USER, REMOVE_USER, EDIT_USER, RESET_USERS} from '../../src/actions/UserActions';
-import expect from 'expect';
 
 describe('Store', () => {
   afterEach(() => {
@@ -16,7 +16,7 @@ describe('Store', () => {
         type: ADD_USER,
         user: {username: "user2", email: "email"}
       });
-      expect(store.getState().users.length).toEqual(2);
+      assert.equal(store.getState().users.length, 2);
     });
   });
   describe('Dispatch REMOVE_USER', () => {
@@ -29,7 +29,7 @@ describe('Store', () => {
         type: REMOVE_USER,
         index: 0
       });
-      expect(store.getState().users).toEqual([]);
+      assert.equal(store.getState().users.length, 0);
     });
   });
   describe('Dispatch EDIT_USER', () => {
@@ -46,8 +46,8 @@ describe('Store', () => {
           email: "email"
         }
       });
-      expect(store.getState().users[0].username).toEqual('username');
-      expect(store.getState().users[0].email).toEqual('email');
+      assert.equal(store.getState().users[0].username, 'username');
+      assert.equal(store.getState().users[0].email, 'email');
     });
   });
 });
