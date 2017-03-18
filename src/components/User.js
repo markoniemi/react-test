@@ -43,12 +43,12 @@ export default class User extends React.Component {
     return (
       <tr>
         <td>
-          <FormControl type="text" bsSize="medium"
+          <FormControl type="text" bsSize="small"
                        autoFocus={true}
                        defaultValue={this.props.user.username} ref="username" onChange={this.handleChangeUsername}/>
         </td>
         <td>
-          <FormControl type="text" bsSize="medium"
+          <FormControl type="text" bsSize="small"
                        defaultValue={this.props.user.email} ref="email" onKeyPress={this.checkEnter}
                        onChange={this.handleChangeEmail}/>
         </td>
@@ -92,7 +92,7 @@ export default class User extends React.Component {
       editing: false
     });
     // TODO is onEdit attribute needed?
-    this.props.onEdit(user);
+    // this.props.onEdit(user);
     store.dispatch(editUser(user.index, user));
   }
 
