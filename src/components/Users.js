@@ -27,3 +27,8 @@ export default class Users extends React.Component {
     );
   }
 }
+Users.propTypes = {
+  users: React.PropTypes.array,
+  onEdit: React.PropTypes.func,
+  onDelete: React.PropTypes.func
+};

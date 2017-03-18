@@ -6,7 +6,6 @@ import {editUser} from '../actions/UserActions';
 import store from '../stores/Store';
 
 export default class User extends React.Component {
-  // TODO add static propTypes
   constructor(props) {
     super(props);
     this.finishEdit = this.finishEdit.bind(this);
@@ -106,3 +105,8 @@ export default class User extends React.Component {
     );
   }
 }
+User.propTypes = {
+  user: React.PropTypes.object,
+  onEdit: React.PropTypes.func,
+  onDelete: React.PropTypes.func
+};
