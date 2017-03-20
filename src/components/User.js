@@ -1,4 +1,4 @@
-import React, {PropTypes} from 'react';
+import React from 'react';
 import {FormControl} from 'react-bootstrap';
 import {Button} from 'react-bootstrap';
 import {Glyphicon} from 'react-bootstrap';
@@ -43,7 +43,7 @@ export default class User extends React.Component {
       <tr>
         <td>
           <FormControl type="text" bsSize="small"
-                       autoFocus={true}
+                       autoFocus
                        defaultValue={this.props.user.username} ref="username" onChange={this.handleChangeUsername}/>
         </td>
         <td>

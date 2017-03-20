@@ -25,6 +25,9 @@ export class UsersContainer extends React.Component {
 
   }
 }
+UsersContainer.propTypes = {
+  users: React.PropTypes.array
+};
 
 // Which part of the Redux global state does our component want to receive as props?
 const mapStateToProps = function (store) {
