@@ -5,7 +5,8 @@ import User from '../../src/components/User.js';
 import {FormControl, Button} from 'react-bootstrap';
 import store from '../../src/stores/Store';
 import {RESET_USERS} from '../../src/actions/UserActions';
-
+// TODO render without user should not create error
+// TODO test delete
 describe('User component', () => {
   afterEach(() => {
     store.dispatch({type: RESET_USERS});

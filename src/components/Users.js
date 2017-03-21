@@ -21,14 +21,10 @@ export default class Users extends React.Component {
   renderUser(user) {
     // TODO change key to user.id
     return (
-      <User user={user} key={user.index}
-            onEdit={this.props.onEdit.bind(null, user)}
-            onDelete={this.props.onDelete.bind(null, user.id)}/>
+      <User user={user} key={user.index} />
     );
   }
 }
 Users.propTypes = {
-  users: React.PropTypes.array,
-  onEdit: React.PropTypes.func,
-  onDelete: React.PropTypes.func
+  users: React.PropTypes.array
 };

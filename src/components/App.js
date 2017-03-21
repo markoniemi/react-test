@@ -22,11 +22,4 @@ export default class App extends React.Component {
   newUser() {
     store.dispatch(addUser({username: 'username', email: 'email'}));
   }
-
-  // editUser(user) {
-  //   UserActions.update(user);
-  // }
-  // deleteUser(id) {
-  //   UserActions.delete(id);
-  // }
 }

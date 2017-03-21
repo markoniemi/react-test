@@ -5,24 +5,12 @@ import Users from './Users';
 export class UsersContainer extends React.Component {
   constructor(props) {
     super(props);
-    this.onEdit = this.onEdit.bind(this);
-    this.onDelete = this.onDelete.bind(this);
   }
 
   render() {
     return (
-      <Users users={this.props.users} onEdit={this.onEdit} onDelete={this.onDelete}/>
+      <Users users={this.props.users} />
     );
-  }
-
-  // TODO implement
-  onEdit() {
-
-  }
-
-  // TODO implement
-  onDelete() {
-
   }
 }
 UsersContainer.propTypes = {

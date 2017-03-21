@@ -2,7 +2,7 @@ import React from 'react';
 import {FormControl} from 'react-bootstrap';
 import {Button} from 'react-bootstrap';
 import {Glyphicon} from 'react-bootstrap';
-import {editUser} from '../actions/UserActions';
+import {editUser, removeUser} from '../actions/UserActions';
 import store from '../stores/Store';
 
 export default class User extends React.Component {
@@ -15,6 +15,7 @@ export default class User extends React.Component {
     this.renderUser = this.renderUser.bind(this);
     this.handleChangeUsername = this.handleChangeUsername.bind(this);
     this.handleChangeEmail = this.handleChangeEmail.bind(this);
+    this.deleteUser = this.deleteUser.bind(this);
     this.state = {
       editing: false,
       username: this.props.user.username || '',
@@ -33,7 +34,11 @@ export default class User extends React.Component {
       <tr>
         <td ref="username" onClick={this.edit}>{user.username}</td>
         <td ref="email" onClick={this.edit}>{user.email}</td>
-        {this.props.onDelete ? this.renderDelete() : null }
+        <td>
+          <Button bsSize="small" className="pull-right" onClick={this.deleteUser}>
+            <Glyphicon glyph="glyphicon glyphicon-remove"/>
+          </Button>
+        </td>
       </tr>
     );
   }
@@ -90,23 +95,13 @@ export default class User extends React.Component {
     this.setState({
       editing: false
     });
-    // TODO is onEdit attribute needed?
-    // this.props.onEdit(user);
     store.dispatch(editUser(user.index, user));
   }
 
-  renderDelete() {
-    return (
-      <td>
-        <Button bsSize="small" className="pull-right" onClick={this.props.onDelete}>
-          <Glyphicon glyph="glyphicon glyphicon-remove"/>
-        </Button>
-      </td>
-    );
+  deleteUser() {
+    store.dispatch(removeUser(this.props.user.index));
   }
 }
 User.propTypes = {
   user: React.PropTypes.object,
-  onEdit: React.PropTypes.func,
-  onDelete: React.PropTypes.func
 };
