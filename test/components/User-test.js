@@ -1,15 +1,15 @@
 import {assert} from 'chai';
 import {shallow, mount, render} from 'enzyme';
 import React from 'react';
-import User from '../../src/components/User.js';
 import {FormControl, Button} from 'react-bootstrap';
+import User from '../../src/components/User.js';
 import store from '../../src/stores/Store';
-import {RESET_USERS} from '../../src/actions/UserActions';
+import {addUser, removeUser, editUser, resetUsers} from '../../src/actions/UserActions';
 // TODO render without user should not create error
 // TODO test delete
 describe('User component', () => {
   afterEach(() => {
-    store.dispatch({type: RESET_USERS});
+    store.dispatch(resetUsers());
   });
   describe('render', () => {
     it('should render a user', () => {
@@ -21,6 +21,13 @@ describe('User component', () => {
       assert.equal(userWrapper.find('td').at(1).text(), 'email', 'Expected to have element <td>');
     });
   });
+  describe('render without user', () => {
+    it('should not create error', () => {
+      var user = {};
+      const userWrapper = shallow(<User user={user}/>);
+      assert.equal(userWrapper.state.user, null);
+    });
+  });
   describe('edit', () => {
     it('should edit a user', () => {
       var user = {username: 'username', email: 'email', index: 0};
@@ -30,7 +37,6 @@ describe('User component', () => {
       userWrapper.find('td').at(0).simulate('click');
       assert.equal(userWrapper.state('editing'), true);
       assert.equal(userWrapper.find(FormControl).length, 2);
-      // const usernameWrapper = userWrapper.find(FormControl).at(0).shallow().find('input');
       // username
       const usernameWrapper = userWrapper.find(FormControl).at(0).shallow();
       assert.equal(usernameWrapper.prop('defaultValue'), 'username');
@@ -62,6 +68,17 @@ describe('User component', () => {
       const emailWrapper = userWrapper.find(FormControl).at(1).shallow();
       emailWrapper.find('input').at(0).simulate('keyPress', {key: 'Enter'});
       assert.equal(userWrapper.state('editing'), false, 'should enter view only state');
+    });
+  });
+  describe('delete', () => {
+    it('should delete a user', () => {
+      var user = {username: 'username', email: 'email', index: 0};
+      store.dispatch(addUser(user));
+      const userWrapper = shallow(<User user={user}/>);
+
+      userWrapper.find('Button').at(0).simulate('click');
+      assert.equal(userWrapper.state.user, null);
+      assert.equal(store.getState().users.length, 0);
     });
   });
 });
