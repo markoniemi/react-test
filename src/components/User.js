@@ -103,5 +103,5 @@ export default class User extends React.Component {
   }
 }
 User.propTypes = {
-  user: React.PropTypes.object,
+  user: React.PropTypes.object
 };
