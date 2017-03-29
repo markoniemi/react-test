@@ -6,7 +6,7 @@ var path = require('path');
 
 var appName = 'app';
 var host = '0.0.0.0';
-var port = '9000';
+var port = '5000';
 
 var plugins = [], outputFile;
 
