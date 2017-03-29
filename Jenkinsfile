@@ -4,7 +4,7 @@ node {
 	stage ('Checkout') {
 		git credentialsId: '73534043-e92f-42d2-b0a3-c954b09ebd49', url: 'https://github.com/markoniemi/react-test.git'
 	}
-	stage ('Test') {
+	stage ('Install') {
         sh "${npmHome}/bin/npm set progress=false"
 		sh "${npmHome}/bin/npm install"
 //		sh "${npmHome}/bin/npm install phantomjs-prebuilt sinon karma-sinon"
