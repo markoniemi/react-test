@@ -1,15 +1,21 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import Users from './Users';
+import {fetchUsers} from '../actions/UserActions';
+import store from '../stores/Store';
 
 export class UsersContainer extends React.Component {
   constructor(props) {
     super(props);
   }
 
+  componentDidMount() {
+    store.dispatch(fetchUsers());
+  }
+
   render() {
     return (
-      <Users users={this.props.users} />
+      <Users users={this.props.users}/>
     );
   }
 }
