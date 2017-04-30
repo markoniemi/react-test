@@ -1,8 +1,26 @@
-var webpack = require('webpack');
-var UglifyJsPlugin = webpack.optimize.UglifyJsPlugin;
-var env = process.env.WEBPACK_ENV || 'dev';
-var WebpackDevServer = require('webpack-dev-server');
-var path = require('path');
+// 'use strict'
+//
+// const WebpackConfig = require('webpack-config')
+//
+// const TARGET = process.env.npm_lifecycle_event
+// var webpackConfig
+//
+// if (TARGET === 'dev') {
+//   webpackConfig = './config/webpack-dev.config.js';
+// }
+//
+// if (TARGET === 'test' || TARGET === 'test-test' || TARGET === 'test-debug') {
+//   webpackConfig = './config/webpack-test.config.js';
+// }
+//
+// // Default configuration
+// if (TARGET === 'build' || !TARGET) {
+//   webpackConfig = './config/webpack-production.config.js';
+// }
+//
+// module.exports = new WebpackConfig().extend(webpackConfig)
+
+const createServer = require('./server/server');
 
 var appName = 'app';
 var host = '0.0.0.0';
@@ -10,12 +28,7 @@ var port = '5000';
 
 var plugins = [], outputFile;
 
-if (env === 'build') {
-  plugins.push(new UglifyJsPlugin({minimize: true}));
-  outputFile = appName + '.min.js';
-} else {
-  outputFile = appName + '.js';
-}
+outputFile = appName + '.js';
 
 var config = {
   entry: './src/index.js',
@@ -54,19 +67,6 @@ var config = {
   plugins: plugins
 };
 
-if (env === 'dev') {
-  new WebpackDevServer(webpack(config), {
-    contentBase: './public',
-    hot: true
-    // debug: true
-  }).listen(port, host, function (err, result) {
-    if (err) {
-      console.log(err);
-    }
-  });
-  console.log('-------------------------');
-  console.log('Local web server runs at http://' + host + ':' + port);
-  console.log('-------------------------');
-}
+createServer(config, host, port);
 
 module.exports = config;
