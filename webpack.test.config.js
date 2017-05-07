@@ -39,7 +39,7 @@ var config = {
       {
         test: /(\.jsx|\.js)$/,
         exclude: /(node_modules|index.js)/,
-        // include: path.resolve('./test'),
+        include: 'test',
         loader: 'istanbul-instrumenter-loader',
         enforce: 'post'
       }

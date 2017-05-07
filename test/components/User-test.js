@@ -54,7 +54,7 @@ describe('User component', () => {
     });
   });
   describe('edit with keyboard', () => {
-    it('should edit a user', () => {
+    it('should edit a user with keyboard', () => {
       var user = {username: 'username', email: 'email', index: 0};
       const userWrapper = shallow(<User user={user}/>);
 
