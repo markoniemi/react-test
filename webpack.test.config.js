@@ -39,7 +39,8 @@ var config = {
       {
         test: /(\.jsx|\.js)$/,
         exclude: /(node_modules|index.js)/,
-        include: 'test',
+        // include: /(test|src)/,
+        include: /(src)/,
         loader: 'istanbul-instrumenter-loader',
         enforce: 'post'
       }
