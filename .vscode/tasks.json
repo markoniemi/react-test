@@ -20,6 +20,10 @@
             "args": ["run", "test"]
         },
         {
+            "taskName": "test-watch",
+            "args": ["run", "test-watch"]
+        },
+        {
             "taskName": "test-debug",
             "args": ["run", "test-debug"]
         }
