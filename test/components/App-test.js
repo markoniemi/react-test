@@ -11,18 +11,14 @@ describe('App component', () => {
   afterEach(() => {
     store.dispatch(resetUsers());
   });
-  describe('render', () => {
-    it('should render App', () => {
-      const appWrapper = shallow(<App/>);
-      assert.isNotNull(appWrapper.find(UsersContainer));
-    });
+  it('should render App', () => {
+    const appWrapper = shallow(<App/>);
+    assert.isNotNull(appWrapper.find(UsersContainer));
   });
-  describe('add user', () => {
-    it('should add user', () => {
-      const appWrapper = shallow(<App/>);
-      assert.equal(store.getState().users.length, 0);
-      appWrapper.find(Button).at(0).simulate('click');
-      assert.equal(store.getState().users.length, 1);
-    });
+  it('should add user', () => {
+    const appWrapper = shallow(<App/>);
+    assert.equal(store.getState().users.length, 0);
+    appWrapper.find(Button).at(0).simulate('click');
+    assert.equal(store.getState().users.length, 1);
   });
 });

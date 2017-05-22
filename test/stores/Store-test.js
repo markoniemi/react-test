@@ -6,48 +6,42 @@ describe('Store', () => {
   afterEach(() => {
     store.dispatch({type: RESET_USERS});
   });
-  describe('Dispatch ADD_USER', () => {
-    it('should add user in store', () => {
-      store.dispatch({
-        type: ADD_USER,
-        user: {username: "user1", email: "email"}
-      });
-      store.dispatch({
-        type: ADD_USER,
-        user: {username: "user2", email: "email"}
-      });
-      assert.equal(store.getState().users.length, 2);
+  it('should add user in store', () => {
+    store.dispatch({
+      type: ADD_USER,
+      user: {username: 'user1', email: 'email'}
     });
+    store.dispatch({
+      type: ADD_USER,
+      user: {username: 'user2', email: 'email'}
+    });
+    assert.equal(store.getState().users.length, 2);
   });
-  describe('Dispatch REMOVE_USER', () => {
-    it('should remove user from store', () => {
-      store.dispatch({
-        type: ADD_USER,
-        user: {username: "user1", email: "email"}
-      });
-      store.dispatch({
-        type: REMOVE_USER,
-        index: 0
-      });
-      assert.equal(store.getState().users.length, 0);
+  it('should remove user from store', () => {
+    store.dispatch({
+      type: ADD_USER,
+      user: {username: 'user1', email: 'email'}
     });
+    store.dispatch({
+      type: REMOVE_USER,
+      index: 0
+    });
+    assert.equal(store.getState().users.length, 0);
   });
-  describe('Dispatch EDIT_USER', () => {
-    it('should change user in store', () => {
-      store.dispatch({
-        type: ADD_USER,
-        user: {username: "user1", email: "email1"}
-      });
-      store.dispatch({
-        type: EDIT_USER,
-        index: 0,
-        user: {
-          username: "username",
-          email: "email"
-        }
-      });
-      assert.equal(store.getState().users[0].username, 'username');
-      assert.equal(store.getState().users[0].email, 'email');
+  it('should change user in store', () => {
+    store.dispatch({
+      type: ADD_USER,
+      user: {username: 'user1', email: 'email1'}
     });
+    store.dispatch({
+      type: EDIT_USER,
+      index: 0,
+      user: {
+        username: 'username',
+        email: 'email'
+      }
+    });
+    assert.equal(store.getState().users[0].username, 'username');
+    assert.equal(store.getState().users[0].email, 'email');
   });
 });
