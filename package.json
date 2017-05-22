@@ -25,7 +25,8 @@
     "build": "./node_modules/.bin/webpack --config=webpack.build.config.js",
     "test": "karma start --log-level debug",
     "test-watch": "karma start --browsers=PhantomJS --single-run=false --debug --log-level debug",
-    "test-debug": "karma start --browsers=Chrome --single-run=false --debug --log-level debug"
+    "test-debug": "karma start --browsers=Chrome --single-run=false --debug --log-level debug",
+    "coveralls": "cat ./reports/coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js"
   },
   "devDependencies": {
     "babel": "6.23.0",
@@ -38,6 +39,7 @@
     "babel-preset-react": "6.23.0",
     "chai": "3.5.0",
     "core-js": "2.4.1",
+    "coveralls": "2.13.1",
     "enzyme": "2.7.1",
     "eslint": "3.18.0",
     "eslint-loader": "1.6.3",
