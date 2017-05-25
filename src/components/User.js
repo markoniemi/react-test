@@ -10,12 +10,12 @@ export default class User extends React.Component {
   constructor(props) {
     super(props);
     this.finishEdit = this.finishEdit.bind(this);
-    this.checkEnter = this.checkEnter.bind(this);
+    this.onKeyPress = this.onKeyPress.bind(this);
     this.edit = this.edit.bind(this);
     this.renderEdit = this.renderEdit.bind(this);
     this.renderUser = this.renderUser.bind(this);
-    this.handleChangeUsername = this.handleChangeUsername.bind(this);
-    this.handleChangeEmail = this.handleChangeEmail.bind(this);
+    this.onChangeUsername = this.onChangeUsername.bind(this);
+    this.onChangeEmail = this.onChangeEmail.bind(this);
     this.deleteUser = this.deleteUser.bind(this);
     this.state = {
       editing: false,
@@ -53,12 +53,12 @@ export default class User extends React.Component {
         <td>
           <FormControl type="text" bsSize="small"
                        autoFocus
-                       defaultValue={this.props.user.username} ref="username" onChange={this.handleChangeUsername}/>
+                       defaultValue={this.props.user.username} ref="username" onChange={this.onChangeUsername}/>
         </td>
         <td>
           <FormControl type="text" bsSize="small"
-                       defaultValue={this.props.user.email} ref="email" onKeyPress={this.checkEnter}
-                       onChange={this.handleChangeEmail}/>
+                       defaultValue={this.props.user.email} ref="email" onKeyPress={this.onKeyPress}
+                       onChange={this.onChangeEmail}/>
         </td>
         <td>
           <Button bsSize="small" className="pull-right" onClick={this.finishEdit}>
@@ -75,19 +75,19 @@ export default class User extends React.Component {
     });
   }
 
-  handleChangeUsername(event) {
+  onChangeUsername(event) {
     this.setState({
       username: event.target.value
     });
   }
 
-  handleChangeEmail(event) {
+  onChangeEmail(event) {
     this.setState({
       email: event.target.value
     });
   }
 
-  checkEnter(e) {
+  onKeyPress(e) {
     if (e.key === 'Enter') {
       this.finishEdit();
     }

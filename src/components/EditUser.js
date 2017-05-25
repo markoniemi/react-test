@@ -1,8 +1,6 @@
 import React from 'react';
-import {FormControl} from 'react-bootstrap';
-import {Button} from 'react-bootstrap';
-import {Glyphicon} from 'react-bootstrap';
-import { browserHistory } from 'react-router';
+import {Form, FormGroup, Col, Label, FormControl, Button, Glyphicon} from 'react-bootstrap';
+import {browserHistory} from 'react-router';
 import {editUser, removeUser} from '../actions/UserActions';
 import store from '../stores/Store';
 
@@ -11,8 +9,9 @@ export default class EditUser extends React.Component {
     super(props);
     this.renderUser = this.renderUser.bind(this);
     this.finishEdit = this.finishEdit.bind(this);
-    this.handleChangeUsername = this.handleChangeUsername.bind(this);
-    this.handleChangeEmail = this.handleChangeEmail.bind(this);
+    this.onChangeUsername = this.onChangeUsername.bind(this);
+    this.onChangeEmail = this.onChangeEmail.bind(this);
+    this.onKeyPress = this.onKeyPress.bind(this);
     this.state = {
       username: this.props.user.username || '',
       email: this.props.user.email || '',
@@ -27,31 +26,55 @@ export default class EditUser extends React.Component {
   renderUser() {
     return (
       <div>
-        <form>
-          <FormControl type="text" bsSize="small"
-                       autoFocus
-                       defaultValue={this.props.user.username} ref="username" onChange={this.handleChangeUsername}/>
-          <FormControl type="text" bsSize="small"
-                       defaultValue={this.props.user.email} ref="email" onKeyPress={this.checkEnter}
-                       onChange={this.handleChangeEmail}/>
-          <Button bsSize="small" className="pull-right" onClick={this.finishEdit}>
-            <Glyphicon glyph="glyphicon glyphicon-ok"/>
-          </Button>
-        </form>
+        <Form horizontal>
+          <FormGroup>
+            <Col sm={1}>
+              <Label for="username">Username:</Label>
+            </Col>
+            <Col sm={4}>
+              <FormControl type="text" bsSize="small"
+                           autoFocus
+                           defaultValue={this.props.user.username} ref="username" onChange={this.onChangeUsername}/>
+            </Col>
+          </FormGroup>
+          <FormGroup>
+            <Col sm={1}>
+              <Label for="email">Email:</Label>
+            </Col>
+            <Col sm={4}>
+              <FormControl type="text" bsSize="small"
+                           defaultValue={this.props.user.email} ref="email" onKeyPress={this.onKeyPress}
+                           onChange={this.onChangeEmail}/>
+            </Col>
+          </FormGroup>
+          <FormGroup>
+            <Col sm={5}>
+              <Button bsSize="small" className="pull-right" onClick={this.finishEdit}>
+                <Glyphicon glyph="glyphicon glyphicon-ok"/>
+              </Button>
+            </Col>
+          </FormGroup>
+        </Form>
       </div>
     );
   }
 
-  handleChangeUsername(event) {
+  onChangeUsername(event) {
     this.setState({
       username: event.target.value
     });
   }
 
-  handleChangeEmail(event) {
+  onChangeEmail(event) {
     this.setState({
       email: event.target.value
     });
+  }
+
+  onKeyPress(e) {
+    if (e.key === 'Enter') {
+      this.finishEdit();
+    }
   }
 
   finishEdit() {
