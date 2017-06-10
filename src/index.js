@@ -15,12 +15,12 @@ function main() {
     <Provider store={store}>
       <Router history={browserHistory}>
         <Route path="/" component={App}/>
-        <Route path="/users/:index" component={UserContainer}/>
+        <Route path="/users/new" component={UserContainer}/>
+        <Route path="/users/:id" component={UserContainer}/>
       </Router>
     </Provider>
   ), app);
 }
 // ), document.createElement('div'));
-//   <Route path="/users/new" component={NewUserPage} />
 main();
 

@@ -10,7 +10,9 @@ export class UsersContainer extends React.Component {
   }
 
   componentDidMount() {
-    store.dispatch(fetchUsers());
+    if (this.props.users.length === 0) {
+      store.dispatch(fetchUsers());
+    }
   }
 
   render() {

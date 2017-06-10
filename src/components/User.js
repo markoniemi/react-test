@@ -5,6 +5,7 @@ import {Glyphicon} from 'react-bootstrap';
 import {editUser, removeUser} from '../actions/UserActions';
 import store from '../stores/Store';
 import {Link} from 'react-router';
+import {browserHistory} from 'react-router';
 
 export default class User extends React.Component {
   constructor(props) {
@@ -17,8 +18,10 @@ export default class User extends React.Component {
     this.onChangeUsername = this.onChangeUsername.bind(this);
     this.onChangeEmail = this.onChangeEmail.bind(this);
     this.deleteUser = this.deleteUser.bind(this);
+    this.editUser = this.editUser.bind(this);
     this.state = {
       editing: false,
+      _id: this.props.user._id || '',
       username: this.props.user.username || '',
       email: this.props.user.email || '',
       index: this.props.user.index || 0
@@ -36,10 +39,10 @@ export default class User extends React.Component {
         <td ref="username" onClick={this.edit}>{user.username}</td>
         <td ref="email" onClick={this.edit}>{user.email}</td>
         <td>
-          <Link to={'/users/' + this.props.user.index}>{this.props.user.username}</Link>
-        </td>
-        <td>
-          <Button bsSize="small" className="pull-right" onClick={this.deleteUser}>
+          <Button bsSize="small" onClick={this.editUser}>
+            <Glyphicon glyph="glyphicon glyphicon-edit"/>
+          </Button>
+          <Button bsSize="small" onClick={this.deleteUser}>
             <Glyphicon glyph="glyphicon glyphicon-remove"/>
           </Button>
         </td>
@@ -95,7 +98,7 @@ export default class User extends React.Component {
 
   finishEdit() {
     // TODO change index to id
-    var user = {username: this.state.username, email: this.state.email, index: this.state.index};
+    var user = {username: this.state.username, email: this.state.email, index: this.state.index, _id: this.state._id};
     this.setState({
       editing: false
     });
@@ -103,7 +106,11 @@ export default class User extends React.Component {
   }
 
   deleteUser() {
-    store.dispatch(removeUser(this.props.user.index));
+    store.dispatch(removeUser(this.props.user));
+  }
+
+  editUser() {
+    browserHistory.push('/users/' + this.props.user._id);
   }
 }
 User.propTypes = {

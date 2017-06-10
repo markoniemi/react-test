@@ -1,7 +1,6 @@
 import React from 'react';
-import {Form, FormGroup, Col, Label, FormControl, Button, Glyphicon} from 'react-bootstrap';
-import {browserHistory} from 'react-router';
-import {editUser, removeUser} from '../actions/UserActions';
+import {Form, FormGroup, Col, ControlLabel, FormControl, Button, Glyphicon} from 'react-bootstrap';
+import {editUser, addUser} from '../actions/UserActions';
 import store from '../stores/Store';
 
 export default class EditUser extends React.Component {
@@ -13,6 +12,7 @@ export default class EditUser extends React.Component {
     this.onChangeEmail = this.onChangeEmail.bind(this);
     this.onKeyPress = this.onKeyPress.bind(this);
     this.state = {
+      _id: this.props.user._id,
       username: this.props.user.username || '',
       email: this.props.user.email || '',
       index: this.props.user.index || 0
@@ -29,7 +29,17 @@ export default class EditUser extends React.Component {
         <Form horizontal>
           <FormGroup>
             <Col sm={1}>
-              <Label for="username">Username:</Label>
+              <ControlLabel>Id:</ControlLabel>
+            </Col>
+            <Col sm={4}>
+              <FormControl type="text" bsSize="small"
+                           autoFocus
+                           defaultValue={this.props.user._id} ref="_id"/>
+            </Col>
+          </FormGroup>
+          <FormGroup>
+            <Col sm={1}>
+              <ControlLabel>Username:</ControlLabel>
             </Col>
             <Col sm={4}>
               <FormControl type="text" bsSize="small"
@@ -39,7 +49,7 @@ export default class EditUser extends React.Component {
           </FormGroup>
           <FormGroup>
             <Col sm={1}>
-              <Label for="email">Email:</Label>
+              <ControlLabel>Email:</ControlLabel>
             </Col>
             <Col sm={4}>
               <FormControl type="text" bsSize="small"
@@ -78,10 +88,12 @@ export default class EditUser extends React.Component {
   }
 
   finishEdit() {
-    // TODO change index to id
-    var user = {username: this.state.username, email: this.state.email, index: this.state.index};
-    store.dispatch(editUser(user.index, user));
-    browserHistory.push('/');
+    var user = {_id: this.state._id, username: this.state.username, email: this.state.email, index: this.state.index};
+    if (user._id !== undefined) {
+      store.dispatch(editUser(user.index, user));
+    } else {
+      store.dispatch(addUser(user));
+    }
   }
 }
 

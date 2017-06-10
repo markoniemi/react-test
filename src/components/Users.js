@@ -19,9 +19,8 @@ export default class Users extends React.Component {
   }
 
   renderUser(user) {
-    // TODO change key to user.id
     return (
-      <User user={user} key={user.index} />
+      <User user={user} key={user._id} />
     );
   }
 }

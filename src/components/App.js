@@ -1,11 +1,9 @@
 import React from 'react';
 import UsersContainer from './UsersContainer';
-import {addUser} from '../actions/UserActions';
-import {Button} from 'react-bootstrap';
-import {Glyphicon} from 'react-bootstrap';
-import {Panel} from 'react-bootstrap';
+import {Glyphicon, Panel, Button} from 'react-bootstrap';
 import {Provider} from 'react-redux';
 import store from '../stores/Store';
+import {browserHistory} from 'react-router';
 
 export default class App extends React.Component {
   render() {
@@ -20,6 +18,6 @@ export default class App extends React.Component {
   }
 
   newUser() {
-    store.dispatch(addUser({username: 'username', email: 'email'}));
+    browserHistory.push('/users/new');
   }
 }

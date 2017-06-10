@@ -27,7 +27,7 @@ UserContainer.propTypes = {
 
 function findUserById(users, id) {
   // TODO rewrite this
-  let user = users.find(user => user.id == id);
+  let user = users.find(user => user._id === id);
   return Object.assign({}, user);
 }
 
@@ -38,7 +38,6 @@ const mapStateToProps = function (state, props) {
   if (state.users.length > 0) {
     user = findUserById(state.users, userId);
   }
-  // TODO find user from state
   return {
     user: user
   };

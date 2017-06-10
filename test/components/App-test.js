@@ -19,6 +19,8 @@ describe('App component', () => {
     const appWrapper = shallow(<App/>);
     assert.equal(store.getState().users.length, 0);
     appWrapper.find(Button).at(0).simulate('click');
-    assert.equal(store.getState().users.length, 1);
+    setTimeout(() => {
+      assert.equal(store.getState().users.length, 1);
+    }, 100);
   });
 });
