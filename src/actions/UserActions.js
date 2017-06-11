@@ -17,7 +17,7 @@ export function fetchUsers() {
   // UserApi.loadUsers();
   return (dispatch) => {
     dispatch(fetchUsersRequest());
-    fetch('http://localhost:5000/api/users')
+    fetch('/api/users')
       .then((response) => {
         if (!response.ok) {
           throw Error(response.statusText);
@@ -57,7 +57,7 @@ export function addUserRequest() {
 export function addUser(user) {
   return (dispatch) => {
     dispatch(addUserRequest());
-    fetch('http://localhost:5000/api/users/', {
+    fetch('/api/users/', {
       method: 'POST',
       body: JSON.stringify(user),
       headers: {
@@ -82,7 +82,7 @@ export function addUser(user) {
 export function removeUser(user) {
   return (dispatch) => {
     dispatch(removeUserRequest());
-    fetch('http://localhost:5000/api/users/' + user._id, {
+    fetch('/api/users/' + user._id, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json'
@@ -114,7 +114,7 @@ export function removeUserSuccess(user) {
 export function editUser(index, user) {
   return (dispatch) => {
     dispatch(editUserRequest());
-    fetch('http://localhost:5000/api/users/' + user._id, {
+    fetch('/api/users/' + user._id, {
       method: 'PUT',
       body: JSON.stringify(user),
       headers: {
