@@ -111,7 +111,7 @@ export function removeUserSuccess(user) {
     user: user
   };
 }
-export function editUser(index, user) {
+export function editUser(user) {
   return (dispatch) => {
     dispatch(editUserRequest());
     fetch('/api/users/' + user._id, {

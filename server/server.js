@@ -19,7 +19,6 @@ module.exports = function createServer(webpackConfig, host, port) {
     },
     contentBase: './public',
     hot: true
-    // debug: true
   });
 
   server.listen(port, host, function (err, result) {
