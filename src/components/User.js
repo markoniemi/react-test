@@ -102,7 +102,7 @@ export default class User extends React.Component {
     this.setState({
       editing: false
     });
-    store.dispatch(editUser(user.index, user));
+    store.dispatch(editUser(user));
   }
 
   deleteUser() {

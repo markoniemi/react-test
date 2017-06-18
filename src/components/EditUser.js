@@ -90,7 +90,7 @@ export default class EditUser extends React.Component {
   finishEdit() {
     var user = {_id: this.state._id, username: this.state.username, email: this.state.email, index: this.state.index};
     if (user._id !== undefined) {
-      store.dispatch(editUser(user.index, user));
+      store.dispatch(editUser(user));
     } else {
       store.dispatch(addUser(user));
     }
