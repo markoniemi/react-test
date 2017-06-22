@@ -54,7 +54,7 @@ describe('EditUser component', () => {
       assert.equal(store.getState().users[0].email, 'newEmail');
       // assert.true(fetchMock.called());
       // assert.isEmpty(fetchMock.calls().unmatched);
-    }, 100);
+    }, 1000);
   });
   //   describe('edit with keyboard', () => {
   //     it('should edit a user with keyboard', () => {

@@ -22,7 +22,7 @@ describe('Action', () => {
       assert.equal(store.getState().users.length, 2);
       // assert.true(fetchMock.called());
       // assert.isEmpty(fetchMock.calls().unmatched);
-    }, 100);
+    }, 1000);
   });
   it('should remove user from store', () => {
     // fetchMock.once('/api/users/', {user: user1});
@@ -33,7 +33,7 @@ describe('Action', () => {
     setTimeout(() => {
       assert.equal(store.getState().users.length, 1);
       // assert.isEmpty(fetchMock.calls().unmatched);
-    }, 100);
+    }, 1000);
   });
   it('should change username in store', () => {
     // fetchMock.once('/api/users/', {user: user1});
@@ -43,6 +43,6 @@ describe('Action', () => {
     setTimeout(() => {
       assert.equal(store.getState().users[0].username, 'username');
       // assert.isEmpty(fetchMock.calls().unmatched);
-    }, 100);
+    }, 1000);
   });
 });

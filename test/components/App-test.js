@@ -21,6 +21,6 @@ describe('App component', () => {
     appWrapper.find(Button).at(0).simulate('click');
     setTimeout(() => {
       assert.equal(store.getState().users.length, 1);
-    }, 100);
+    }, 1000);
   });
 });

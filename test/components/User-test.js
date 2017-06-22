@@ -55,7 +55,7 @@ describe('User component', () => {
       assert.equal(store.getState().users[0].username, 'newUsername');
       assert.equal(store.getState().users[0].email, 'newEmail');
       // assert.isEmpty(fetchMock.calls().unmatched);
-    }, 100);
+    }, 1000);
   });
   it('should edit a user with keyboard', () => {
     const userWrapper = shallow(<User user={user1}/>);
@@ -80,6 +80,6 @@ describe('User component', () => {
       assert.equal(userWrapper.state.user, null);
       assert.equal(store.getState().users.length, 0);
       // assert.isEmpty(fetchMock.calls().unmatched);
-    }, 100);
+    }, 1000);
   });
 });
