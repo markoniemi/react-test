@@ -3,6 +3,7 @@ import {shallow, mount, render} from 'enzyme';
 import React from 'react';
 import Users from '../../src/components/Users.js';
 import User from '../../src/components/User.js';
+import sinon from 'sinon';
 
 var onEditSpy = sinon.spy();
 var onDeleteSpy = sinon.spy();

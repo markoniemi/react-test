@@ -30,7 +30,7 @@ describe('User component', () => {
     assert.equal(userWrapper.state.user, null);
   });
   it('should edit a user', () => {
-    // fetchMock.once('/api/users/', 200);
+    fetchMock.once('http://localhost:8080/api/users/', 200);
     const userWrapper = shallow(<User user={user1}/>);
 
     assert.equal(userWrapper.state('editing'), false);
@@ -71,7 +71,7 @@ describe('User component', () => {
     // TODO test editing user
   });
   it('should delete a user', () => {
-    // fetchMock.once('/api/users/0', 200);
+    fetchMock.once('http://localhost:8080/api/users/0', 200);
     store.dispatch(addUser(user1));
     const userWrapper = shallow(<User user={user1}/>);
 

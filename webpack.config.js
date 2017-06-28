@@ -1,53 +1,31 @@
-// 'use strict'
-//
-// const WebpackConfig = require('webpack-config')
-//
-// const TARGET = process.env.npm_lifecycle_event
-// var webpackConfig
-//
-// if (TARGET === 'dev') {
-//   webpackConfig = './config/webpack-dev.config.js';
-// }
-//
-// if (TARGET === 'test' || TARGET === 'test-test' || TARGET === 'test-debug') {
-//   webpackConfig = './config/webpack-test.config.js';
-// }
-//
-// // Default configuration
-// if (TARGET === 'build' || !TARGET) {
-//   webpackConfig = './config/webpack-production.config.js';
-// }
-//
-// module.exports = new WebpackConfig().extend(webpackConfig)
+const webpack = require('webpack')
+const path = require('path')
 
-const createServer = require('./server/server');
-
-var appName = 'app';
+// const createServer = require('./server/server');
+const createBackend = require('./server/backend');
 var host = '0.0.0.0';
 var port = '5000';
+// createServer(host, port);
+const backendHost = 'localhost';
+const backendPort = '5001';
 
-var plugins = [], outputFile;
-
-outputFile = appName + '.js';
-
-var config = {
-  entry: './src/index.js',
-  devtool: 'eval-source-map',
-  // devtool: 'source-map',
+module.exports = {
+  devtool: 'source-map',
+  entry: {
+    'app': [
+      'babel-polyfill',
+      'react-hot-loader/patch',
+      './src/index'
+    ]
+  },
   output: {
-    path: __dirname + '/dist',
-    filename: outputFile,
-    publicPath: __dirname + '/public'
+    path: path.resolve(__dirname, './dist'),
+    filename: '[name].js'
   },
   module: {
     rules: [
       {
-        test: /(\.jsx|\.js)$/,
-        loader: 'babel-loader',
-        exclude: /(node_modules)/,
-        query: {
-          presets: ['react', 'es2015']
-        }
+        test: /\.js$/, exclude: /node_modules/, loader: 'babel-loader'
       }, {
         test: /\.css$/,
         loader: 'style-loader!css-loader'
@@ -57,16 +35,16 @@ var config = {
       }, {
         test: /\.(eot|woff|woff2|ttf|svg|png|jpe?g|gif)(\?\S*)?$/,
         loader: 'url-loader?limit=100000@name=[name][ext]'
+      }]
+  },
+  devServer: {
+    proxy: {
+      '/api/*': {
+        // TODO get host and port as parameters?
+        target: 'http://' + backendHost + ':' + backendPort
       }
-    ]
-  },
-  resolve: {
-    modules: [ 'src', 'node_modules' ],
-    extensions: ['.js', '.jsx']
-  },
-  plugins: plugins
-};
+    }
+  }
+}
 
-createServer(config, host, port);
-
-module.exports = config;
+createBackend(backendHost, backendPort);
