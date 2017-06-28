@@ -33,7 +33,7 @@ describe('EditUser component', () => {
     assert.equal(userWrapper.state.user, null);
   });
   it('should edit a user', () => {
-    // fetchMock.once('/api/users/', 200);
+    fetchMock.once('http://localhost:8080/api/users/', 200);
     const userWrapper = shallow(<EditUser user={user1}/>);
 
     assert.equal(userWrapper.find(FormControl).length, 3);

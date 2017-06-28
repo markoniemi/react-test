@@ -1,0 +1,4 @@
+{
+"testRegex": "(/test/.*|(\\.|/)(test|spec))\\.jsx?$",
+"coverageDirectory": "reports/coverage"
+}

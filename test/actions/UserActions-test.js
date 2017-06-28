@@ -14,8 +14,8 @@ describe('Action', () => {
     store.dispatch(resetUsers());
   });
   it('should add user in store', () => {
-    // fetchMock.once('/api/users/', {user: user1});
-    // fetchMock.once('/api/users/', {user: user2});
+    fetchMock.once('http://localhost:8080/api/users/', {user: user1});
+    fetchMock.once('http://localhost:8080/api/users/', {user: user2});
     store.dispatch(addUser(user1));
     store.dispatch(addUser(user2));
     setTimeout(() => {
@@ -25,8 +25,8 @@ describe('Action', () => {
     }, 1000);
   });
   it('should remove user from store', () => {
-    // fetchMock.once('/api/users/', {user: user1});
-    // fetchMock.once('/api/users/', {user: user2});
+    fetchMock.once('http://localhost:8080/api/users/', {user: user1});
+    fetchMock.once('http://localhost:8080/api/users/', {user: user2});
     store.dispatch(addUser(user1));
     store.dispatch(addUser(user2));
     store.dispatch(removeUser(user1));
@@ -36,8 +36,8 @@ describe('Action', () => {
     }, 1000);
   });
   it('should change username in store', () => {
-    // fetchMock.once('/api/users/', {user: user1});
-    // fetchMock.once('/api/users/', 200);
+    fetchMock.once('http://localhost:8080/api/users/', {user: user1});
+    fetchMock.once('http://localhost:8080/api/users/', 200);
     store.dispatch(addUser(user1));
     store.dispatch(editUser({username: 'username', email: 'email', index: 0, _id: '1'}));
     setTimeout(() => {

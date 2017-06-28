@@ -20,7 +20,7 @@ export function fetchUsers() {
   // UserApi.loadUsers();
   return (dispatch) => {
     dispatch(fetchUsersRequest());
-    fetch('/api/users')
+    fetch('http://localhost:8080/api/users')
       .then((response) => {
         if (!response.ok) {
           throw Error(response.statusText);
@@ -60,7 +60,7 @@ export function addUserRequest() {
 export function addUser(user) {
   return (dispatch) => {
     dispatch(addUserRequest());
-    fetch('/api/users/', {
+    fetch('http://localhost:8080/api/users/', {
       method: 'POST',
       body: JSON.stringify(user),
       headers: {
@@ -85,7 +85,7 @@ export function addUser(user) {
 export function removeUser(user) {
   return (dispatch) => {
     dispatch(removeUserRequest());
-    fetch('/api/users/' + user._id, {
+    fetch('http://localhost:8080/api/users/' + user._id, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json'
@@ -122,7 +122,7 @@ export function removeUserError() {
 export function editUser(user) {
   return (dispatch) => {
     dispatch(editUserRequest());
-    fetch('/api/users/' + user._id, {
+    fetch('http://localhost:8080/api/users/' + user._id, {
       method: 'PUT',
       body: JSON.stringify(user),
       headers: {
