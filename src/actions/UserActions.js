@@ -1,4 +1,4 @@
-import fetch from 'isomorphic-fetch';
+import 'isomorphic-fetch';
 export const FETCH_USERS = 'FETCH_USERS';
 export const FETCH_USERS_SUCCESS = 'FETCH_USERS_SUCCESS';
 export const FETCH_USERS_ERROR = 'FETCH_USERS_ERROR';
@@ -20,7 +20,7 @@ export function fetchUsers() {
   // UserApi.loadUsers();
   return (dispatch) => {
     dispatch(fetchUsersRequest());
-    fetch('http://localhost:8080/api/users')
+    return fetch('http://localhost:8080/api/users')
       .then((response) => {
         if (!response.ok) {
           throw Error(response.statusText);
@@ -60,7 +60,7 @@ export function addUserRequest() {
 export function addUser(user) {
   return (dispatch) => {
     dispatch(addUserRequest());
-    fetch('http://localhost:8080/api/users/', {
+      return fetch('http://localhost:8080/api/users/', {
       method: 'POST',
       body: JSON.stringify(user),
       headers: {
@@ -85,7 +85,7 @@ export function addUser(user) {
 export function removeUser(user) {
   return (dispatch) => {
     dispatch(removeUserRequest());
-    fetch('http://localhost:8080/api/users/' + user._id, {
+      return fetch('http://localhost:8080/api/users/' + user._id, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json'
@@ -122,7 +122,7 @@ export function removeUserError() {
 export function editUser(user) {
   return (dispatch) => {
     dispatch(editUserRequest());
-    fetch('http://localhost:8080/api/users/' + user._id, {
+      return fetch('http://localhost:8080/api/users/' + user._id, {
       method: 'PUT',
       body: JSON.stringify(user),
       headers: {
