@@ -5,12 +5,15 @@ export const FETCH_USERS_ERROR = 'FETCH_USERS_ERROR';
 export const ADD_USER = 'ADD_USER';
 export const ADD_USER_REQUEST = 'ADD_USER_REQUEST';
 export const ADD_USER_SUCCESS = 'ADD_USER_SUCCESS';
+export const ADD_USER_ERROR = 'ADD_USER_ERROR';
 export const REMOVE_USER = 'REMOVE_USER';
 export const REMOVE_USER_REQUEST = 'REMOVE_USER_REQUEST';
 export const REMOVE_USER_SUCCESS = 'REMOVE_USER_SUCCESS';
+export const REMOVE_USER_ERROR = 'REMOVE_USER_ERROR';
 export const EDIT_USER_REQUEST = 'EDIT_USER_REQUEST';
-export const EDIT_USER_SUCCESS = 'EDIT_USER_SUCCESS';
 export const EDIT_USER = 'EDIT_USER';
+export const EDIT_USER_SUCCESS = 'EDIT_USER_SUCCESS';
+export const EDIT_USER_ERROR = 'EDIT_USER_ERROR';
 export const RESET_USERS = 'RESET_USERS';
 
 export function fetchUsers() {
@@ -75,8 +78,8 @@ export function addUser(user) {
       })
       .then((user) => {
         dispatch(addUserSuccess(user));
-      });
-    // .catch(() => dispatch(fetchUsersError()));
+      })
+    .catch(() => dispatch(addUserError()));
   };
 }
 export function removeUser(user) {
@@ -96,8 +99,8 @@ export function removeUser(user) {
       })
       .then(() => {
         dispatch(removeUserSuccess(user));
-      });
-    // .catch(() => dispatch(fetchUsersError()));
+      })
+    .catch(() => dispatch(removeUserError()));
   };
 }
 export function removeUserRequest() {
@@ -109,6 +112,11 @@ export function removeUserSuccess(user) {
   return {
     type: REMOVE_USER_SUCCESS,
     user: user
+  };
+}
+export function removeUserError() {
+  return {
+    type: REMOVE_USER_ERROR
   };
 }
 export function editUser(user) {
@@ -128,8 +136,8 @@ export function editUser(user) {
       })
       .then(() => {
         dispatch(editUserSuccess(user));
-      });
-    // .catch(() => dispatch(editUserError()));
+      })
+    .catch(() => dispatch(editUserError()));
   };
 }
 export function editUserRequest() {
@@ -143,10 +151,20 @@ export function editUserSuccess(user) {
     user: user
   };
 }
+export function editUserError() {
+  return {
+    type: EDIT_USER_ERROR
+  };
+}
 export function addUserSuccess(user) {
   return {
     type: ADD_USER_SUCCESS,
     user: user
+  };
+}
+export function addUserError() {
+  return {
+    type: ADD_USER_ERROR
   };
 }
 export function resetUsers() {
