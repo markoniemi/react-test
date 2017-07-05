@@ -1,5 +1,4 @@
 import {assert} from 'chai';
-import 'isomorphic-fetch';
 import fetchMock from 'fetch-mock';
 import {shallow, mount, render} from 'enzyme';
 import React from 'react';
@@ -29,8 +28,11 @@ describe('User component', () => {
     const userWrapper = shallow(<User user={user}/>);
     assert.equal(userWrapper.state.user, null);
   });
-  it('should edit a user', () => {
-    fetchMock.once('http://localhost:8080/api/users/', 200);
+  it('should edit a user', async (done) => {
+    fetchMock.postOnce('http://localhost:8080/api/users/', user1);
+    fetchMock.putOnce('http://localhost:8080/api/users/1', 200);
+    await store.dispatch(addUser(user1));
+    assert.equal(store.getState().users.length, 1, 'store should have a new user');
     const userWrapper = shallow(<User user={user1}/>);
 
     assert.equal(userWrapper.state('editing'), false);
@@ -48,16 +50,20 @@ describe('User component', () => {
     emailWrapper.simulate('change', {target: {value: 'newEmail'}});
     assert.equal(userWrapper.state().email, 'newEmail');
     // finish editing with button
-    userWrapper.find(Button).at(0).simulate('click');
+    await userWrapper.find(Button).at(0).simulate('click');
     assert.equal(userWrapper.state('editing'), false);
-    setTimeout(() => {
+    setTimeout((store) => {
       assert.equal(store.getState().users.length, 1, 'store should have a new user');
       assert.equal(store.getState().users[0].username, 'newUsername');
       assert.equal(store.getState().users[0].email, 'newEmail');
-      // assert.isEmpty(fetchMock.calls().unmatched);
-    }, 100);
+      done();
+    }, 1000, store);
   });
-  it('should edit a user with keyboard', () => {
+  // TODO fix this test case
+  xit('should edit a user with keyboard', async (done) => {
+    fetchMock.postOnce('http://localhost:8080/api/users/', user1);
+    fetchMock.putOnce('http://localhost:8080/api/users/1', 200);
+    await store.dispatch(addUser(user1));
     const userWrapper = shallow(<User user={user1}/>);
 
     assert.equal(userWrapper.state('editing'), false, 'should not be in editing state');
@@ -66,20 +72,26 @@ describe('User component', () => {
     assert.equal(userWrapper.state('editing'), true, 'should enter editing state');
     // finish editing with enter
     const emailWrapper = userWrapper.find(FormControl).at(1).shallow();
-    emailWrapper.find('input').at(0).simulate('keyPress', {key: 'Enter'});
+    await emailWrapper.find('input').at(0).simulate('keyPress', {key: 'Enter'});
     assert.equal(userWrapper.state('editing'), false, 'should enter view only state');
-    // TODO test editing user
+    setTimeout((store) => {
+      assert.equal(store.getState().users.length, 1, 'store should have a new user');
+      assert.equal(store.getState().users[0].username, 'newUsername');
+      assert.equal(store.getState().users[0].email, 'newEmail');
+      done();
+    }, 1000, store);
   });
-  it('should delete a user', () => {
-    fetchMock.once('http://localhost:8080/api/users/0', 200);
-    store.dispatch(addUser(user1));
+  it('should delete a user', async (done) => {
+    fetchMock.postOnce('http://localhost:8080/api/users/', user1);
+    fetchMock.deleteOnce('http://localhost:8080/api/users/1', 200);
+    await store.dispatch(addUser(user1));
     const userWrapper = shallow(<User user={user1}/>);
 
-    userWrapper.find('Button').at(1).simulate('click');
-    setTimeout(() => {
-      assert.equal(userWrapper.state.user, null);
+    await userWrapper.find('Button').at(1).simulate('click');
+    assert.equal(userWrapper.state.user, null);
+    setTimeout((store) => {
       assert.equal(store.getState().users.length, 0);
-      // assert.isEmpty(fetchMock.calls().unmatched);
-    }, 100);
+      done();
+    }, 1000, store);
   });
 });

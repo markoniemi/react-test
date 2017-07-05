@@ -1,4 +1,5 @@
 {
 "testRegex": "(/test/.*|(\\.|/)(test|spec))\\.jsx?$",
-"coverageDirectory": "reports/coverage"
+"coverageDirectory": "reports/coverage",
+  "testURL":"http://localhost:8080"
 }

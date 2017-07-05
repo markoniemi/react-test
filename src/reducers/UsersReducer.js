@@ -1,7 +1,6 @@
 import * as actions from '../actions/UserActions';
 import {browserHistory} from 'react-router';
 
-// export default function(state = [{username: "user1", email: "email", index: 0}], action) {
 export default function (state = [], action) {
   switch (action.type) {
     case actions.FETCH_USERS_SUCCESS:
