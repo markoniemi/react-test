@@ -1,5 +1,4 @@
 import {assert} from 'chai';
-import 'isomorphic-fetch';
 import fetchMock from 'fetch-mock';
 import {shallow, mount, render} from 'enzyme';
 import React from 'react';
@@ -17,12 +16,8 @@ describe('EditUser component', () => {
     store.dispatch(resetUsers());
   });
   it('should render a user', () => {
-    // mount does full DOM render
     const userWrapper = shallow(<EditUser user={user1}/>);
 
-    // console.log(userWrapper.find(FormControl).at(0).find('input').at(0).html());
-    // console.log(userWrapper.find(FormControl).at(0).prop('defaultValue'));
-    // console.log(userWrapper.find('input').at(0).html());
     assert.equal(userWrapper.find(FormControl).at(0).prop('defaultValue'), '1', 'Expected to have value');
     assert.equal(userWrapper.find(FormControl).at(1).prop('defaultValue'), 'user1', 'Expected to have value');
     assert.equal(userWrapper.find(FormControl).at(2).prop('defaultValue'), 'email', 'Expected to have value');
@@ -32,29 +27,29 @@ describe('EditUser component', () => {
     const userWrapper = shallow(<EditUser user={emptyUser}/>);
     assert.equal(userWrapper.state.user, null);
   });
-  it('should edit a user', () => {
-    // fetchMock.once('/api/users/', 200);
-    const userWrapper = shallow(<EditUser user={user1}/>);
+  it('should edit a user', async (done) => {
+    fetchMock.postOnce('http://localhost:8080/api/users/', user1);
+    fetchMock.putOnce('http://localhost:8080/api/users/1', 200);
+    await store.dispatch(addUser(user1));
+    const editUserWrapper = shallow(<EditUser user={user1}/>);
 
-    assert.equal(userWrapper.find(FormControl).length, 3);
     // username
-    let formControl = userWrapper.find(FormControl).at(1);
+    let formControl = editUserWrapper.find(FormControl).at(1);
     assert.equal(formControl.prop('defaultValue'), 'user1');
     formControl.simulate('change', {target: {value: 'newUsername'}});
-    assert.equal(userWrapper.state().username, 'newUsername');
+    assert.equal(editUserWrapper.state().username, 'newUsername');
     // email
-    formControl = userWrapper.find(FormControl).at(2);
+    formControl = editUserWrapper.find(FormControl).at(2);
     assert.equal(formControl.prop('defaultValue'), 'email');
     formControl.simulate('change', {target: {value: 'newEmail'}});
-    assert.equal(userWrapper.state().email, 'newEmail');
-    userWrapper.find(Button).at(0).simulate('click');
-    setTimeout(() => {
+    assert.equal(editUserWrapper.state().email, 'newEmail');
+    await editUserWrapper.find(Button).at(0).simulate('click');
+    setTimeout((store) => {
       assert.equal(store.getState().users.length, 1, 'store should have a new user');
       assert.equal(store.getState().users[0].username, 'newUsername');
       assert.equal(store.getState().users[0].email, 'newEmail');
-      // assert.true(fetchMock.called());
-      // assert.isEmpty(fetchMock.calls().unmatched);
-    }, 1000);
+      done();
+    }, 100, store);
   });
   //   describe('edit with keyboard', () => {
   //     it('should edit a user with keyboard', () => {

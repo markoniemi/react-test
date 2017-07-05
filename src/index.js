@@ -1,26 +1,21 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import {Provider} from 'react-redux';
-import './main.css';
-import 'bootstrap/dist/css/bootstrap.css';
-import store from './stores/Store';
-import {Router, Route, browserHistory} from 'react-router';
-import App from './components/App';
-import UserContainer from './components/UserContainer';
+import React from 'react'
+import ReactDOM from 'react-dom'
+import { AppContainer } from 'react-hot-loader'
 
-function main() {
-  const app = document.createElement('div');
-  document.body.appendChild(app);
-  ReactDOM.render((
-    <Provider store={store}>
-      <Router history={browserHistory}>
-        <Route path="/" component={App}/>
-        <Route path="/users/new" component={UserContainer}/>
-        <Route path="/users/:id" component={UserContainer}/>
-      </Router>
-    </Provider>
-  ), app);
+import Root from './containers/Root'
+
+const render = Component => {
+  ReactDOM.render(
+    <AppContainer>
+      <Component />
+    </AppContainer>,
+    document.getElementById('root')
+  )
 }
-// ), document.createElement('div'));
-main();
+
+render(Root)
+
+if (module.hot) {
+  module.hot.accept('./containers/Root', () => { render(Root) })
+}
 
