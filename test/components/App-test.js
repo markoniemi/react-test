@@ -21,13 +21,14 @@ describe('App component', () => {
     const appWrapper = shallow(<App/>);
     assert.isNotNull(appWrapper.find(UsersContainer));
   });
-  it('should add user', () => {
+  xit('should add user', async (done) => {
     const appWrapper = shallow(<App/>);
-    fetchMock.once('http://localhost:8080/api/users/', 200);
-    assert.equal(store.getState().users.length, 0);
-    appWrapper.find(Button).at(0).simulate('click');
-    setTimeout(() => {
+    const user1 = {username: 'user1', email: 'email', index: 0, _id: '1'};
+    fetchMock.postOnce('http://localhost:8080/api/users/', user1);
+    await appWrapper.find(Button).at(0).simulate('click');
+    setTimeout((store) => {
       assert.equal(store.getState().users.length, 1);
-    }, 1000);
+      done();
+    }, 1000, store);
   });
 });
