@@ -1,11 +1,6 @@
-const webpack = require('webpack')
-const path = require('path')
+const path = require('path');
 
-// const createServer = require('./server/server');
 const createBackend = require('./server/backend');
-var host = '0.0.0.0';
-var port = '5000';
-// createServer(host, port);
 const backendHost = 'localhost';
 const backendPort = '5001';
 
@@ -45,6 +40,6 @@ module.exports = {
       }
     }
   }
-}
+};
 
 createBackend(backendHost, backendPort);

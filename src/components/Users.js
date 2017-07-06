@@ -20,7 +20,7 @@ export default class Users extends React.Component {
 
   renderUser(user) {
     return (
-      <User user={user} key={user._id} />
+      <User user={user} key={user._id}/>
     );
   }
 }

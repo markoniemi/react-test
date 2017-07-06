@@ -4,7 +4,6 @@ import {Button} from 'react-bootstrap';
 import {Glyphicon} from 'react-bootstrap';
 import {editUser, removeUser} from '../actions/UserActions';
 import store from '../stores/Store';
-import {Link} from 'react-router';
 import {browserHistory} from 'react-router';
 
 export default class User extends React.Component {

@@ -11,9 +11,9 @@ const render = Component => {
     </AppContainer>,
     document.getElementById('root')
   )
-}
+};
 
-render(Root)
+render(Root);
 
 if (module.hot) {
   module.hot.accept('./containers/Root', () => { render(Root) })

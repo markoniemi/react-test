@@ -1,5 +1,5 @@
 import {assert} from 'chai';
-import {shallow, mount, render} from 'enzyme';
+import {shallow} from 'enzyme';
 import React from 'react';
 import Users from '../../src/components/Users.js';
 import User from '../../src/components/User.js';

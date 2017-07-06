@@ -12,14 +12,15 @@ describe('Action', () => {
     fetchMock.restore();
     store.dispatch(resetUsers());
   });
-  it('should add user in store', async () => {
+  it('should add user in store', async (done) => {
     fetchMock.postOnce('http://localhost:8080/api/users/', user1);
     fetchMock.postOnce('http://localhost:8080/api/users/', user2);
     await store.dispatch(addUser(user1));
     await store.dispatch(addUser(user2));
     assert.equal(store.getState().users.length, 2);
+    done();
   });
-  it('should remove user from store', async () => {
+  it('should remove user from store', async (done) => {
     fetchMock.postOnce('http://localhost:8080/api/users/', user1);
     fetchMock.postOnce('http://localhost:8080/api/users/', user2);
     fetchMock.deleteOnce('http://localhost:8080/api/users/1', 200);
@@ -28,12 +29,14 @@ describe('Action', () => {
     assert.equal(store.getState().users.length, 2);
     await store.dispatch(removeUser(user1));
     assert.equal(store.getState().users.length, 1);
+    done();
   });
-  it('should change username in store', async () => {
+  it('should change username in store', async (done) => {
     fetchMock.postOnce('http://localhost:8080/api/users/', user1);
     fetchMock.putOnce('http://localhost:8080/api/users/1', 200);
     await store.dispatch(addUser(user1));
     await store.dispatch(editUser({username: 'username', email: 'email', index: 0, _id: '1'}));
     assert.equal(store.getState().users[0].username, 'username');
+    done();
   });
 });

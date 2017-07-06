@@ -12,5 +12,5 @@ module.exports = function createBackend(host, port) {
   app.listen(port, () => {
     console.log('Backend server runs at http://' + host + ':' + port);
   });
-}
+};
 

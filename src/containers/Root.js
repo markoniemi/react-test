@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import {Provider} from 'react-redux';
 import '../main.css';
 import 'bootstrap/dist/css/bootstrap.css';
@@ -16,6 +15,6 @@ const Root = () => (
         <Route path="/users/:id" component={UserContainer}/>
       </Router>
     </Provider>
-)
+);
 
 export default Root

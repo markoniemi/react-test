@@ -1,13 +1,13 @@
 import {assert} from 'chai';
 import 'isomorphic-fetch';
 import fetchMock from 'fetch-mock';
-import {shallow, mount, render} from 'enzyme';
+import {shallow, } from 'enzyme';
 import React from 'react';
 import {Button} from 'react-bootstrap';
 import UsersContainer from '../../src/components/UsersContainer.js';
 import App from '../../src/components/App.js';
 import store from '../../src/stores/Store';
-import {addUser, removeUser, editUser, resetUsers} from '../../src/actions/UserActions';
+import {resetUsers} from '../../src/actions/UserActions';
 
 describe('App component', () => {
   beforeEach(() => {

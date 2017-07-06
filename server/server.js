@@ -29,4 +29,4 @@ module.exports = function createServer(host, port) {
     console.log('Local web server runs at http://' + host + ':' + port);
   });
   createBackend(backendHost, backendPort);
-}
+};

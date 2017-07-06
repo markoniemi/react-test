@@ -1,11 +1,11 @@
 import {assert} from 'chai';
 import fetchMock from 'fetch-mock';
-import {shallow, mount, render} from 'enzyme';
+import {shallow} from 'enzyme';
 import React from 'react';
 import {FormControl, Button} from 'react-bootstrap';
 import EditUser from '../../src/components/EditUser.js';
 import store from '../../src/stores/Store';
-import {addUser, removeUser, editUser, resetUsers} from '../../src/actions/UserActions';
+import {addUser, resetUsers} from '../../src/actions/UserActions';
 const user1 = {username: 'user1', email: 'email', index: 0, _id: '1'};
 describe('EditUser component', () => {
   beforeEach(() => {
