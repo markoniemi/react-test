@@ -43,7 +43,7 @@
     "@types/jest": "20.0.2",
     "@types/node": "6.0.73",
     "@types/react": "0.14.57",
-    "@types/react-bootstrap": "0.0.46",
+    "@types/react-bootstrap": "0.0.47",
     "@types/react-dom": "0.14.21",
     "@types/react-hot-loader": "3.0.3",
     "@types/react-redux": "4.4.37",

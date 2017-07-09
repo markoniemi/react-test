@@ -1,12 +1,11 @@
 import * as React from "react";
-import {Component} from "react";
 import {Button, Glyphicon, Panel} from "react-bootstrap";
 import {Provider} from "react-redux";
 import {browserHistory} from "react-router";
 import store from "../stores/Store";
 import UsersContainer from "./UsersContainer";
 
-export default class App extends Component<any, any> {
+export default class App extends React.Component<any, any> {
   public render() {
     return (
       <Provider store={store}>
