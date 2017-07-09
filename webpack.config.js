@@ -13,12 +13,16 @@ module.exports = {
       './src/index'
     ]
   },
+  resolve: {
+    extensions: [".ts", ".tsx", ".js", ".jsx", ".json"]
+  },
   output: {
     path: path.resolve(__dirname, './dist'),
     filename: '[name].js'
   },
   module: {
     rules: [
+      {test: /\.tsx?$/, loader: "awesome-typescript-loader"},
       {
         test: /\.js$/, exclude: /node_modules/, loader: 'babel-loader'
       }, {

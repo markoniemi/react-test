@@ -1,5 +1,14 @@
 {
-  "testRegex": "(/test/.*|(\\.|/)(test|spec))\\.jsx?$",
+  "moduleFileExtensions": [
+    "ts",
+    "tsx",
+    "js"
+  ],
+  "transform": {
+    "^.+\\.tsx?$": "<rootDir>/node_modules/ts-jest/preprocessor.js",
+    "^.+\\.js$": "<rootDir>/node_modules/babel-jest"
+  },
+  "testRegex": "(/test/.*|(\\.|/)(test|spec))\\.(ts|tsx|js)$",
   "coverageDirectory": "reports/coverage",
   "testURL": "http://localhost:8080"
 }
