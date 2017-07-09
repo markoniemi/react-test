@@ -56,7 +56,7 @@ describe("EditUser component", () => {
   //   describe("edit with keyboard", () => {
   //     it("should edit a user with keyboard", () => {
   //       var user = {username: "username", email: "email", index: 0};
-  //       const userWrapper = shallow(<User user={user}/>);
+  //       const userWrapper = shallow(<UserRow user={user}/>);
 
   //       assert.equal(userWrapper.state("editing"), false, "should not be in editing state");
   //       // start edit by clicking email

@@ -1,5 +1,5 @@
 import React from 'react';
-import User from './User';
+import UserRow from './UserRow';
 import {Table} from 'react-bootstrap';
 
 export default class Users extends React.Component {
@@ -20,7 +20,7 @@ export default class Users extends React.Component {
 
   renderUser(user) {
     return (
-      <User user={user} key={user._id}/>
+      <UserRow user={user} key={user._id}/>
     );
   }
 }

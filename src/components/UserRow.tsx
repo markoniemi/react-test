@@ -1,12 +1,15 @@
-import React from 'react';
-import {FormControl} from 'react-bootstrap';
-import {Button} from 'react-bootstrap';
-import {Glyphicon} from 'react-bootstrap';
-import {editUser, removeUser} from '../actions/UserActions';
-import store from '../stores/Store';
-import {browserHistory} from 'react-router';
+import * as React from "react";
+import {Button, FormControl, Glyphicon} from "react-bootstrap";
+import {browserHistory} from "react-router";
+import {editUser, removeUser} from "../actions/UserActions";
+import User from "../domain/User";
+import store from "../stores/Store";
 
-export default class User extends React.Component {
+interface IUserRow {
+  user: User;
+}
+
+export default class UserRow extends React.Component<IUserRow, any> {
   constructor(props) {
     super(props);
     this.finishEdit = this.finishEdit.bind(this);
@@ -20,18 +23,18 @@ export default class User extends React.Component {
     this.editUser = this.editUser.bind(this);
     this.state = {
       editing: false,
-      _id: this.props.user._id || '',
-      username: this.props.user.username || '',
-      email: this.props.user.email || '',
-      index: this.props.user.index || 0
+      _id: this.props.user._id,
+      username: this.props.user.username || "",
+      email: this.props.user.email || "",
+      index: this.props.user.index || 0,
     };
   }
 
-  render() {
+  public render() {
     return (this.state.editing ? this.renderEdit() : this.renderUser());
   }
 
-  renderUser() {
+  private renderUser() {
     const user = this.props.user;
     return (
       <tr>
@@ -49,18 +52,28 @@ export default class User extends React.Component {
     );
   }
 
-  renderEdit() {
+  private renderEdit() {
     return (
       <tr>
         <td>
-          <FormControl type="text" bsSize="small"
-                       autoFocus
-                       defaultValue={this.props.user.username} ref="username" onChange={this.onChangeUsername}/>
+          <FormControl
+            type="text"
+            bsSize="small"
+            autoFocus={true}
+            defaultValue={this.props.user.username}
+            ref="username"
+            onChange={this.onChangeUsername}
+          />
         </td>
         <td>
-          <FormControl type="text" bsSize="small"
-                       defaultValue={this.props.user.email} ref="email" onKeyPress={this.onKeyPress}
-                       onChange={this.onChangeEmail}/>
+          <FormControl
+            type="text"
+            bsSize="small"
+            defaultValue={this.props.user.email}
+            ref="email"
+            onKeyPress={this.onKeyPress}
+            onChange={this.onChangeEmail}
+          />
         </td>
         <td>
           <Button bsSize="small" className="pull-right" onClick={this.finishEdit}>
@@ -71,47 +84,44 @@ export default class User extends React.Component {
     );
   }
 
-  edit() {
+  private edit() {
     this.setState({
-      editing: true
+      editing: true,
     });
   }
 
-  onChangeUsername(event) {
+  private onChangeUsername(event) {
     this.setState({
-      username: event.target.value
+      username: event.target.value,
     });
   }
 
-  onChangeEmail(event) {
+  private onChangeEmail(event) {
     this.setState({
-      email: event.target.value
+      email: event.target.value,
     });
   }
 
-  onKeyPress(e) {
-    if (e.key === 'Enter') {
+  private onKeyPress(e) {
+    if (e.key === "Enter") {
       this.finishEdit();
     }
   }
 
-  finishEdit() {
+  private finishEdit() {
     // TODO change index to id
-    var user = {username: this.state.username, email: this.state.email, index: this.state.index, _id: this.state._id};
+    const user = {username: this.state.username, email: this.state.email, index: this.state.index, _id: this.state._id};
     this.setState({
-      editing: false
+      editing: false,
     });
     store.dispatch(editUser(user));
   }
 
-  deleteUser() {
+  private deleteUser() {
     store.dispatch(removeUser(this.props.user));
   }
 
-  editUser() {
-    browserHistory.push('/users/' + this.props.user._id);
+  private editUser() {
+    browserHistory.push("/users/" + this.props.user._id);
   }
 }
-User.propTypes = {
-  user: React.PropTypes.object
-};
