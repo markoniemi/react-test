@@ -75,6 +75,7 @@
     "fetch-mock": "5.11.0",
     "html-webpack-plugin": "2.24.1",
     "jest": "20.0.4",
+    "jest-junit": "1.5.1",
     "nedb": "1.8.0",
     "phantomjs-prebuilt": "2.1.14",
     "phantomjs-polyfill-object-assign": "0.0.2",
@@ -90,5 +91,8 @@
     "watch": "1.0.2",
     "webpack": "2.2.1",
     "webpack-dev-server": "2.4.2"
+  },
+  "jest-junit": {
+    "output": "./reports/test/TESTS.xml"
   }
 }
