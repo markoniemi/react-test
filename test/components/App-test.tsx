@@ -6,7 +6,7 @@ import * as React from "react";
 import {Button} from "react-bootstrap";
 import {resetUsers} from "../../src/actions/UserActions";
 import App from "../../src/components/App";
-import UsersContainer from "../../src/components/UsersContainer.js";
+import UsersContainer from "../../src/components/UsersContainer";
 import store from "../../src/stores/Store";
 
 describe("App component", () => {

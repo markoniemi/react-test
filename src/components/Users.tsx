@@ -1,15 +1,18 @@
-import React from 'react';
-import UserRow from './UserRow';
-import {Table} from 'react-bootstrap';
-
-export default class Users extends React.Component {
+import * as React from "react";
+import {Table} from "react-bootstrap";
+import User from "../domain/User";
+import UserRow from "./UserRow";
+interface IUsers {
+  users: User[];
+}
+export default class Users extends React.Component<IUsers, any> {
   constructor(props) {
     super(props);
 
     this.renderUser = this.renderUser.bind(this);
   }
 
-  render() {
+  public render() {
     return (
       <Table>
         <tbody>
@@ -18,12 +21,9 @@ export default class Users extends React.Component {
       </Table>);
   }
 
-  renderUser(user) {
+  private renderUser(user) {
     return (
       <UserRow user={user} key={user._id}/>
     );
   }
 }
-Users.propTypes = {
-  users: React.PropTypes.array
-};
