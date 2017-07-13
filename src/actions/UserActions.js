@@ -16,6 +16,7 @@ export const EDIT_USER_SUCCESS = 'EDIT_USER_SUCCESS';
 export const EDIT_USER_ERROR = 'EDIT_USER_ERROR';
 export const RESET_USERS = 'RESET_USERS';
 
+// TODO implement as class
 export function fetchUsers() {
   // UserApi.loadUsers();
   return (dispatch) => {

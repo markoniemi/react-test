@@ -7,9 +7,10 @@ import store from "../stores/Store";
 interface IEditUser {
   user: User;
 }
-
+// TODO define state interface
+// TODO use User as state
 export default class EditUser extends React.Component<IEditUser, any> {
-  constructor(props) {
+  constructor(props: IEditUser) {
     super(props);
     this.renderUser = this.renderUser.bind(this);
     this.finishEdit = this.finishEdit.bind(this);
