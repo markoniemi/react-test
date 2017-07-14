@@ -4,7 +4,7 @@ import * as fetchMock from "fetch-mock";
 import "isomorphic-fetch";
 import * as React from "react";
 import {Button} from "react-bootstrap";
-import {resetUsers} from "../../src/actions/UserActions";
+import UserActions from "../../src/actions/UserActions";
 import App from "../../src/components/App";
 import UsersContainer from "../../src/components/UsersContainer";
 import store from "../../src/stores/Store";
@@ -15,7 +15,7 @@ describe("App component", () => {
   });
   afterEach(() => {
     fetchMock.restore();
-    store.dispatch(resetUsers());
+    store.dispatch(UserActions.resetUsers());
   });
   it("should render App", () => {
     const appWrapper = shallow(<App/>);

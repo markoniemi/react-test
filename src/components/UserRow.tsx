@@ -1,7 +1,7 @@
 import * as React from "react";
 import {Button, FormControl, Glyphicon} from "react-bootstrap";
 import {browserHistory} from "react-router";
-import {editUser, removeUser} from "../actions/UserActions";
+import UserActions from "../actions/UserActions";
 import User from "../domain/User";
 import store from "../stores/Store";
 
@@ -114,11 +114,11 @@ export default class UserRow extends React.Component<IUserRow, any> {
     this.setState({
       editing: false,
     });
-    store.dispatch(editUser(user));
+    store.dispatch(UserActions.editUser(user));
   }
 
   private deleteUser() {
-    store.dispatch(removeUser(this.props.user));
+    store.dispatch(UserActions.removeUser(this.props.user));
   }
 
   private editUser() {

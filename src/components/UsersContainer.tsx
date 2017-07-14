@@ -1,6 +1,6 @@
 import * as React from "react";
 import {connect} from "react-redux";
-import {fetchUsers} from "../actions/UserActions";
+import UserActions from "../actions/UserActions";
 import User from "../domain/User";
 import store from "../stores/Store";
 import Users from "./Users";
@@ -19,7 +19,7 @@ export class UsersContainer extends React.Component<IUsersContainer, any> {
 
   public componentDidMount() {
     if (this.props.users.length === 0) {
-      store.dispatch(fetchUsers());
+      store.dispatch(UserActions.fetchUsers());
     }
   }
 

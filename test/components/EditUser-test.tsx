@@ -3,7 +3,7 @@ import {shallow, ShallowWrapper} from "enzyme";
 import * as fetchMock from "fetch-mock";
 import * as React from "react";
 import {Button, FormControl} from "react-bootstrap";
-import {addUser, resetUsers} from "../../src/actions/UserActions";
+import UserActions from "../../src/actions/UserActions";
 import EditUser from "../../src/components/EditUser";
 import User from "../../src/domain/User";
 import store from "../../src/stores/Store";
@@ -14,7 +14,7 @@ describe("EditUser component", () => {
   });
   afterEach(() => {
     fetchMock.restore();
-    store.dispatch(resetUsers());
+    store.dispatch(UserActions.resetUsers());
   });
   it("should render a user", () => {
     const userWrapper = shallow(<EditUser user={user1}/>);
@@ -32,7 +32,7 @@ describe("EditUser component", () => {
   it("should edit a user", async (done) => {
     fetchMock.postOnce("http://localhost:8080/api/users/", user1);
     fetchMock.putOnce("http://localhost:8080/api/users/1", 200);
-    await store.dispatch(addUser(user1));
+    await store.dispatch(UserActions.addUser(user1));
     const editUserWrapper = shallow(<EditUser user={user1}/>);
 
     // username

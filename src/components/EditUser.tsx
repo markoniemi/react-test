@@ -1,6 +1,6 @@
 import * as React from "react";
 import {Button, Col, ControlLabel, Form, FormControl, FormGroup, Glyphicon} from "react-bootstrap";
-import {addUser, editUser} from "../actions/UserActions";
+import UserActions from "../actions/UserActions";
 import User from "../domain/User";
 import store from "../stores/Store";
 
@@ -101,8 +101,8 @@ export default class EditUser extends React.Component<IEditUser, any> {
     });
   }
 
-  private onKeyPress(e) {
-    if (e.key === "Enter") {
+  private onKeyPress(event) {
+    if (event.key === "Enter") {
       this.finishEdit();
     }
   }
@@ -110,9 +110,9 @@ export default class EditUser extends React.Component<IEditUser, any> {
   private finishEdit() {
     const user = {_id: this.state._id, username: this.state.username, email: this.state.email, index: this.state.index};
     if (user._id) {
-      store.dispatch(editUser(user));
+      store.dispatch(UserActions.editUser(user));
     } else {
-      store.dispatch(addUser(user));
+      store.dispatch(UserActions.addUser(user));
     }
   }
 }
