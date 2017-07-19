@@ -1,4 +1,5 @@
 import "isomorphic-fetch";
+import User from "../domain/User";
 
 export default class UserActions {
   public static readonly FETCH_USERS = "FETCH_USERS";
@@ -41,7 +42,7 @@ export default class UserActions {
 
   public static fetchUsersRequest() {
     return {
-      type: this.FETCH_USERS
+      type: this.FETCH_USERS,
     };
   }
 
@@ -54,17 +55,17 @@ export default class UserActions {
 
   public static fetchUsersError() {
     return {
-      type: this.FETCH_USERS_ERROR
+      type: this.FETCH_USERS_ERROR,
     };
   }
 
   public static addUserRequest() {
     return {
-      type: this.ADD_USER_REQUEST
+      type: this.ADD_USER_REQUEST,
     };
   }
 
-  public static addUser(user) {
+  public static addUser(user: User) {
     return (dispatch) => {
       dispatch(this.addUserRequest());
       return fetch("http://localhost:8080/api/users/", {
@@ -90,12 +91,12 @@ export default class UserActions {
     };
   }
 
-  public static removeUser(user) {
+  public static removeUser(user: User) {
     return (dispatch) => {
       dispatch(this.removeUserRequest());
       return fetch("http://localhost:8080/api/users/" + user._id, {
         headers: {
-          "Content-Type": "application/json"
+          "Content-Type": "application/json",
         },
         method: "DELETE",
       })
@@ -114,11 +115,11 @@ export default class UserActions {
 
   public static removeUserRequest() {
     return {
-      type: this.REMOVE_USER_REQUEST
+      type: this.REMOVE_USER_REQUEST,
     };
   }
 
-  public static removeUserSuccess(user) {
+  public static removeUserSuccess(user: User) {
     return {
       type: this.REMOVE_USER_SUCCESS,
       user: user,
@@ -127,11 +128,11 @@ export default class UserActions {
 
   public static removeUserError() {
     return {
-      type: this.REMOVE_USER_ERROR
+      type: this.REMOVE_USER_ERROR,
     };
   }
 
-  public static editUser(user) {
+  public static editUser(user: User) {
     return (dispatch) => {
       dispatch(this.editUserRequest());
       return fetch("http://localhost:8080/api/users/" + user._id, {
@@ -155,11 +156,11 @@ export default class UserActions {
 
   public static editUserRequest() {
     return {
-      type: this.EDIT_USER_REQUEST
+      type: this.EDIT_USER_REQUEST,
     };
   }
 
-  public static editUserSuccess(user) {
+  public static editUserSuccess(user: User) {
     return {
       type: this.EDIT_USER_SUCCESS,
       user: user,
@@ -168,11 +169,11 @@ export default class UserActions {
 
   public static editUserError() {
     return {
-      type: this.EDIT_USER_ERROR
+      type: this.EDIT_USER_ERROR,
     };
   }
 
-  public static addUserSuccess(user) {
+  public static addUserSuccess(user: User) {
     return {
       type: this.ADD_USER_SUCCESS,
       user: user,

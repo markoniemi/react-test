@@ -5,11 +5,15 @@ import UserActions from "../actions/UserActions";
 import User from "../domain/User";
 import store from "../stores/Store";
 
-interface IUserRow {
+export interface IUserRow {
   user: User;
 }
 
-export default class UserRow extends React.Component<IUserRow, any> {
+export interface IUserRowState extends User {
+  editing: boolean;
+}
+
+export default class UserRow extends React.Component<IUserRow, Partial<IUserRowState>> {
   constructor(props) {
     super(props);
     this.finishEdit = this.finishEdit.bind(this);
@@ -21,13 +25,7 @@ export default class UserRow extends React.Component<IUserRow, any> {
     this.onChangeEmail = this.onChangeEmail.bind(this);
     this.deleteUser = this.deleteUser.bind(this);
     this.editUser = this.editUser.bind(this);
-    this.state = {
-      editing: false,
-      _id: this.props.user._id,
-      username: this.props.user.username || "",
-      email: this.props.user.email || "",
-      index: this.props.user.index || 0,
-    };
+    this.state = {...this.props.user, editing: false};
   }
 
   public render() {
@@ -109,8 +107,12 @@ export default class UserRow extends React.Component<IUserRow, any> {
   }
 
   private finishEdit() {
-    // TODO change index to id
-    const user = {username: this.state.username, email: this.state.email, index: this.state.index, _id: this.state._id};
+    const user: User = {
+      _id: this.state._id,
+      email: this.state.email,
+      index: this.state.index,
+      username: this.state.username,
+    };
     this.setState({
       editing: false,
     });

@@ -9,7 +9,7 @@ interface IEditUser {
 }
 // TODO define state interface
 // TODO use User as state
-export default class EditUser extends React.Component<IEditUser, any> {
+export default class EditUser extends React.Component<IEditUser, Partial<User>> {
   constructor(props: IEditUser) {
     super(props);
     this.renderUser = this.renderUser.bind(this);
@@ -17,12 +17,7 @@ export default class EditUser extends React.Component<IEditUser, any> {
     this.onChangeUsername = this.onChangeUsername.bind(this);
     this.onChangeEmail = this.onChangeEmail.bind(this);
     this.onKeyPress = this.onKeyPress.bind(this);
-    this.state = {
-      _id: this.props.user._id,
-      email: this.props.user.email || "",
-      index: this.props.user.index || 0,
-      username: this.props.user.username || "",
-    };
+    this.state = this.props.user;
   }
 
   public render() {
@@ -108,8 +103,14 @@ export default class EditUser extends React.Component<IEditUser, any> {
   }
 
   private finishEdit() {
-    const user = {_id: this.state._id, username: this.state.username, email: this.state.email, index: this.state.index};
-    if (user._id) {
+    // TODO find a better way to map from Partial to strict
+    const user: User = {
+      _id: this.state._id,
+      email: this.state.email,
+      index: this.state.index,
+      username: this.state.username,
+    };
+    if (this.state._id) {
       store.dispatch(UserActions.editUser(user));
     } else {
       store.dispatch(UserActions.addUser(user));

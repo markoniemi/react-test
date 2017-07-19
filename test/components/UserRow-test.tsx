@@ -5,7 +5,7 @@ import * as React from "react";
 import {Button, FormControl} from "react-bootstrap";
 import UserActions from "../../src/actions/UserActions";
 import EditUser from "../../src/components/EditUser";
-import UserRow from "../../src/components/UserRow";
+import UserRow, {IUserRow, IUserRowState} from "../../src/components/UserRow";
 import User from "../../src/domain/User";
 import store from "../../src/stores/Store";
 const user1 = {username: "user1", email: "email", index: 0, _id: "1"};
@@ -18,7 +18,7 @@ describe("UserRow component", () => {
     store.dispatch(UserActions.resetUsers());
   });
   it("should render a user", () => {
-    const userWrapper = shallow(<UserRow user={user1}/>);
+    const userWrapper = shallow(<UserRow user={user1}/>) as ShallowWrapper<IUserRow, IUserRowState>;
 
     assert.equal(userWrapper.find("tr").length, 1, "Expected to have element <tr>");
     assert.equal(userWrapper.find("td").at(0).text(), "user1", "Expected to have element <td>");
@@ -26,9 +26,9 @@ describe("UserRow component", () => {
   });
   it("should not create error with empty user", () => {
     const emptyUser = new User();
-    const userWrapper = shallow(<UserRow user={emptyUser}/>) as ShallowWrapper<EditUser, any>;
-    assert.equal(userWrapper.state("index"), 0);
-    assert.equal(userWrapper.state("username"), "");
+    const userWrapper = shallow(<UserRow user={emptyUser}/>) as ShallowWrapper<IUserRow, IUserRowState>;
+    assert.equal(userWrapper.state().index, 0);
+    assert.equal(userWrapper.state().username, "");
   });
   it("should edit a user", async (done) => {
     fetchMock.postOnce("http://localhost:8080/api/users/", user1);
@@ -37,9 +37,9 @@ describe("UserRow component", () => {
     assert.equal(store.getState().users.length, 1, "store should have a new user");
     const userWrapper = shallow(<UserRow user={user1}/>);
 
-    assert.equal(userWrapper.state("editing"), false);
+    assert.equal(userWrapper.state().editing, false);
     userWrapper.find("td").at(0).simulate("click");
-    assert.equal(userWrapper.state("editing"), true);
+    assert.equal(userWrapper.state().editing, true);
     assert.equal(userWrapper.find(FormControl).length, 2);
     // username
     const usernameWrapper = userWrapper.find(FormControl).at(0).shallow();
@@ -53,7 +53,7 @@ describe("UserRow component", () => {
     assert.equal(userWrapper.state().email, "newEmail");
     // finish editing with button
     await userWrapper.find(Button).at(0).simulate("click");
-    assert.equal(userWrapper.state("editing"), false);
+    assert.equal(userWrapper.state().editing, false);
     setTimeout((store) => {
       assert.equal(store.getState().users.length, 1, "store should have a new user");
       assert.equal(store.getState().users[0].username, "newUsername");
@@ -71,11 +71,11 @@ describe("UserRow component", () => {
     assert.equal(userWrapper.state("editing"), false, "should not be in editing state");
     // start edit by clicking email
     userWrapper.find("td").at(0).simulate("click");
-    assert.equal(userWrapper.state("editing"), true, "should enter editing state");
+    assert.equal(userWrapper.state().editing, true, "should enter editing state");
     // finish editing with enter
     const emailWrapper = userWrapper.find(FormControl).at(1).shallow();
     await emailWrapper.find("input").at(0).simulate("keyPress", {key: "Enter"});
-    assert.equal(userWrapper.state("editing"), false, "should enter view only state");
+    assert.equal(userWrapper.state().editing, false, "should enter view only state");
     setTimeout((store) => {
       assert.equal(store.getState().users.length, 1, "store should have a new user");
       assert.equal(store.getState().users[0].username, "newUsername");
