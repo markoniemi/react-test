@@ -13,7 +13,7 @@ export class UserContainer extends React.Component<IUserContainer, any> {
   public static mapStateToProps(state, props) {
     let user = {username: "", email: ""};
     const userId = props.params.id;
-    if (state.users.length > 0 && userId) {
+    if (0 < state.users.length && userId) {
       user = UserContainer.findUserById(state.users, userId);
     }
     return {user};

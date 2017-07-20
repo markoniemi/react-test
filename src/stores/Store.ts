@@ -1,7 +1,7 @@
 import * as Redux from "redux";
-import usersReducer from "../reducers/UsersReducer";
 import thunk from "redux-thunk";
 import User from "../domain/User";
+import usersReducer from "../reducers/UsersReducer";
 
 export const reducers = Redux.combineReducers<IRootState>({
   users: usersReducer,

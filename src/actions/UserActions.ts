@@ -5,16 +5,13 @@ export default class UserActions {
   public static readonly FETCH_USERS = "FETCH_USERS";
   public static readonly FETCH_USERS_SUCCESS = "FETCH_USERS_SUCCESS";
   public static readonly FETCH_USERS_ERROR = "FETCH_USERS_ERROR";
-  public static readonly ADD_USER = "ADD_USER";
   public static readonly ADD_USER_REQUEST = "ADD_USER_REQUEST";
   public static readonly ADD_USER_SUCCESS = "ADD_USER_SUCCESS";
   public static readonly ADD_USER_ERROR = "ADD_USER_ERROR";
-  public static readonly REMOVE_USER = "REMOVE_USER";
   public static readonly REMOVE_USER_REQUEST = "REMOVE_USER_REQUEST";
   public static readonly REMOVE_USER_SUCCESS = "REMOVE_USER_SUCCESS";
   public static readonly REMOVE_USER_ERROR = "REMOVE_USER_ERROR";
   public static readonly EDIT_USER_REQUEST = "EDIT_USER_REQUEST";
-  public static readonly EDIT_USER = "EDIT_USER";
   public static readonly EDIT_USER_SUCCESS = "EDIT_USER_SUCCESS";
   public static readonly EDIT_USER_ERROR = "EDIT_USER_ERROR";
   public static readonly RESET_USERS = "RESET_USERS";

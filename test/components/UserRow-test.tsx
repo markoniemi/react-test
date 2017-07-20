@@ -61,19 +61,27 @@ describe("UserRow component", () => {
       done();
     }, 1000, store);
   });
-  // TODO fix this test case
-  xit("should edit a user with keyboard", async (done) => {
+  it("should edit a user with keyboard", async (done) => {
     fetchMock.postOnce("http://localhost:8080/api/users/", user1);
     fetchMock.putOnce("http://localhost:8080/api/users/1", 200);
     await store.dispatch(UserActions.addUser(user1));
     const userWrapper = shallow(<UserRow user={user1}/>);
 
-    assert.equal(userWrapper.state("editing"), false, "should not be in editing state");
+    assert.equal(userWrapper.state().editing, false, "should not be in editing state");
     // start edit by clicking email
     userWrapper.find("td").at(0).simulate("click");
     assert.equal(userWrapper.state().editing, true, "should enter editing state");
-    // finish editing with enter
+    // username
+    const usernameWrapper = userWrapper.find(FormControl).at(0).shallow();
+    assert.equal(usernameWrapper.prop("defaultValue"), "user1");
+    usernameWrapper.simulate("change", {target: {value: "newUsername"}});
+    assert.equal(userWrapper.state().username, "newUsername");
+    // email
     const emailWrapper = userWrapper.find(FormControl).at(1).shallow();
+    assert.equal(emailWrapper.prop("defaultValue"), "email");
+    emailWrapper.simulate("change", {target: {value: "newEmail"}});
+    assert.equal(userWrapper.state().email, "newEmail");
+    // finish editing with enter
     await emailWrapper.find("input").at(0).simulate("keyPress", {key: "Enter"});
     assert.equal(userWrapper.state().editing, false, "should enter view only state");
     setTimeout((store) => {

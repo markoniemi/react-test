@@ -18,7 +18,7 @@ export class UsersContainer extends React.Component<IUsersContainer, any> {
   }
 
   public componentDidMount() {
-    if (this.props.users.length === 0) {
+    if (0 === this.props.users.length) {
       store.dispatch(UserActions.fetchUsers());
     }
   }

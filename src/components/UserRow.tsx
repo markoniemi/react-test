@@ -28,11 +28,11 @@ export default class UserRow extends React.Component<IUserRow, Partial<IUserRowS
     this.state = {...this.props.user, editing: false};
   }
 
-  public render() {
+  public render(): JSX.Element {
     return (this.state.editing ? this.renderEdit() : this.renderUser());
   }
 
-  private renderUser() {
+  private renderUser(): JSX.Element {
     const user = this.props.user;
     return (
       <tr>
@@ -50,7 +50,7 @@ export default class UserRow extends React.Component<IUserRow, Partial<IUserRowS
     );
   }
 
-  private renderEdit() {
+  private renderEdit(): JSX.Element {
     return (
       <tr>
         <td>
@@ -100,8 +100,8 @@ export default class UserRow extends React.Component<IUserRow, Partial<IUserRowS
     });
   }
 
-  private onKeyPress(e) {
-    if (e.key === "Enter") {
+  private onKeyPress(event) {
+    if ("Enter" === event.key) {
       this.finishEdit();
     }
   }

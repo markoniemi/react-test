@@ -19,4 +19,3 @@ if (module.hot) {
     render();
   });
 }
-

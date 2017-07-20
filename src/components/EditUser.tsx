@@ -7,8 +7,7 @@ import store from "../stores/Store";
 interface IEditUser {
   user: User;
 }
-// TODO define state interface
-// TODO use User as state
+
 export default class EditUser extends React.Component<IEditUser, Partial<User>> {
   constructor(props: IEditUser) {
     super(props);
@@ -20,11 +19,11 @@ export default class EditUser extends React.Component<IEditUser, Partial<User>> 
     this.state = this.props.user;
   }
 
-  public render() {
+  public render(): JSX.Element {
     return this.renderUser();
   }
 
-  private renderUser() {
+  private renderUser(): JSX.Element {
     return (
       <div>
         <Form horizontal={true}>
@@ -97,7 +96,7 @@ export default class EditUser extends React.Component<IEditUser, Partial<User>> 
   }
 
   private onKeyPress(event) {
-    if (event.key === "Enter") {
+    if ("Enter" === event.key) {
       this.finishEdit();
     }
   }
