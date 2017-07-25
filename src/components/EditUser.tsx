@@ -4,7 +4,7 @@ import UserActions from "../actions/UserActions";
 import User from "../domain/User";
 import store from "../stores/Store";
 
-interface IEditUser {
+export interface IEditUser {
   user: User;
 }
 
@@ -83,25 +83,26 @@ export default class EditUser extends React.Component<IEditUser, Partial<User>> 
     );
   }
 
-  private onChangeUsername(event) {
+  // TODO find type for event
+  private onChangeUsername(event: any): void {
     this.setState({
       username: event.target.value,
     });
   }
 
-  private onChangeEmail(event) {
+  private onChangeEmail(event: any): void {
     this.setState({
       email: event.target.value,
     });
   }
 
-  private onKeyPress(event) {
+  private onKeyPress(event: any): void {
     if ("Enter" === event.key) {
       this.finishEdit();
     }
   }
 
-  private finishEdit() {
+  private finishEdit(): void {
     // TODO find a better way to map from Partial to strict
     const user: User = {
       _id: this.state._id,

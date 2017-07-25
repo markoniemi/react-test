@@ -33,7 +33,7 @@ export default class UserRow extends React.Component<IUserRow, Partial<IUserRowS
   }
 
   private renderUser(): JSX.Element {
-    const user = this.props.user;
+    const user: User = this.props.user;
     return (
       <tr>
         <td ref="username" onClick={this.edit}>{user.username}</td>
@@ -51,6 +51,7 @@ export default class UserRow extends React.Component<IUserRow, Partial<IUserRowS
   }
 
   private renderEdit(): JSX.Element {
+    const user: User = this.props.user;
     return (
       <tr>
         <td>
@@ -58,7 +59,7 @@ export default class UserRow extends React.Component<IUserRow, Partial<IUserRowS
             type="text"
             bsSize="small"
             autoFocus={true}
-            defaultValue={this.props.user.username}
+            defaultValue={user.username}
             ref="username"
             onChange={this.onChangeUsername}
           />
@@ -67,7 +68,7 @@ export default class UserRow extends React.Component<IUserRow, Partial<IUserRowS
           <FormControl
             type="text"
             bsSize="small"
-            defaultValue={this.props.user.email}
+            defaultValue={user.email}
             ref="email"
             onKeyPress={this.onKeyPress}
             onChange={this.onChangeEmail}
@@ -82,31 +83,31 @@ export default class UserRow extends React.Component<IUserRow, Partial<IUserRowS
     );
   }
 
-  private edit() {
+  private edit(): void {
     this.setState({
       editing: true,
     });
   }
 
-  private onChangeUsername(event) {
+  private onChangeUsername(event): void {
     this.setState({
       username: event.target.value,
     });
   }
 
-  private onChangeEmail(event) {
+  private onChangeEmail(event): void {
     this.setState({
       email: event.target.value,
     });
   }
 
-  private onKeyPress(event) {
+  private onKeyPress(event): void {
     if ("Enter" === event.key) {
       this.finishEdit();
     }
   }
 
-  private finishEdit() {
+  private finishEdit(): void {
     const user: User = {
       _id: this.state._id,
       email: this.state.email,
@@ -119,11 +120,11 @@ export default class UserRow extends React.Component<IUserRow, Partial<IUserRowS
     store.dispatch(UserActions.editUser(user));
   }
 
-  private deleteUser() {
+  private deleteUser(): void {
     store.dispatch(UserActions.removeUser(this.props.user));
   }
 
-  private editUser() {
+  private editUser(): void {
     browserHistory.push("/users/" + this.props.user._id);
   }
 }

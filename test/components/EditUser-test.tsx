@@ -4,10 +4,11 @@ import * as fetchMock from "fetch-mock";
 import * as React from "react";
 import {Button, FormControl} from "react-bootstrap";
 import UserActions from "../../src/actions/UserActions";
-import EditUser from "../../src/components/EditUser";
+import EditUser, {IEditUser} from "../../src/components/EditUser";
 import User from "../../src/domain/User";
-import store from "../../src/stores/Store";
-const user1 = {username: "user1", email: "email", index: 0, _id: "1"};
+import store, {IRootState} from "../../src/stores/Store";
+import {Store} from "react-redux";
+const user1: User = {username: "user1", email: "email", index: 0, _id: "1"};
 describe("EditUser component", () => {
   beforeEach(() => {
     fetchMock.spy();
@@ -17,7 +18,7 @@ describe("EditUser component", () => {
     store.dispatch(UserActions.resetUsers());
   });
   it("should render a user", () => {
-    const userWrapper = shallow(<EditUser user={user1}/>);
+    const userWrapper: ShallowWrapper<IEditUser, Partial<User>> = shallow(<EditUser user={user1}/>);
 
     assert.equal(userWrapper.find(FormControl).at(0).prop("defaultValue"), "1", "Expected to have value");
     assert.equal(userWrapper.find(FormControl).at(1).prop("defaultValue"), "user1", "Expected to have value");
@@ -25,7 +26,7 @@ describe("EditUser component", () => {
   });
   it("should not create error with empty user", () => {
     const emptyUser = new User();
-    const userWrapper = shallow(<EditUser user={emptyUser}/>) as ShallowWrapper<EditUser, any>;
+    const userWrapper: ShallowWrapper<IEditUser, Partial<User>> = shallow(<EditUser user={emptyUser}/>);
     assert.equal(userWrapper.state("index"), 0);
     assert.equal(userWrapper.state("username"), "");
   });
@@ -33,10 +34,10 @@ describe("EditUser component", () => {
     fetchMock.postOnce("http://localhost:8080/api/users/", user1);
     fetchMock.putOnce("http://localhost:8080/api/users/1", 200);
     await store.dispatch(UserActions.addUser(user1));
-    const editUserWrapper = shallow(<EditUser user={user1}/>);
+    const editUserWrapper: ShallowWrapper<IEditUser, Partial<User>> = shallow(<EditUser user={user1}/>);
 
     // username
-    let formControl = editUserWrapper.find(FormControl).at(1);
+    let formControl: ShallowWrapper<any, any> = editUserWrapper.find(FormControl).at(1);
     assert.equal(formControl.prop("defaultValue"), "user1");
     formControl.simulate("change", {target: {value: "newUsername"}});
     assert.equal(editUserWrapper.state().username, "newUsername");
@@ -46,7 +47,7 @@ describe("EditUser component", () => {
     formControl.simulate("change", {target: {value: "newEmail"}});
     assert.equal(editUserWrapper.state().email, "newEmail");
     await editUserWrapper.find(Button).at(0).simulate("click");
-    setTimeout((store) => {
+    setTimeout((store: Store<IRootState>) => {
       assert.equal(store.getState().users.length, 1, "store should have a new user");
       assert.equal(store.getState().users[0].username, "newUsername");
       assert.equal(store.getState().users[0].email, "newEmail");

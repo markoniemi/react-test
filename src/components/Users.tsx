@@ -6,13 +6,12 @@ interface IUsers {
   users: User[];
 }
 export default class Users extends React.Component<IUsers, any> {
-  constructor(props) {
+  constructor(props: IUsers) {
     super(props);
-
     this.renderUser = this.renderUser.bind(this);
   }
 
-  public render() {
+  public render(): JSX.Element {
     return (
       <Table>
         <tbody>
@@ -21,7 +20,7 @@ export default class Users extends React.Component<IUsers, any> {
       </Table>);
   }
 
-  private renderUser(user) {
+  private renderUser(user: User): JSX.Element {
     return (
       <UserRow user={user} key={user._id}/>
     );

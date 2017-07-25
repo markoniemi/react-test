@@ -11,7 +11,7 @@ const middlewares = [thunk];
 // middlewares.push(createLogger());
 const middleware = Redux.applyMiddleware(...middlewares);
 
-interface IRootState {
+export interface IRootState {
   users: User[];
 }
 

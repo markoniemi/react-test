@@ -6,7 +6,7 @@ import store from "../stores/Store";
 import UsersContainer from "./UsersContainer";
 
 export default class App extends React.Component<any, any> {
-  public render() {
+  public render(): JSX.Element {
     return (
       <Provider store={store}>
         <Panel header="Users">
