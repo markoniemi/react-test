@@ -1,10 +1,10 @@
 const path = require('path');
 
-const createBackend = require('./server/backend');
+// const createBackend = require('./server/backend');
 const backendHost = 'localhost';
 const backendPort = '5001';
 
-module.exports = {
+const webpackConfig = {
   devtool: 'source-map',
   entry: {
     'app': [
@@ -45,5 +45,4 @@ module.exports = {
     }
   }
 };
-
-createBackend(backendHost, backendPort);
+export default webpackConfig;
