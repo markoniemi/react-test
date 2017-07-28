@@ -2,7 +2,7 @@ import "isomorphic-fetch";
 import User from "../domain/User";
 
 export default class UserActions {
-  public static readonly FETCH_USERS = "FETCH_USERS";
+  public static readonly FETCH_USERS_REQUEST = "FETCH_USERS_REQUEST";
   public static readonly FETCH_USERS_SUCCESS = "FETCH_USERS_SUCCESS";
   public static readonly FETCH_USERS_ERROR = "FETCH_USERS_ERROR";
   public static readonly ADD_USER_REQUEST = "ADD_USER_REQUEST";
@@ -21,25 +21,15 @@ export default class UserActions {
     return (dispatch) => {
       dispatch(this.fetchUsersRequest());
       return fetch("http://localhost:8080/api/users")
-        .then((response) => {
-          if (!response.ok) {
-            throw Error(response.statusText);
-          }
-          return response;
-        })
-        .then((response) => {
-          return response.json();
-        })
-        .then((users) => {
-          dispatch(this.fetchUsersSuccess(users));
-        })
+        .then((response) => response.json())
+        .then((users) => dispatch(this.fetchUsersSuccess(users)))
         .catch(() => dispatch(this.fetchUsersError()));
     };
   }
 
   public static fetchUsersRequest() {
     return {
-      type: this.FETCH_USERS,
+      type: this.FETCH_USERS_REQUEST,
     };
   }
 
@@ -65,25 +55,16 @@ export default class UserActions {
   public static addUser(user: User) {
     return (dispatch) => {
       dispatch(this.addUserRequest());
-      return fetch("http://localhost:8080/api/users/", {
+      const request = {
         body: JSON.stringify(user),
         headers: {
           "Content-Type": "application/json",
         },
         method: "POST",
-      })
-        .then((response) => {
-          if (!response.ok) {
-            throw Error(response.statusText);
-          }
-          return response;
-        })
-        .then((response) => {
-          return response.json();
-        })
-        .then((user) => {
-          dispatch(this.addUserSuccess(user));
-        })
+      };
+      return fetch("http://localhost:8080/api/users/", request)
+        .then((response) => response.json())
+        .then((user) => dispatch(this.addUserSuccess(user)))
         .catch(() => dispatch(this.addUserError()));
     };
   }
@@ -91,21 +72,14 @@ export default class UserActions {
   public static removeUser(user: User) {
     return (dispatch) => {
       dispatch(this.removeUserRequest());
-      return fetch("http://localhost:8080/api/users/" + user._id, {
+      const request = {
         headers: {
           "Content-Type": "application/json",
         },
         method: "DELETE",
-      })
-        .then((response) => {
-          if (!response.ok) {
-            throw Error(response.statusText);
-          }
-          return response;
-        })
-        .then(() => {
-          dispatch(this.removeUserSuccess(user));
-        })
+      };
+      return fetch("http://localhost:8080/api/users/" + user._id, request)
+        .then(() => dispatch(this.removeUserSuccess(user)))
         .catch(() => dispatch(this.removeUserError()));
     };
   }
@@ -132,21 +106,15 @@ export default class UserActions {
   public static editUser(user: User) {
     return (dispatch) => {
       dispatch(this.editUserRequest());
-      return fetch("http://localhost:8080/api/users/" + user._id, {
+      const request = {
         body: JSON.stringify(user),
         headers: {
           "Content-Type": "application/json",
         },
         method: "PUT",
-      })
-        .then((response) => {
-          if (!response.ok) {
-            throw Error(response.statusText);
-          }
-        })
-        .then(() => {
-          dispatch(this.editUserSuccess(user));
-        })
+      };
+      return fetch("http://localhost:8080/api/users/" + user._id, request)
+        .then(() => dispatch(this.editUserSuccess(user)))
         .catch(() => dispatch(this.editUserError()));
     };
   }
