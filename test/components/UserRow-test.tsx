@@ -4,7 +4,6 @@ import * as fetchMock from "fetch-mock";
 import * as React from "react";
 import {Button, FormControl} from "react-bootstrap";
 import UserActions from "../../src/actions/UserActions";
-import EditUser from "../../src/components/EditUser";
 import UserRow, {IUserRow, IUserRowState} from "../../src/components/UserRow";
 import User from "../../src/domain/User";
 import store from "../../src/stores/Store";

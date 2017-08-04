@@ -25,8 +25,10 @@ function createServer(host: string, port: number) {
 
   server.listen(port, host, (err) => {
     if (err) {
+      // noinspection TsLint
       console.log(err);
     }
+    // noinspection TsLint
     console.log("Local web server runs at http://" + host + ":" + port);
   });
 }
