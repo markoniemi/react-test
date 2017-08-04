@@ -1,7 +1,8 @@
 import {assert} from "chai";
 import * as fetchMock from "fetch-mock";
-import store from "../../src/stores/Store";
 import UserActions from "../../src/actions/UserActions";
+import store from "../../src/stores/Store";
+
 const user1 = {username: "user1", email: "email", index: 0, _id: "1"};
 const user2 = {username: "user2", email: "email", index: 1, _id: "2"};
 describe("Action", () => {
@@ -11,6 +12,12 @@ describe("Action", () => {
   afterEach(() => {
     fetchMock.restore();
     store.dispatch(UserActions.resetUsers());
+  });
+  it("should fetch users from store", async (done) => {
+    fetchMock.getOnce("http://localhost:8080/api/users", [user1]);
+    await store.dispatch(UserActions.fetchUsers());
+    assert.equal(store.getState().users.length, 1);
+    done();
   });
   it("should add user in store", async (done) => {
     fetchMock.postOnce("http://localhost:8080/api/users/", user1);
