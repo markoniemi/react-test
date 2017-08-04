@@ -11,6 +11,7 @@
   "testRegex": "(/test/.*|(\\.|/)(test|spec))\\.(ts|tsx|js)$",
   "coverageDirectory": "reports/coverage",
   "collectCoverageFrom" : ["**/src/**"],
+  "mapCoverage": true,
   "testURL": "http://localhost:8080",
   "testResultsProcessor": "./node_modules/jest-junit"
 }
