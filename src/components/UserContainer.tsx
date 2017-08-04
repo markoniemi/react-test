@@ -21,11 +21,8 @@ export class UserContainer extends React.Component<IUserContainer, any> {
     return {user};
   }
 
-  private static findUserById(users: User[], id: string) {
-    const foundUser: User = users.find((user: User): boolean => {
-      return user._id === id;
-    });
-    return foundUser;
+  private static findUserById(users: User[], id: string): User {
+    return users.find((user: User): boolean => user._id === id);
   }
 
   constructor(props) {
