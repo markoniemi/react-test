@@ -36,13 +36,14 @@ export default class UserRow extends React.Component<IUserRow, Partial<IUserRowS
     const user: User = this.props.user;
     return (
       <tr>
-        <td ref="username" onClick={this.edit}>{user.username}</td>
-        <td ref="email" onClick={this.edit}>{user.email}</td>
+        <div hidden={true} id="index">{user.index}</div>
+        <td id="username" ref="username" onClick={this.edit}>{user.username}</td>
+        <td id="email" ref="email" onClick={this.edit}>{user.email}</td>
         <td>
-          <Button bsSize="small" onClick={this.editUser}>
+          <Button id="editUser" bsSize="small" onClick={this.editUser}>
             <Glyphicon glyph="glyphicon glyphicon-edit"/>
           </Button>
-          <Button bsSize="small" onClick={this.deleteUser}>
+          <Button id="removeUser" bsSize="small" onClick={this.deleteUser}>
             <Glyphicon glyph="glyphicon glyphicon-remove"/>
           </Button>
         </td>
@@ -56,6 +57,7 @@ export default class UserRow extends React.Component<IUserRow, Partial<IUserRowS
       <tr>
         <td>
           <FormControl
+            id="username"
             type="text"
             bsSize="small"
             autoFocus={true}
@@ -66,6 +68,7 @@ export default class UserRow extends React.Component<IUserRow, Partial<IUserRowS
         </td>
         <td>
           <FormControl
+            id="email"
             type="text"
             bsSize="small"
             defaultValue={user.email}
@@ -75,7 +78,7 @@ export default class UserRow extends React.Component<IUserRow, Partial<IUserRowS
           />
         </td>
         <td>
-          <Button bsSize="small" className="pull-right" onClick={this.finishEdit}>
+          <Button id="saveUser" bsSize="small" className="pull-right" onClick={this.finishEdit}>
             <Glyphicon glyph="glyphicon glyphicon-ok"/>
           </Button>
         </td>

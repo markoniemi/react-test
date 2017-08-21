@@ -11,7 +11,9 @@ export default class App extends React.Component<any, any> {
       <Provider store={store}>
         <Panel header="Users">
           <UsersContainer/>
-          <Button bsStyle="primary" onClick={this.newUser}><Glyphicon glyph="glyphicon glyphicon-plus"/></Button>
+          <Button id="addUser" bsStyle="primary" onClick={this.newUser}>
+            <Glyphicon glyph="glyphicon glyphicon-plus"/>
+          </Button>
         </Panel>
       </Provider>
     );

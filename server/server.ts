@@ -3,13 +3,7 @@ import * as WebpackDevServer from "webpack-dev-server";
 import webpackConfig from "../webpack.config";
 import createBackend from "./backend";
 
-const serverHost = "localhost";
-const serverPort: number = 8080;
-const backendHost = "localhost";
-const backendPort: number = 5001;
-
-// TODO set host and port as environment variables
-function createServer(host: string, port: number) {
+export default function createServer(serverHost: string, serverPort: number, backendHost: string, backendPort: number) {
 
   const compiler = Webpack(webpackConfig);
   const server = new WebpackDevServer(compiler, {
@@ -23,14 +17,12 @@ function createServer(host: string, port: number) {
     },
   });
 
-  server.listen(port, host, (err) => {
+  server.listen(serverPort, serverHost, (err) => {
     if (err) {
       // noinspection TsLint
       console.log(err);
     }
     // noinspection TsLint
-    console.log("Local web server runs at http://" + host + ":" + port);
+    console.log("Local web server runs at http://" + serverHost + ":" + serverPort);
   });
 }
-createServer(serverHost, serverPort);
-createBackend(backendHost, backendPort);

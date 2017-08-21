@@ -1,5 +1,14 @@
 import "isomorphic-fetch";
+import {Dispatch} from "react-redux";
+import {ThunkAction} from "redux-thunk";
 import User from "../domain/User";
+import {IRootState} from "../stores/Store";
+
+export interface IUserAction {
+  type: string;
+  user?: User;
+  users?: User[];
+}
 
 export default class UserActions {
   public static readonly FETCH_USERS_REQUEST = "FETCH_USERS_REQUEST";
@@ -16,37 +25,36 @@ export default class UserActions {
   public static readonly EDIT_USER_ERROR = "EDIT_USER_ERROR";
   public static readonly RESET_USERS = "RESET_USERS";
 
-  public static fetchUsers() {
-    // UserApi.loadUsers();
-    return (dispatch) => {
+  public static fetchUsers(): ThunkAction<Promise<IUserAction>, IRootState, any> {
+    return (dispatch: Dispatch<IRootState>): Promise<IUserAction> => {
       dispatch(this.fetchUsersRequest());
       return fetch("http://localhost:8080/api/users")
-        .then((response) => response.json())
-        .then((users) => dispatch(this.fetchUsersSuccess(users)))
-        .catch(() => dispatch(this.fetchUsersError()));
+        .then((response: Response): Promise<User[]> => response.json())
+        .then((users: User[]): IUserAction => dispatch(this.fetchUsersSuccess(users)))
+        .catch((): IUserAction => dispatch(this.fetchUsersError()));
     };
   }
 
-  public static fetchUsersRequest() {
+  public static fetchUsersRequest(): IUserAction {
     return {
       type: this.FETCH_USERS_REQUEST,
     };
   }
 
-  public static fetchUsersSuccess(users) {
+  public static fetchUsersSuccess(users): IUserAction {
     return {
       type: this.FETCH_USERS_SUCCESS,
       users: users,
     };
   }
 
-  public static fetchUsersError() {
+  public static fetchUsersError(): IUserAction {
     return {
       type: this.FETCH_USERS_ERROR,
     };
   }
 
-  public static addUserRequest() {
+  public static addUserRequest(): IUserAction {
     return {
       type: this.ADD_USER_REQUEST,
     };
@@ -63,9 +71,9 @@ export default class UserActions {
         method: "POST",
       };
       return fetch("http://localhost:8080/api/users/", request)
-        .then((response) => response.json())
-        .then((user) => dispatch(this.addUserSuccess(user)))
-        .catch(() => dispatch(this.addUserError()));
+        .then((response: Response): Promise<User> => response.json())
+        .then((user: User): IUserAction => dispatch(this.addUserSuccess(user)))
+        .catch((): IUserAction => dispatch(this.addUserError()));
     };
   }
 
@@ -79,25 +87,25 @@ export default class UserActions {
         method: "DELETE",
       };
       return fetch("http://localhost:8080/api/users/" + user._id, request)
-        .then(() => dispatch(this.removeUserSuccess(user)))
-        .catch(() => dispatch(this.removeUserError()));
+        .then((): IUserAction => dispatch(this.removeUserSuccess(user)))
+        .catch((): IUserAction => dispatch(this.removeUserError()));
     };
   }
 
-  public static removeUserRequest() {
+  public static removeUserRequest(): IUserAction {
     return {
       type: this.REMOVE_USER_REQUEST,
     };
   }
 
-  public static removeUserSuccess(user: User) {
+  public static removeUserSuccess(user: User): IUserAction {
     return {
       type: this.REMOVE_USER_SUCCESS,
       user: user,
     };
   }
 
-  public static removeUserError() {
+  public static removeUserError(): IUserAction {
     return {
       type: this.REMOVE_USER_ERROR,
     };
@@ -114,44 +122,44 @@ export default class UserActions {
         method: "PUT",
       };
       return fetch("http://localhost:8080/api/users/" + user._id, request)
-        .then(() => dispatch(this.editUserSuccess(user)))
-        .catch(() => dispatch(this.editUserError()));
+        .then((): IUserAction => dispatch(this.editUserSuccess(user)))
+        .catch((): IUserAction => dispatch(this.editUserError()));
     };
   }
 
-  public static editUserRequest() {
+  public static editUserRequest(): IUserAction {
     return {
       type: this.EDIT_USER_REQUEST,
     };
   }
 
-  public static editUserSuccess(user: User) {
+  public static editUserSuccess(user: User): IUserAction {
     return {
       type: this.EDIT_USER_SUCCESS,
       user: user,
     };
   }
 
-  public static editUserError() {
+  public static editUserError(): IUserAction {
     return {
       type: this.EDIT_USER_ERROR,
     };
   }
 
-  public static addUserSuccess(user: User) {
+  public static addUserSuccess(user: User): IUserAction {
     return {
       type: this.ADD_USER_SUCCESS,
       user: user,
     };
   }
 
-  public static addUserError() {
+  public static addUserError(): IUserAction {
     return {
       type: this.ADD_USER_ERROR,
     };
   }
 
-  public static resetUsers() {
+  public static resetUsers(): IUserAction {
     return {
       type: this.RESET_USERS,
     };

@@ -47,6 +47,7 @@ export default class EditUser extends React.Component<IEditUser, Partial<User>> 
             </Col>
             <Col sm={4}>
               <FormControl
+                id="username"
                 type="text"
                 bsSize="small"
                 autoFocus={true}
@@ -62,6 +63,7 @@ export default class EditUser extends React.Component<IEditUser, Partial<User>> 
             </Col>
             <Col sm={4}>
               <FormControl
+                id="email"
                 type="text"
                 bsSize="small"
                 defaultValue={this.props.user.email}
@@ -73,7 +75,7 @@ export default class EditUser extends React.Component<IEditUser, Partial<User>> 
           </FormGroup>
           <FormGroup>
             <Col sm={5}>
-              <Button bsSize="small" className="pull-right" onClick={this.finishEdit}>
+              <Button id="saveUser" bsSize="small" className="pull-right" onClick={this.finishEdit}>
                 <Glyphicon glyph="glyphicon glyphicon-ok"/>
               </Button>
             </Col>
