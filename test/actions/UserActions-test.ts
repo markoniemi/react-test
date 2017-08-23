@@ -13,13 +13,13 @@ describe("Action", () => {
     fetchMock.restore();
     store.dispatch(UserActions.resetUsers());
   });
-  it("should fetch users from store", async (done) => {
+  test("should fetch users from store", async (done) => {
     fetchMock.getOnce("http://localhost:8080/api/users", [user1]);
     await store.dispatch(UserActions.fetchUsers());
     assert.equal(store.getState().users.length, 1);
     done();
   });
-  it("should add user in store", async (done) => {
+  test("should add user in store", async (done) => {
     fetchMock.postOnce("http://localhost:8080/api/users/", user1);
     fetchMock.postOnce("http://localhost:8080/api/users/", user2);
     await store.dispatch(UserActions.addUser(user1));
@@ -27,7 +27,7 @@ describe("Action", () => {
     assert.equal(store.getState().users.length, 2);
     done();
   });
-  it("should remove user from store", async (done) => {
+  test("should remove user from store", async (done) => {
     fetchMock.postOnce("http://localhost:8080/api/users/", user1);
     fetchMock.postOnce("http://localhost:8080/api/users/", user2);
     fetchMock.deleteOnce("http://localhost:8080/api/users/1", 200);
@@ -38,7 +38,7 @@ describe("Action", () => {
     assert.equal(store.getState().users.length, 1);
     done();
   });
-  it("should change username in store", async (done) => {
+  test("should change username in store", async (done) => {
     fetchMock.postOnce("http://localhost:8080/api/users/", user1);
     fetchMock.putOnce("http://localhost:8080/api/users/1", 200);
     await store.dispatch(UserActions.addUser(user1));

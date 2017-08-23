@@ -9,6 +9,7 @@
     "^.+\\.js$": "<rootDir>/node_modules/babel-jest"
   },
   "testRegex": "(/test/.*-test)\\.tsx?",
+//  "testRegex": "(/test/.*-it)\\.tsx?",
   "coverageDirectory": "reports/coverage",
   "collectCoverageFrom" : ["**/src/**"],
   "mapCoverage": true,

@@ -5,7 +5,7 @@ import UserRow from "../../src/components/UserRow";
 import Users from "../../src/components/Users";
 
 describe("Users component", () => {
-  it("should render a user", () => {
+  test("should render a user", () => {
     const users = [{username: "username", email: "email", index: 0, _id: "0"}];
     // const wrapper = shallow(<Users users={users} onEdit={onEditSpy} onDelete={onDeleteSpy}/>);
     const wrapper = shallow(<Users users={users} />);

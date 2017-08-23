@@ -16,20 +16,20 @@ describe("UserRow component", () => {
     fetchMock.restore();
     store.dispatch(UserActions.resetUsers());
   });
-  it("should render a user", () => {
+  test("should render a user", () => {
     const userWrapper = shallow(<UserRow user={user1}/>) as ShallowWrapper<IUserRow, IUserRowState>;
 
     assert.equal(userWrapper.find("tr").length, 1, "Expected to have element <tr>");
     assert.equal(userWrapper.find("td").at(0).text(), "user1", "Expected to have element <td>");
     assert.equal(userWrapper.find("td").at(1).text(), "email", "Expected to have element <td>");
   });
-  it("should not create error with empty user", () => {
+  test("should not create error with empty user", () => {
     const emptyUser = new User();
     const userWrapper = shallow(<UserRow user={emptyUser}/>) as ShallowWrapper<IUserRow, IUserRowState>;
     assert.equal(userWrapper.state().index, 0);
     assert.equal(userWrapper.state().username, "");
   });
-  it("should edit a user", async (done) => {
+  test("should edit a user", async (done) => {
     fetchMock.postOnce("http://localhost:8080/api/users/", user1);
     fetchMock.putOnce("http://localhost:8080/api/users/1", 200);
     await store.dispatch(UserActions.addUser(user1));
@@ -60,7 +60,7 @@ describe("UserRow component", () => {
       done();
     }, 1000, store);
   });
-  it("should edit a user with keyboard", async (done) => {
+  test("should edit a user with keyboard", async (done) => {
     fetchMock.postOnce("http://localhost:8080/api/users/", user1);
     fetchMock.putOnce("http://localhost:8080/api/users/1", 200);
     await store.dispatch(UserActions.addUser(user1));
@@ -90,7 +90,7 @@ describe("UserRow component", () => {
       done();
     }, 1000, store);
   });
-  it("should delete a user", async (done) => {
+  test("should delete a user", async (done) => {
     fetchMock.postOnce("http://localhost:8080/api/users/", user1);
     fetchMock.deleteOnce("http://localhost:8080/api/users/1", 200);
     await store.dispatch(UserActions.addUser(user1));

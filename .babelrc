@@ -1,8 +1,6 @@
 {
   "presets": [
-    "latest",
-    "react",
-    "jest"
+    ["env"]
   ],
   "plugins": [
     "react-hot-loader/babel",

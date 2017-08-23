@@ -15,7 +15,7 @@ describe("Selenium", () => {
     browser.quit();
   });
   describe("App", () => {
-    it("integration test", async (done) => {
+    test("integration test", async (done) => {
       await addUserWithEditUser({username: "newUser", email: "newEmail", index: 0});
       await editUserWithUserRow("newUser", {username: "editedUser", email: "editedEmail", index: 0});
       await editUserWithEditUser("editedUser", {username: "editedUser2", email: "editedEmail2", index: 0});

@@ -17,11 +17,11 @@ describe("App component", () => {
     fetchMock.restore();
     store.dispatch(UserActions.resetUsers());
   });
-  it("should render App", () => {
+  test("should render App", () => {
     const appWrapper = shallow(<App/>);
     assert.isNotNull(appWrapper.find(UsersContainer));
   });
-  xit("should add user", async (done) => {
+  test.skip("should add user", async (done) => {
     const appWrapper = shallow(<App/>);
     const user1 = {username: "user1", email: "email", index: 0, _id: "1"};
     fetchMock.postOnce("http://localhost:8080/api/users/", user1);
