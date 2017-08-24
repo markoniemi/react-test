@@ -1,9 +1,9 @@
 import * as React from "react";
 import {connect} from "react-redux";
-import User from "../domain/User";
-import EditUser from "./EditUser";
 import {RouterState} from "react-router";
+import User from "../domain/User";
 import {IRootState} from "../stores/Store";
+import EditUser from "./EditUser";
 
 interface IUserContainer {
   user: User;

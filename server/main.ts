@@ -1,5 +1,5 @@
+import createBackend, {createUser} from "./backend";
 import createServer from "./server";
-import createBackend, {createUser, deleteUsers} from "./backend";
 
 // TODO set host and port as environment variables
 const serverHost = "localhost";

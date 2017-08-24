@@ -3,11 +3,12 @@ import {shallow, ShallowWrapper} from "enzyme";
 import * as fetchMock from "fetch-mock";
 import * as React from "react";
 import {Button, FormControl} from "react-bootstrap";
+import {Store} from "react-redux";
 import UserActions from "../../src/actions/UserActions";
 import EditUser, {IEditUser} from "../../src/components/EditUser";
 import User from "../../src/domain/User";
 import store, {IRootState} from "../../src/stores/Store";
-import {Store} from "react-redux";
+
 const user1: User = {username: "user1", email: "email", index: 0, _id: "1"};
 describe("EditUser component", () => {
   beforeEach(() => {

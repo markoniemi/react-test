@@ -1,7 +1,6 @@
 import * as Webpack from "webpack";
 import * as WebpackDevServer from "webpack-dev-server";
 import webpackConfig from "../webpack.config";
-import createBackend from "./backend";
 
 export default function createServer(serverHost: string, serverPort: number, backendHost: string, backendPort: number) {
 

@@ -1,6 +1,5 @@
 const path = require('path');
 
-// const createBackend = require('./server/backend');
 const backendHost = 'localhost';
 const backendPort = '5001';
 

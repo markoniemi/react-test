@@ -1,8 +1,8 @@
-import {Builder, By, Capabilities, until, WebElement} from "selenium-webdriver";
 import * as assert from "assert";
+import {Builder, By, Capabilities, until, WebElement} from "selenium-webdriver";
 import User from "../src/domain/User";
 
-var path = require('chromedriver').path;
+const path = require('chromedriver').path;
 
 let browser;
 describe("Selenium", () => {
