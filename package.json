@@ -47,7 +47,6 @@
     "@types/react-hot-loader": "3.0.3",
     "@types/react-redux": "4.4.37",
     "@types/react-router": "3.0.8",
-    "@types/redux-thunk": "2.1.0",
     "@types/selenium-webdriver": "3.0.4",
     "@types/sinon": "2.2.2",
     "@types/webpack-env": "1.13.0",
