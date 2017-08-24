@@ -53,6 +53,7 @@
     "awesome-typescript-loader": "3.2.1",
     "babel-cli": "6.26.0",
     "babel-preset-env": "2.0.0-alpha.19",
+    "chai": "4.1.1",
     "chromedriver": "2.31.0",
     "core-js": "2.4.1",
     "coveralls": "2.13.1",
