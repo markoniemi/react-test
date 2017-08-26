@@ -1,17 +1,35 @@
 import * as assert from "assert";
-import {Builder, By, Capabilities, until, WebElement} from "selenium-webdriver";
+import {Builder, By, Capabilities, logging, until, WebElement} from "selenium-webdriver";
 import User from "../src/domain/User";
+import {Options} from "selenium-webdriver/chrome";
+import Entry = logging.Entry;
 
 const path = require('chromedriver').path;
 
 let browser;
 describe("Selenium", () => {
   beforeAll(async () => {
+    const loggingPrefs = new logging.Preferences();
+    loggingPrefs.setLevel(logging.Type.DRIVER, logging.Level.DEBUG);
+    const options: Options = new Options();
+    options.addArguments("--headless", "--disable-gpu");
+    // options.addArguments("--disable-gpu");
+    options.setLoggingPrefs(loggingPrefs);
     browser = new Builder()
       .withCapabilities(Capabilities.chrome())
+      .setChromeOptions(options)
+      .setLoggingPrefs(loggingPrefs)
       .build();
   });
-  afterAll(() => {
+  afterAll(async () => {
+    try {
+      const entries: Entry[] = await browser.manage().logs().get(logging.Type.DRIVER);
+      entries.forEach((entry) => {
+        console.log(entry.message);
+      });
+    } catch (e) {
+      console.log(e.message);
+    }
     browser.quit();
   });
   describe("App", () => {
