@@ -10,7 +10,7 @@ let browser;
 describe("Selenium", () => {
   beforeAll(async () => {
     const loggingPrefs = new logging.Preferences();
-    loggingPrefs.setLevel(logging.Type.DRIVER, logging.Level.DEBUG);
+    loggingPrefs.setLevel(logging.Type.DRIVER, logging.Level.SEVERE);
     const options: Options = new Options();
     options.addArguments("--headless", "--disable-gpu");
     // options.addArguments("--disable-gpu");
