@@ -13,7 +13,7 @@ describe("Selenium", () => {
       const loggingPrefs = new logging.Preferences();
       loggingPrefs.setLevel(logging.Type.DRIVER, logging.Level.INFO);
       const options: Options = new Options();
-      options.addArguments("--headless", "--disable-gpu");
+      options.addArguments("--headless", "--disable-gpu", "--no-sandbox");
       // options.addArguments("--disable-gpu");
       options.setLoggingPrefs(loggingPrefs);
       browser = await new Builder()
