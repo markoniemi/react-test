@@ -16,11 +16,15 @@ describe("Selenium", () => {
   });
   describe("App", () => {
     test("integration test", async (done) => {
-      await addUserWithEditUser({username: "newUser", email: "newEmail", index: 0});
-      await editUserWithUserRow("newUser", {username: "editedUser", email: "editedEmail", index: 0});
-      await editUserWithEditUser("editedUser", {username: "editedUser2", email: "editedEmail2", index: 0});
-      await removeUser("editedUser2");
-      done();
+      try {
+        await addUserWithEditUser({username: "newUser", email: "newEmail", index: 0});
+        await editUserWithUserRow("newUser", {username: "editedUser", email: "editedEmail", index: 0});
+        await editUserWithEditUser("editedUser", {username: "editedUser2", email: "editedEmail2", index: 0});
+        await removeUser("editedUser2");
+        done();
+      } catch (e) {
+        fail(e);
+      }
     }, 20000);
   });
 });
@@ -86,6 +90,7 @@ async function removeUser(username: string) {
   const elements = await browser.findElements(By.xpath("//td[@id='username'][text()='" + username + "']"));
   assert.equal(0, elements.length);
 }
+
 async function findUserRow(username: string): Promise<WebElement> {
   return await browser.findElement(By.xpath("//td[@id='username'][text()='" + username + "']/.."));
 }
