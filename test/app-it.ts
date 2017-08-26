@@ -9,17 +9,21 @@ const path = require('chromedriver').path;
 let browser;
 describe("Selenium", () => {
   beforeAll(async () => {
-    const loggingPrefs = new logging.Preferences();
-    loggingPrefs.setLevel(logging.Type.DRIVER, logging.Level.SEVERE);
-    const options: Options = new Options();
-    options.addArguments("--headless", "--disable-gpu");
-    // options.addArguments("--disable-gpu");
-    options.setLoggingPrefs(loggingPrefs);
-    browser = new Builder()
-      .withCapabilities(Capabilities.chrome())
-      .setChromeOptions(options)
-      .setLoggingPrefs(loggingPrefs)
-      .build();
+    try {
+      const loggingPrefs = new logging.Preferences();
+      loggingPrefs.setLevel(logging.Type.DRIVER, logging.Level.INFO);
+      const options: Options = new Options();
+      options.addArguments("--headless", "--disable-gpu");
+      // options.addArguments("--disable-gpu");
+      options.setLoggingPrefs(loggingPrefs);
+      browser = await new Builder()
+        .withCapabilities(Capabilities.chrome())
+        .setChromeOptions(options)
+        .setLoggingPrefs(loggingPrefs)
+        .build();
+    } catch (e) {
+      fail(e);
+    }
   });
   afterAll(async () => {
     try {
@@ -28,7 +32,7 @@ describe("Selenium", () => {
         console.log(entry.message);
       });
     } catch (e) {
-      console.log(e.message);
+      fail(e);
     }
     browser.quit();
   });
@@ -43,7 +47,7 @@ describe("Selenium", () => {
       } catch (e) {
         fail(e);
       }
-    }, 20000);
+    }, 40000);
   });
 });
 
@@ -57,7 +61,7 @@ async function editUserWithUserRow(username: string, user: User) {
   await userRow.findElement(By.id("email")).clear();
   await userRow.findElement(By.id("email")).sendKeys(user.email);
   await userRow.findElement(By.id("saveUser")).click();
-  browser.sleep(500);
+  browser.sleep(1000);
   await browser.wait(until.elementLocated(By.id("editUser")));
   const editedUser: User = await parseUser(await findUserRow(user.username));
   assert.equal(editedUser.username, user.username);
@@ -75,7 +79,7 @@ async function editUserWithEditUser(username: string, user: User) {
   await browser.findElement(By.id("email")).clear();
   await browser.findElement(By.id("email")).sendKeys(user.email);
   await browser.findElement(By.id("saveUser")).click();
-  browser.sleep(500);
+  browser.sleep(1000);
   await browser.wait(until.elementLocated(By.id("editUser")));
   const editedUser: User = await parseUser(await findUserRow(user.username));
   assert.equal(editedUser.username, user.username);
@@ -92,7 +96,7 @@ async function addUserWithEditUser(user: User) {
   await browser.findElement(By.id("email")).clear();
   await browser.findElement(By.id("email")).sendKeys(user.email);
   await browser.findElement(By.id("saveUser")).click();
-  browser.sleep(500);
+  browser.sleep(1000);
   await browser.wait(until.elementLocated(By.id("editUser")));
   const addedUser: User = await parseUser(await findUserRow(user.username));
   assert.equal(addedUser.username, user.username);
@@ -103,7 +107,7 @@ async function removeUser(username: string) {
   await browser.get("http://localhost:8080");
   const userRow: WebElement = await findUserRow(username);
   await userRow.findElement(By.id("removeUser")).click();
-  browser.sleep(500);
+  browser.sleep(1000);
   await browser.wait(until.elementLocated(By.id("addUser")));
   const elements = await browser.findElements(By.xpath("//td[@id='username'][text()='" + username + "']"));
   assert.equal(0, elements.length);
