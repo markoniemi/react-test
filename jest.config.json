@@ -8,7 +8,7 @@
     "^.+\\.tsx?$": "<rootDir>/node_modules/ts-jest/preprocessor.js",
     "^.+\\.js$": "<rootDir>/node_modules/babel-jest"
   },
-  "testRegex": "(/test/.*-(it|test))\\.tsx?",
+  "testRegex": "(/test/.*-(test))\\.tsx?",
   "coverageDirectory": "reports/coverage",
   "collectCoverageFrom" : ["**/src/**"],
   "mapCoverage": true,

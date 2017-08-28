@@ -1,16 +1,6 @@
 language: node_js
 node_js:
     - 6.10.2
-#install chrome for Selenium tests
-addons:
-  apt:
-    packages:
-      - google-chrome-stable
-#create display for chrome
-before_script:
-  - export DISPLAY=:99.0
-  - sh -e /etc/init.d/xvfb start &
-  - sleep 3
 
 # Send coverage data to Coveralls
 after_script: "npm run coveralls"
