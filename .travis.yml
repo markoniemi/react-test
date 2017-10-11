@@ -1,6 +1,8 @@
 language: node_js
 node_js:
     - 6.10.3
-
+cache:
+  directories:
+    - $HOME/.npm
 # Send coverage data to Coveralls
 after_script: "npm run coveralls"
