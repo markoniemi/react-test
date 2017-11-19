@@ -1,26 +1,21 @@
 import * as assert from "assert";
 import {Builder, By, Capabilities, logging, until, WebElement} from "selenium-webdriver";
 import User from "../src/domain/User";
-import {Options} from "selenium-webdriver/chrome";
 import Entry = logging.Entry;
+// chrome
+import {Options, Driver} from "selenium-webdriver/chrome";
+const chromePath = require("chromedriver").path;
 
-const path = require('chromedriver').path;
+// phantomJs
+// import {Driver} from "selenium-webdriver/phantomjs";
+// const phantomJsPath = require("phantomjs-prebuilt").path;
 
 let browser;
 describe("Selenium", () => {
   beforeAll(async () => {
     try {
-      const loggingPrefs = new logging.Preferences();
-      loggingPrefs.setLevel(logging.Type.DRIVER, logging.Level.INFO);
-      const options: Options = new Options();
-      options.addArguments("--headless", "--disable-gpu", "--no-sandbox");
-      // options.addArguments("--disable-gpu");
-      options.setLoggingPrefs(loggingPrefs);
-      browser = await new Builder()
-        .withCapabilities(Capabilities.chrome())
-        .setChromeOptions(options)
-        .setLoggingPrefs(loggingPrefs)
-        .build();
+      browser = await createChrome();
+      // browser = await createPhantomJs();
     } catch (e) {
       fail(e);
     }
@@ -37,17 +32,38 @@ describe("Selenium", () => {
     browser.quit();
   });
   describe("App", () => {
-    test("integration test", async (done) => {
+    test("addUserWithEditUser", async (done) => {
       try {
         await addUserWithEditUser({username: "newUser", email: "newEmail", index: 0});
+        done();
+      } catch (e) {
+        fail(e);
+      }
+    }, 5000);
+    test("editUserWithUserRow", async (done) => {
+      try {
         await editUserWithUserRow("newUser", {username: "editedUser", email: "editedEmail", index: 0});
+        done();
+      } catch (e) {
+        fail(e);
+      }
+    }, 5000);
+    test("editUserWithEditUser", async (done) => {
+      try {
         await editUserWithEditUser("editedUser", {username: "editedUser2", email: "editedEmail2", index: 0});
+        done();
+      } catch (e) {
+        fail(e);
+      }
+    }, 5000);
+    test("removeUser", async (done) => {
+      try {
         await removeUser("editedUser2");
         done();
       } catch (e) {
         fail(e);
       }
-    }, 40000);
+    }, 5000);
   });
 });
 
@@ -61,8 +77,9 @@ async function editUserWithUserRow(username: string, user: User) {
   await userRow.findElement(By.id("email")).clear();
   await userRow.findElement(By.id("email")).sendKeys(user.email);
   await userRow.findElement(By.id("saveUser")).click();
-  browser.sleep(1000);
-  await browser.wait(until.elementLocated(By.id("editUser")));
+  // await browser.wait(until.elementLocated(By.id("editUser")));
+  waitForUserRow(user.username);
+  // browser.sleep(500);
   const editedUser: User = await parseUser(await findUserRow(user.username));
   assert.equal(editedUser.username, user.username);
   assert.equal(editedUser.email, user.email);
@@ -79,8 +96,9 @@ async function editUserWithEditUser(username: string, user: User) {
   await browser.findElement(By.id("email")).clear();
   await browser.findElement(By.id("email")).sendKeys(user.email);
   await browser.findElement(By.id("saveUser")).click();
-  browser.sleep(1000);
+  // browser.sleep(1000);
   await browser.wait(until.elementLocated(By.id("editUser")));
+  waitForUserRow(user.username);
   const editedUser: User = await parseUser(await findUserRow(user.username));
   assert.equal(editedUser.username, user.username);
   assert.equal(editedUser.email, user.email);
@@ -96,7 +114,8 @@ async function addUserWithEditUser(user: User) {
   await browser.findElement(By.id("email")).clear();
   await browser.findElement(By.id("email")).sendKeys(user.email);
   await browser.findElement(By.id("saveUser")).click();
-  browser.sleep(1000);
+  // browser.sleep(1000);
+  waitForUserRow(user.username);
   await browser.wait(until.elementLocated(By.id("editUser")));
   const addedUser: User = await parseUser(await findUserRow(user.username));
   assert.equal(addedUser.username, user.username);
@@ -104,17 +123,21 @@ async function addUserWithEditUser(user: User) {
 }
 
 async function removeUser(username: string) {
-  await browser.get("http://localhost:8080");
+  waitForUserRow(username);
   const userRow: WebElement = await findUserRow(username);
   await userRow.findElement(By.id("removeUser")).click();
   browser.sleep(1000);
   await browser.wait(until.elementLocated(By.id("addUser")));
-  const elements = await browser.findElements(By.xpath("//td[@id='username'][text()='" + username + "']"));
-  assert.equal(0, elements.length);
+  // const elements = await browser.findElements(By.xpath("//td[@id='username'][text()='" + username + "']"));
+  // assert.equal(0, elements.length);
 }
 
 async function findUserRow(username: string): Promise<WebElement> {
   return await browser.findElement(By.xpath("//td[@id='username'][text()='" + username + "']/.."));
+}
+
+async function waitForUserRow(username: string) {
+  await browser.wait(until.elementLocated(By.xpath("//td[@id='username'][text()='" + username + "']/..")));
 }
 
 async function parseUser(userRow: WebElement): Promise<User> {
@@ -123,3 +146,28 @@ async function parseUser(userRow: WebElement): Promise<User> {
   const index = await userRow.findElement(By.id("index")).getText();
   return {username: username, email: email, index: parseInt(index, 10)};
 }
+async function createChrome(): Promise<Driver> {
+  const loggingPrefs = new logging.Preferences();
+  loggingPrefs.setLevel(logging.Type.DRIVER, logging.Level.INFO);
+  const options: Options = new Options();
+  // options.addArguments("--headless", "--disable-gpu", "--no-sandbox", "start-maximized");
+  options.addArguments("--disable-gpu", "start-maximized");
+  options.setLoggingPrefs(loggingPrefs);
+  const driver: Driver = await new Builder()
+    .withCapabilities(Capabilities.chrome())
+    .setChromeOptions(options)
+    .setLoggingPrefs(loggingPrefs)
+    .build();
+  return driver;
+}
+// async function createPhantomJs(): Promise<Driver> {
+//   const loggingPrefs = new logging.Preferences();
+//   loggingPrefs.setLevel(logging.Type.DRIVER, logging.Level.INFO);
+//   const phantomjs = Capabilities.phantomjs();
+//   phantomjs.set("phantomjs.binary.path", phantomJsPath);
+//   const driver: Driver = await new Builder()
+//     .withCapabilities(phantomjs)
+//     .setLoggingPrefs(loggingPrefs)
+//     .build();
+//   return driver;
+// }
