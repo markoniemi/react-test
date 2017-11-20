@@ -1,4 +1,5 @@
 import "bootstrap/dist/css/bootstrap.css";
+import * as IDebug from "debug";
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 import {AppContainer} from "react-hot-loader";
@@ -10,6 +11,8 @@ import "./main.css";
 import store from "./stores/Store";
 
 const render = () => {
+  // IDebug.enable("*");
+  IDebug.disable();
   ReactDOM.render(
     <AppContainer>
       <Provider store={store}>

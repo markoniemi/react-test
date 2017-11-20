@@ -19,6 +19,5 @@ const store: Redux.Store<IRootState> = Redux.createStore<IRootState>(reducers, m
 export default store;
 
 // store.subscribe(() => {
-//     console.log("user: " + store.getState().user);
-//     console.log("tweets: " + store.getState().tweets);
+//   debug("users: %O", store.getState().users);
 // });

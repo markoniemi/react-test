@@ -7,6 +7,7 @@
     "bootstrap": "3.3.7",
     "core-js": "1.1.4",
     "css-loader": "0.27.3",
+    "debug": "^3.1.0",
     "es6-promise": "4.1.0",
     "file-loader": "0.10.1",
     "isomorphic-fetch": "2.2.1",
@@ -33,6 +34,7 @@
   },
   "devDependencies": {
     "@types/chai": "4.0.1",
+    "@types/debug": "0.0.30",
     "@types/enzyme": "2.7.9",
     "@types/express": "4.0.36",
     "@types/fetch-mock": "5.8.2",
