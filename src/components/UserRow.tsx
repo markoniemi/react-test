@@ -36,7 +36,9 @@ export default class UserRow extends React.Component<IUserRow, Partial<IUserRowS
     const user: User = this.props.user;
     return (
       <tr>
-        <div hidden={true} id="index">{user.index}</div>
+        <td>
+          <div hidden={true} id="index">{user.index}</div>
+        </td>
         <td id="username" ref="username" onClick={this.edit}>{user.username}</td>
         <td id="email" ref="email" onClick={this.edit}>{user.email}</td>
         <td>

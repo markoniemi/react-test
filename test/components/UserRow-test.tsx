@@ -20,8 +20,8 @@ describe("UserRow component", () => {
     const userWrapper = shallow(<UserRow user={user1}/>) as ShallowWrapper<IUserRow, IUserRowState>;
 
     assert.equal(userWrapper.find("tr").length, 1, "Expected to have element <tr>");
-    assert.equal(userWrapper.find("td").at(0).text(), "user1", "Expected to have element <td>");
-    assert.equal(userWrapper.find("td").at(1).text(), "email", "Expected to have element <td>");
+    assert.equal(userWrapper.find("td").at(1).text(), "user1", "Expected to have element <td>");
+    assert.equal(userWrapper.find("td").at(2).text(), "email", "Expected to have element <td>");
   });
   test("should not create error with empty user", () => {
     const emptyUser = new User();
@@ -37,7 +37,7 @@ describe("UserRow component", () => {
     const userWrapper = shallow(<UserRow user={user1}/>);
 
     assert.equal(userWrapper.state().editing, false);
-    userWrapper.find("td").at(0).simulate("click");
+    userWrapper.find("td").at(1).simulate("click");
     assert.equal(userWrapper.state().editing, true);
     assert.equal(userWrapper.find(FormControl).length, 2);
     // username
@@ -68,7 +68,7 @@ describe("UserRow component", () => {
 
     assert.equal(userWrapper.state().editing, false, "should not be in editing state");
     // start edit by clicking email
-    userWrapper.find("td").at(0).simulate("click");
+    userWrapper.find("td").at(1).simulate("click");
     assert.equal(userWrapper.state().editing, true, "should enter editing state");
     // username
     const usernameWrapper = userWrapper.find(FormControl).at(0).shallow();
