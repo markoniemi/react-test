@@ -8,5 +8,8 @@ addons:
   sonarcloud:
     organization: "markoniemi-github"
     token: $SONAR_CLOUD_TOKEN
+    branches:
+      - master
+      - sonarcloud
 # Send coverage data to Coveralls
 after_script: "npm run coveralls"
