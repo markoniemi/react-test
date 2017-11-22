@@ -1,8 +1,12 @@
 language: node_js
 node_js:
-    - 6.10.3
+    - 8.9.1
 cache:
   directories:
     - $HOME/.npm
+addons:
+  sonarcloud:
+    organization: "markoniemi-github"
+    token: $SONAR_CLOUD_TOKEN
 # Send coverage data to Coveralls
 after_script: "npm run coveralls"
