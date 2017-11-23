@@ -26,11 +26,11 @@
   },
   "scripts": {
     "dev": "node_modules/.bin/ts-node server/main",
-    "dev-old": "webpack-dev-server --hot --history-api-fallback",
-    "test": "jest --verbose --coverage --config jest.config.json",
+    "test": "jest --config jest.config.json",
     "coverage": "jest --coverage --config jest.config.json",
     "build": "./node_modules/.bin/webpack --config=webpack.build.config.js",
-    "coveralls": "cat ./reports/coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js"
+    "coveralls": "cat ./reports/coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
+    "sonarqube": "./node_modules/.bin/sonar-scanner -Dsonar.login=$SONAR_CLOUD_TOKEN"
   },
   "devDependencies": {
     "@types/chai": "4.0.1",
@@ -55,8 +55,8 @@
     "awesome-typescript-loader": "3.2.1",
     "babel-cli": "6.24.0",
     "babel-core": "6.24.0",
-    "babel-preset-env": "1.6.1",
     "babel-plugin-transform-runtime": "6.23.0",
+    "babel-preset-env": "1.6.1",
     "chai": "4.1.1",
     "chromedriver": "2.33.2",
     "coveralls": "2.13.1",
@@ -75,6 +75,7 @@
     "react-addons-test-utils": "15.6.2",
     "react-test-renderer": "15.6.2",
     "selenium-webdriver": "3.6.0",
+    "sonarqube-scanner": "2.0.2",
     "source-map-loader": "0.2.1",
     "ts-jest": "21.2.3",
     "ts-node": "3.3.0",

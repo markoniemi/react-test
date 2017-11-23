@@ -4,11 +4,7 @@ node_js:
 cache:
   directories:
     - $HOME/.npm
-addons:
-  sonarcloud:
-    organization: "markoniemi-github"
-    token: $SONAR_CLOUD_TOKEN
 # Send coverage data to Coveralls
 after_script: "npm run coveralls"
-script:
-  - sonar-scanner
+# Send analysis to SonarCloud
+after_script: "npm run sonarqube"
