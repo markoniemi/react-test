@@ -26,8 +26,7 @@
   },
   "scripts": {
     "dev": "node_modules/.bin/ts-node server/main",
-    "test": "jest --config jest.config.json",
-    "coverage": "jest --coverage --config jest.config.json",
+    "test": "jest --coverage --config jest.config.json",
     "build": "./node_modules/.bin/webpack --config=webpack.build.config.js",
     "coveralls": "cat ./reports/coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
     "sonarqube": "./node_modules/.bin/sonar-scanner -Dsonar.login=$SONAR_CLOUD_TOKEN"
