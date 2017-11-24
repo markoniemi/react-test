@@ -5,4 +5,5 @@ tmp
 dist/
 .idea/
 reports/
-
+.scannerwork/
+package-lock.json
