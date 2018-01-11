@@ -10,8 +10,6 @@ interface IUserContainer {
 }
 
 export class UserContainer extends React.Component<IUserContainer, any> {
-// Which part of the Redux global state does our component want to receive as props?
-// TODO add argument types
   public static mapStateToProps(state: IRootState, props: RouterState): IUserContainer {
     let user: User = new User();
     const userId = props.params.id;

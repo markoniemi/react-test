@@ -63,11 +63,9 @@ export default class UserActions {
   public static addUser(user: User) {
     return (dispatch) => {
       dispatch(this.addUserRequest());
-      const request = {
+      const request: RequestInit = {
         body: JSON.stringify(user),
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: new Headers({"content-type": "application/json"}),
         method: "POST",
       };
       return fetch("http://localhost:8080/api/users/", request)
@@ -80,10 +78,8 @@ export default class UserActions {
   public static removeUser(user: User) {
     return (dispatch) => {
       dispatch(this.removeUserRequest());
-      const request = {
-        headers: {
-          "Content-Type": "application/json",
-        },
+      const request: RequestInit = {
+        headers: new Headers({"content-type": "application/json"}),
         method: "DELETE",
       };
       return fetch("http://localhost:8080/api/users/" + user._id, request)
@@ -114,11 +110,9 @@ export default class UserActions {
   public static editUser(user: User) {
     return (dispatch) => {
       dispatch(this.editUserRequest());
-      const request = {
+      const request: RequestInit = {
         body: JSON.stringify(user),
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: new Headers({"content-type": "application/json"}),
         method: "PUT",
       };
       return fetch("http://localhost:8080/api/users/" + user._id, request)
