@@ -1,19 +1,23 @@
 import * as express from "express";
+import {Express} from "express";
 import * as expressRestResource from "express-rest-generator";
+import * as Http from "http";
 import * as Datastore from "nedb";
 import User from "../src/domain/User";
 
 let userDatabase;
 
-export default function createBackend(host: string, port: number) {
-  const app = express();
+export default function createBackend(host: string, port: number): Http.Server {
+  const app: Express = express();
   userDatabase = new Datastore();
   app.use("/api/users", expressRestResource({db: userDatabase}));
 
-  app.listen(port, () => {
+  const httpServer: Http.Server = app.listen(port, () => {
     // noinspection TsLint
     console.log("Backend server runs at http://" + host + ":" + port);
   });
+
+  return httpServer;
 }
 
 export function createUser(user: User) {
