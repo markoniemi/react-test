@@ -3,6 +3,7 @@ import {Express} from "express";
 import * as expressRestResource from "express-rest-generator";
 import * as Http from "http";
 import * as Datastore from "nedb";
+import * as logger from "winston";
 import User from "../src/domain/User";
 
 let userDatabase;
@@ -14,7 +15,7 @@ export default function createBackend(host: string, port: number): Http.Server {
 
   const httpServer: Http.Server = app.listen(port, () => {
     // noinspection TsLint
-    console.log("Backend server runs at http://" + host + ":" + port);
+    logger.info("Backend server runs at http://" + host + ":" + port);
   });
 
   return httpServer;

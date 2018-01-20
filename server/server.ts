@@ -1,6 +1,7 @@
 import * as Http from "http";
 import * as Webpack from "webpack";
 import * as WebpackDevServer from "webpack-dev-server";
+import * as logger from "winston";
 import webpackConfig from "../webpack.config";
 
 export default function createServer(serverHost: string, serverPort: number, backendHost: string, backendPort: number): Http.Server {
@@ -21,10 +22,10 @@ export default function createServer(serverHost: string, serverPort: number, bac
   const httpServer: Http.Server = server.listen(serverPort, serverHost, (err) => {
     if (err) {
       // noinspection TsLint
-      console.log(err);
+      logger.error(err);
     }
     // noinspection TsLint
-    console.log("Local web server runs at http://" + serverHost + ":" + serverPort);
+    logger.info("Local web server runs at http://" + serverHost + ":" + serverPort);
   });
 
   return httpServer;

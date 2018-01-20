@@ -1,11 +1,13 @@
 import * as assert from "assert";
 import {Builder, By, Capabilities, logging, until, WebElement} from "selenium-webdriver";
+// chrome
+import {Driver, Options} from "selenium-webdriver/chrome";
+import * as logger from "winston";
 import User from "../src/domain/User";
 import Entry = logging.Entry;
-// chrome
-import {Options, Driver} from "selenium-webdriver/chrome";
-const chromePath = require("chromedriver").path;
 
+const chromePath = require("chromedriver").path;
+const jestTimeout: number = 20000;
 // phantomJs
 // import {Driver} from "selenium-webdriver/phantomjs";
 // const phantomJsPath = require("phantomjs-prebuilt").path;
@@ -24,12 +26,13 @@ describe("Selenium", () => {
     try {
       const entries: Entry[] = await browser.manage().logs().get(logging.Type.DRIVER);
       entries.forEach((entry) => {
-        console.log(entry.message);
+        logger.info(entry.message);
       });
     } catch (e) {
       fail(e);
+    } finally {
+      await browser.quit();
     }
-    browser.quit();
   });
   describe("App", () => {
     test("addUserWithEditUser", async (done) => {
@@ -37,9 +40,10 @@ describe("Selenium", () => {
         await addUserWithEditUser({username: "newUser", email: "newEmail", index: 0});
         done();
       } catch (e) {
+        logger.error("fail");
         fail(e);
       }
-    }, 5000);
+    }, jestTimeout);
     test("editUserWithUserRow", async (done) => {
       try {
         await editUserWithUserRow("newUser", {username: "editedUser", email: "editedEmail", index: 0});
@@ -47,7 +51,7 @@ describe("Selenium", () => {
       } catch (e) {
         fail(e);
       }
-    }, 5000);
+    }, jestTimeout);
     test("editUserWithEditUser", async (done) => {
       try {
         await editUserWithEditUser("editedUser", {username: "editedUser2", email: "editedEmail2", index: 0});
@@ -55,7 +59,7 @@ describe("Selenium", () => {
       } catch (e) {
         fail(e);
       }
-    }, 5000);
+    }, jestTimeout);
     test("removeUser", async (done) => {
       try {
         await removeUser("editedUser2");
@@ -63,7 +67,7 @@ describe("Selenium", () => {
       } catch (e) {
         fail(e);
       }
-    }, 5000);
+    }, jestTimeout);
   });
 });
 
@@ -146,12 +150,13 @@ async function parseUser(userRow: WebElement): Promise<User> {
   const index = await userRow.findElement(By.id("index")).getText();
   return {username: username, email: email, index: parseInt(index, 10)};
 }
+
 async function createChrome(): Promise<Driver> {
   const loggingPrefs = new logging.Preferences();
   loggingPrefs.setLevel(logging.Type.DRIVER, logging.Level.INFO);
   const options: Options = new Options();
-  // options.addArguments("--headless", "--disable-gpu", "--no-sandbox", "start-maximized");
-  options.addArguments("--disable-gpu", "start-maximized");
+  options.addArguments("headless", "disable-gpu", "no-sandbox", "start-maximized");
+  // options.addArguments("--disable-gpu", "start-maximized");
   options.setLoggingPrefs(loggingPrefs);
   const driver: Driver = await new Builder()
     .withCapabilities(Capabilities.chrome())
@@ -160,6 +165,7 @@ async function createChrome(): Promise<Driver> {
     .build();
   return driver;
 }
+
 // async function createPhantomJs(): Promise<Driver> {
 //   const loggingPrefs = new logging.Preferences();
 //   loggingPrefs.setLevel(logging.Type.DRIVER, logging.Level.INFO);

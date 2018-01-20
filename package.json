@@ -25,9 +25,9 @@
     "url-loader": "0.6.2"
   },
   "scripts": {
-    "dev": "node_modules/.bin/ts-node server/main",
+    "start": "node_modules/.bin/ts-node server/main",
     "test": "jest --coverage --config jest.config.json",
-    "build": "./node_modules/.bin/webpack --config=webpack.build.config.js",
+    "integrationt-test": "node_modules/.bin/npm-run-all -r -p start test",
     "coveralls": "cat ./reports/coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
     "sonarqube": "./node_modules/.bin/sonar-scanner -Dsonar.login=$SONAR_CLOUD_TOKEN"
   },
@@ -52,6 +52,7 @@
     "@types/sinon": "2.2.2",
     "@types/webpack-env": "1.13.0",
     "@types/webpack-dev-server": "2.4.0",
+    "@types/winston": "2.3.7",
     "awesome-typescript-loader": "3.2.1",
     "babel-cli": "6.24.0",
     "babel-core": "6.24.0",
@@ -71,6 +72,7 @@
     "jest": "21.2.1",
     "jest-junit": "1.5.1",
     "nedb": "1.8.0",
+    "npm-run-all": "4.1.2",
     "phantomjs-prebuilt": "2.1.16",
     "react-addons-test-utils": "15.6.2",
     "react-test-renderer": "15.6.2",
@@ -86,7 +88,8 @@
     "tslint-react-recommended": "1.0.15",
     "typescript": "2.6.1",
     "webpack": "2.2.1",
-    "webpack-dev-server": "2.4.2"
+    "webpack-dev-server": "2.4.2",
+    "winston": "2.4.0"
   },
   "jest-junit": {
     "output": "./reports/test/TESTS.xml"
