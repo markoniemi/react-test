@@ -14,4 +14,4 @@ jobs:
           paths:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
-      - run: npm integration-test
+      - run: npm run integration-test
