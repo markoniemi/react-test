@@ -26,8 +26,9 @@
   },
   "scripts": {
     "start": "node_modules/.bin/ts-node server/main",
-    "test": "jest --coverage --config jest.config.json",
-    "integration-test": "node_modules/.bin/npm-run-all -r -p start test",
+    "test": "node_modules/.bin/npm-run-all -r -p test:*",
+    "test:start-server": "npm start",
+    "test:run-tests": "jest --coverage --config jest.config.json",
     "coveralls": "cat ./reports/coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
     "sonarqube": "./node_modules/.bin/sonar-scanner -Dsonar.login=$SONAR_CLOUD_TOKEN"
   },
