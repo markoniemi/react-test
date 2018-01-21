@@ -44,7 +44,7 @@ export default class UserActions {
   public static fetchUsersSuccess(users): IUserAction {
     return {
       type: this.FETCH_USERS_SUCCESS,
-      users: users,
+      users,
     };
   }
 
@@ -97,7 +97,7 @@ export default class UserActions {
   public static removeUserSuccess(user: User): IUserAction {
     return {
       type: this.REMOVE_USER_SUCCESS,
-      user: user,
+      user,
     };
   }
 
@@ -130,7 +130,7 @@ export default class UserActions {
   public static editUserSuccess(user: User): IUserAction {
     return {
       type: this.EDIT_USER_SUCCESS,
-      user: user,
+      user,
     };
   }
 
@@ -143,7 +143,7 @@ export default class UserActions {
   public static addUserSuccess(user: User): IUserAction {
     return {
       type: this.ADD_USER_SUCCESS,
-      user: user,
+      user,
     };
   }
 

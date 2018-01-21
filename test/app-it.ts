@@ -1,12 +1,11 @@
 import * as assert from "assert";
+import * as chrome from "chromedriver";
 import {Builder, By, Capabilities, logging, until, WebElement} from "selenium-webdriver";
-// chrome
 import {Driver, Options} from "selenium-webdriver/chrome";
 import * as logger from "winston";
 import User from "../src/domain/User";
 import Entry = logging.Entry;
 
-const chromePath = require("chromedriver").path;
 const jestTimeout: number = 20000;
 // phantomJs
 // import {Driver} from "selenium-webdriver/phantomjs";
@@ -19,6 +18,7 @@ describe("Selenium", () => {
       browser = await createChrome();
       // browser = await createPhantomJs();
     } catch (e) {
+      logger.error(e);
       fail(e);
     }
   });
@@ -29,6 +29,7 @@ describe("Selenium", () => {
         logger.info(entry.message);
       });
     } catch (e) {
+      logger.error(e);
       fail(e);
     } finally {
       await browser.quit();
@@ -40,7 +41,7 @@ describe("Selenium", () => {
         await addUserWithEditUser({username: "newUser", email: "newEmail", index: 0});
         done();
       } catch (e) {
-        logger.error("fail");
+        logger.error(e);
         fail(e);
       }
     }, jestTimeout);
@@ -49,6 +50,7 @@ describe("Selenium", () => {
         await editUserWithUserRow("newUser", {username: "editedUser", email: "editedEmail", index: 0});
         done();
       } catch (e) {
+        logger.error(e);
         fail(e);
       }
     }, jestTimeout);
@@ -57,6 +59,7 @@ describe("Selenium", () => {
         await editUserWithEditUser("editedUser", {username: "editedUser2", email: "editedEmail2", index: 0});
         done();
       } catch (e) {
+        logger.error(e);
         fail(e);
       }
     }, jestTimeout);
@@ -65,6 +68,7 @@ describe("Selenium", () => {
         await removeUser("editedUser2");
         done();
       } catch (e) {
+        logger.error(e);
         fail(e);
       }
     }, jestTimeout);
@@ -82,7 +86,7 @@ async function editUserWithUserRow(username: string, user: User) {
   await userRow.findElement(By.id("email")).sendKeys(user.email);
   await userRow.findElement(By.id("saveUser")).click();
   // await browser.wait(until.elementLocated(By.id("editUser")));
-  waitForUserRow(user.username);
+  await waitForUserRow(user.username);
   // browser.sleep(500);
   const editedUser: User = await parseUser(await findUserRow(user.username));
   assert.equal(editedUser.username, user.username);
@@ -102,7 +106,7 @@ async function editUserWithEditUser(username: string, user: User) {
   await browser.findElement(By.id("saveUser")).click();
   // browser.sleep(1000);
   await browser.wait(until.elementLocated(By.id("editUser")));
-  waitForUserRow(user.username);
+  await waitForUserRow(user.username);
   const editedUser: User = await parseUser(await findUserRow(user.username));
   assert.equal(editedUser.username, user.username);
   assert.equal(editedUser.email, user.email);
@@ -119,7 +123,7 @@ async function addUserWithEditUser(user: User) {
   await browser.findElement(By.id("email")).sendKeys(user.email);
   await browser.findElement(By.id("saveUser")).click();
   // browser.sleep(1000);
-  waitForUserRow(user.username);
+  await waitForUserRow(user.username);
   await browser.wait(until.elementLocated(By.id("editUser")));
   const addedUser: User = await parseUser(await findUserRow(user.username));
   assert.equal(addedUser.username, user.username);
@@ -127,7 +131,7 @@ async function addUserWithEditUser(user: User) {
 }
 
 async function removeUser(username: string) {
-  waitForUserRow(username);
+  await waitForUserRow(username);
   const userRow: WebElement = await findUserRow(username);
   await userRow.findElement(By.id("removeUser")).click();
   browser.sleep(1000);
@@ -137,7 +141,7 @@ async function removeUser(username: string) {
 }
 
 async function findUserRow(username: string): Promise<WebElement> {
-  return await browser.findElement(By.xpath("//td[@id='username'][text()='" + username + "']/.."));
+  return browser.findElement(By.xpath("//td[@id='username'][text()='" + username + "']/.."));
 }
 
 async function waitForUserRow(username: string) {
@@ -148,10 +152,11 @@ async function parseUser(userRow: WebElement): Promise<User> {
   const username = await userRow.findElement(By.id("username")).getText();
   const email = await userRow.findElement(By.id("email")).getText();
   const index = await userRow.findElement(By.id("index")).getText();
-  return {username: username, email: email, index: parseInt(index, 10)};
+  return {username, email, index: parseInt(index, 10)};
 }
 
 async function createChrome(): Promise<Driver> {
+  const chromePath = chrome.path;
   const loggingPrefs = new logging.Preferences();
   loggingPrefs.setLevel(logging.Type.DRIVER, logging.Level.INFO);
   const options: Options = new Options();

@@ -22,7 +22,7 @@ export default (state: User[] = [], action: IUserAction) => {
       debug("ADD_USER_SUCCESS: %s", action.user.username);
       return [...state.filter((user: User) => {
         return user._id !== action.user._id;
-      }), Object.assign({}, action.user)];
+      }), {...action.user}];
     case UserActions.REMOVE_USER_SUCCESS:
       browserHistory.push("/");
       debug("REMOVE_USER_SUCCESS: %s", action.user._id);

@@ -10,6 +10,6 @@ describe("Users component", () => {
     // const wrapper = shallow(<Users users={users} onEdit={onEditSpy} onDelete={onDeleteSpy}/>);
     const wrapper = shallow(<Users users={users} />);
 
-    assert.equal(wrapper.find(UserRow).length, 1, "Expected to have component <UserRow>");
+    assert.equal(wrapper.find(UserRow).length, 1, "Expected to have component UserRow");
   });
 });

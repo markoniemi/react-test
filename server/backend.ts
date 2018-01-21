@@ -14,7 +14,6 @@ export default function createBackend(host: string, port: number): Http.Server {
   app.use("/api/users", expressRestResource({db: userDatabase}));
 
   const httpServer: Http.Server = app.listen(port, () => {
-    // noinspection TsLint
     logger.info("Backend server runs at http://" + host + ":" + port);
   });
 

@@ -3,5 +3,8 @@
     "tslint:latest",
     "tslint-react",
     "tslint-eslint-rules"
-  ]
+  ],
+  "rules": {
+    "no-implicit-dependencies": [true, "dev"]
+  }
 }
