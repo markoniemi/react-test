@@ -26,12 +26,15 @@ export default class UserActions {
   public static readonly RESET_USERS = "RESET_USERS";
 
   public static fetchUsers(): ThunkAction<Promise<IUserAction>, IRootState, any> {
-    return (dispatch: Dispatch<IRootState>): Promise<IUserAction> => {
+    return async (dispatch: Dispatch<IRootState>): Promise<IUserAction> => {
       dispatch(this.fetchUsersRequest());
-      return fetch("http://localhost:8080/api/users")
-        .then((response: Response): Promise<User[]> => response.json())
-        .then((users: User[]): IUserAction => dispatch(this.fetchUsersSuccess(users)))
-        .catch((): IUserAction => dispatch(this.fetchUsersError()));
+      try {
+        const response: Response = await fetch("http://localhost:8080/api/users");
+        const users: User[] = await response.json();
+        return dispatch(this.fetchUsersSuccess(users));
+      } catch (e) {
+        return dispatch(this.fetchUsersError());
+      }
     };
   }
 
@@ -60,31 +63,37 @@ export default class UserActions {
     };
   }
 
-  public static addUser(user: User) {
-    return (dispatch) => {
+  public static addUser(user: User): ThunkAction<Promise<IUserAction>, IRootState, any> {
+    return async (dispatch: Dispatch<IRootState>): Promise<IUserAction> => {
       dispatch(this.addUserRequest());
       const request: RequestInit = {
         body: JSON.stringify(user),
         headers: new Headers({"content-type": "application/json"}),
         method: "POST",
       };
-      return fetch("http://localhost:8080/api/users/", request)
-        .then((response: Response): Promise<User> => response.json())
-        .then((user: User): IUserAction => dispatch(this.addUserSuccess(user)))
-        .catch((): IUserAction => dispatch(this.addUserError()));
+      try {
+        const response: Response = await fetch("http://localhost:8080/api/users/", request);
+        const user: User = await response.json();
+        return dispatch(this.addUserSuccess(user));
+      } catch (e) {
+        return dispatch(this.addUserError());
+      }
     };
   }
 
   public static removeUser(user: User) {
-    return (dispatch) => {
+    return async (dispatch: Dispatch<IRootState>): Promise<IUserAction> => {
       dispatch(this.removeUserRequest());
       const request: RequestInit = {
         headers: new Headers({"content-type": "application/json"}),
         method: "DELETE",
       };
-      return fetch("http://localhost:8080/api/users/" + user._id, request)
-        .then((): IUserAction => dispatch(this.removeUserSuccess(user)))
-        .catch((): IUserAction => dispatch(this.removeUserError()));
+      try {
+        await fetch("http://localhost:8080/api/users/" + user._id, request);
+        return dispatch(this.removeUserSuccess(user));
+      } catch (e) {
+        return dispatch(this.removeUserError());
+      }
     };
   }
 
@@ -108,16 +117,19 @@ export default class UserActions {
   }
 
   public static editUser(user: User) {
-    return (dispatch) => {
+    return async (dispatch: Dispatch<IRootState>): Promise<IUserAction> => {
       dispatch(this.editUserRequest());
       const request: RequestInit = {
         body: JSON.stringify(user),
         headers: new Headers({"content-type": "application/json"}),
         method: "PUT",
       };
-      return fetch("http://localhost:8080/api/users/" + user._id, request)
-        .then((): IUserAction => dispatch(this.editUserSuccess(user)))
-        .catch((): IUserAction => dispatch(this.editUserError()));
+      try {
+        await fetch("http://localhost:8080/api/users/" + user._id, request);
+        return dispatch(this.editUserSuccess(user));
+      } catch (e) {
+        return dispatch(this.editUserError());
+      }
     };
   }
 
