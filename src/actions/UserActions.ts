@@ -5,26 +5,28 @@ import User from "../domain/User";
 import {IRootState} from "../stores/Store";
 
 export interface IUserAction {
-  type: string;
+  type: UserActionType;
   user?: User;
   users?: User[];
 }
 
-export default class UserActions {
-  public static readonly FETCH_USERS_REQUEST = "FETCH_USERS_REQUEST";
-  public static readonly FETCH_USERS_SUCCESS = "FETCH_USERS_SUCCESS";
-  public static readonly FETCH_USERS_ERROR = "FETCH_USERS_ERROR";
-  public static readonly ADD_USER_REQUEST = "ADD_USER_REQUEST";
-  public static readonly ADD_USER_SUCCESS = "ADD_USER_SUCCESS";
-  public static readonly ADD_USER_ERROR = "ADD_USER_ERROR";
-  public static readonly REMOVE_USER_REQUEST = "REMOVE_USER_REQUEST";
-  public static readonly REMOVE_USER_SUCCESS = "REMOVE_USER_SUCCESS";
-  public static readonly REMOVE_USER_ERROR = "REMOVE_USER_ERROR";
-  public static readonly EDIT_USER_REQUEST = "EDIT_USER_REQUEST";
-  public static readonly EDIT_USER_SUCCESS = "EDIT_USER_SUCCESS";
-  public static readonly EDIT_USER_ERROR = "EDIT_USER_ERROR";
-  public static readonly RESET_USERS = "RESET_USERS";
+export enum UserActionType {
+  FETCH_USERS_REQUEST = "FETCH_USERS_REQUEST",
+  FETCH_USERS_SUCCESS = "FETCH_USERS_SUCCESS",
+  FETCH_USERS_ERROR = "FETCH_USERS_ERROR",
+  ADD_USER_REQUEST = "ADD_USER_REQUEST",
+  ADD_USER_SUCCESS = "ADD_USER_SUCCESS",
+  ADD_USER_ERROR = "ADD_USER_ERROR",
+  REMOVE_USER_REQUEST = "REMOVE_USER_REQUEST",
+  REMOVE_USER_SUCCESS = "REMOVE_USER_SUCCESS",
+  REMOVE_USER_ERROR = "REMOVE_USER_ERROR",
+  EDIT_USER_REQUEST = "EDIT_USER_REQUEST",
+  EDIT_USER_SUCCESS = "EDIT_USER_SUCCESS",
+  EDIT_USER_ERROR = "EDIT_USER_ERROR",
+  RESET_USERS = "RESET_USERS",
+}
 
+export default class UserActions {
   public static fetchUsers(): ThunkAction<Promise<IUserAction>, IRootState, any> {
     return async (dispatch: Dispatch<IRootState>): Promise<IUserAction> => {
       dispatch(this.fetchUsersRequest());
@@ -40,26 +42,26 @@ export default class UserActions {
 
   public static fetchUsersRequest(): IUserAction {
     return {
-      type: this.FETCH_USERS_REQUEST,
+      type: UserActionType.FETCH_USERS_REQUEST,
     };
   }
 
   public static fetchUsersSuccess(users): IUserAction {
     return {
-      type: this.FETCH_USERS_SUCCESS,
+      type: UserActionType.FETCH_USERS_SUCCESS,
       users,
     };
   }
 
   public static fetchUsersError(): IUserAction {
     return {
-      type: this.FETCH_USERS_ERROR,
+      type: UserActionType.FETCH_USERS_ERROR,
     };
   }
 
   public static addUserRequest(): IUserAction {
     return {
-      type: this.ADD_USER_REQUEST,
+      type: UserActionType.ADD_USER_REQUEST,
     };
   }
 
@@ -99,20 +101,20 @@ export default class UserActions {
 
   public static removeUserRequest(): IUserAction {
     return {
-      type: this.REMOVE_USER_REQUEST,
+      type: UserActionType.REMOVE_USER_REQUEST,
     };
   }
 
   public static removeUserSuccess(user: User): IUserAction {
     return {
-      type: this.REMOVE_USER_SUCCESS,
+      type: UserActionType.REMOVE_USER_SUCCESS,
       user,
     };
   }
 
   public static removeUserError(): IUserAction {
     return {
-      type: this.REMOVE_USER_ERROR,
+      type: UserActionType.REMOVE_USER_ERROR,
     };
   }
 
@@ -135,39 +137,39 @@ export default class UserActions {
 
   public static editUserRequest(): IUserAction {
     return {
-      type: this.EDIT_USER_REQUEST,
+      type: UserActionType.EDIT_USER_REQUEST,
     };
   }
 
   public static editUserSuccess(user: User): IUserAction {
     return {
-      type: this.EDIT_USER_SUCCESS,
+      type: UserActionType.EDIT_USER_SUCCESS,
       user,
     };
   }
 
   public static editUserError(): IUserAction {
     return {
-      type: this.EDIT_USER_ERROR,
+      type: UserActionType.EDIT_USER_ERROR,
     };
   }
 
   public static addUserSuccess(user: User): IUserAction {
     return {
-      type: this.ADD_USER_SUCCESS,
+      type: UserActionType.ADD_USER_SUCCESS,
       user,
     };
   }
 
   public static addUserError(): IUserAction {
     return {
-      type: this.ADD_USER_ERROR,
+      type: UserActionType.ADD_USER_ERROR,
     };
   }
 
   public static resetUsers(): IUserAction {
     return {
-      type: this.RESET_USERS,
+      type: UserActionType.RESET_USERS,
     };
   }
 }
