@@ -10,7 +10,7 @@ import UserContainer from "./components/UserContainer";
 import "./main.css";
 import store from "./stores/Store";
 
-const render = () => {
+const render = (): void => {
   // IDebug.enable("*");
   IDebug.disable();
   ReactDOM.render(
@@ -30,7 +30,7 @@ const render = () => {
 render();
 
 if (module.hot) {
-  module.hot.accept("./containers/Root", () => {
+  module.hot.accept("./components/App", () => {
     render();
   });
 }

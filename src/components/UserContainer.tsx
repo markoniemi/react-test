@@ -10,6 +10,16 @@ interface IUserContainer {
 }
 
 export class UserContainer extends React.Component<IUserContainer, any> {
+  public constructor(props: IUserContainer) {
+    super(props);
+  }
+
+  public render(): JSX.Element {
+    return (
+      <EditUser user={this.props.user}/>
+    );
+  }
+
   public static mapStateToProps(state: IRootState, props: RouterState): IUserContainer {
     let user: User = new User();
     const userId = props.params.id;
@@ -21,16 +31,6 @@ export class UserContainer extends React.Component<IUserContainer, any> {
 
   private static findUserById(users: User[], id: string): User {
     return users.find((user: User): boolean => user._id === id);
-  }
-
-  constructor(props) {
-    super(props);
-  }
-
-  public render(): JSX.Element {
-    return (
-      <EditUser user={this.props.user}/>
-    );
   }
 }
 

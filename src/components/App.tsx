@@ -19,7 +19,7 @@ export default class App extends React.Component<any, any> {
     );
   }
 
-  private newUser() {
+  private newUser(): void {
     browserHistory.push("/users/new");
   }
 }

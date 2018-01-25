@@ -4,7 +4,7 @@ import {browserHistory} from "react-router";
 import {IUserAction, UserActionType} from "../actions/UserActions";
 import User from "../domain/User";
 
-export default (state: User[] = [], action: IUserAction) => {
+export default (state: User[] = [], action: IUserAction): any => {
   const debug: IDebugger = IDebug("UsersReducer");
   switch (action.type) {
     case UserActionType.FETCH_USERS_SUCCESS:

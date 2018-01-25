@@ -1,3 +1,4 @@
+import {GenericStoreEnhancer, Middleware} from "redux";
 import * as Redux from "redux";
 import thunk from "redux-thunk";
 import User from "../domain/User";
@@ -7,15 +8,15 @@ export const reducers = Redux.combineReducers<IRootState>({
   users: usersReducer,
 });
 
-const middlewares = [thunk];
+const middlewares: Middleware[] = [thunk];
 // middlewares.push(createLogger());
-const middleware = Redux.applyMiddleware(...middlewares);
+const storeEnhancer: GenericStoreEnhancer = Redux.applyMiddleware(...middlewares);
 
 export interface IRootState {
   users: User[];
 }
 
-const store: Redux.Store<IRootState> = Redux.createStore<IRootState>(reducers, middleware);
+const store: Redux.Store<IRootState> = Redux.createStore<IRootState>(reducers, storeEnhancer);
 export default store;
 
 // store.subscribe(() => {

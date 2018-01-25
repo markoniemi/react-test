@@ -46,7 +46,7 @@ export default class UserActions {
     };
   }
 
-  public static fetchUsersSuccess(users): IUserAction {
+  public static fetchUsersSuccess(users: User[]): IUserAction {
     return {
       type: UserActionType.FETCH_USERS_SUCCESS,
       users,

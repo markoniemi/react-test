@@ -8,11 +8,8 @@ import Users from "./Users";
 interface IUsersContainer {
   users: User[];
 }
-export class UsersContainer extends React.Component<IUsersContainer, any> {
-  public static mapStateToProps(state: IRootState): IUsersContainer {
-    return {users: state.users};
-  }
 
+export class UsersContainer extends React.Component<IUsersContainer, any> {
   constructor(props: IUsersContainer) {
     super(props);
   }
@@ -28,6 +25,11 @@ export class UsersContainer extends React.Component<IUsersContainer, any> {
       <Users users={this.props.users}/>
     );
   }
+
+  public static mapStateToProps(state: IRootState): IUsersContainer {
+    return {users: state.users};
+  }
+
 }
 
 export default connect(UsersContainer.mapStateToProps)(UsersContainer);

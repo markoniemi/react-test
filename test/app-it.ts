@@ -11,7 +11,7 @@ const jestTimeout: number = 20000;
 // import {Driver} from "selenium-webdriver/phantomjs";
 // const phantomJsPath = require("phantomjs-prebuilt").path;
 
-let browser;
+let browser: Driver;
 describe("Selenium", () => {
   beforeAll(async () => {
     try {

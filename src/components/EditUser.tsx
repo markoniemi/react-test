@@ -11,7 +11,6 @@ export interface IEditUser {
 export default class EditUser extends React.Component<IEditUser, Partial<User>> {
   constructor(props: IEditUser) {
     super(props);
-    this.renderUser = this.renderUser.bind(this);
     this.finishEdit = this.finishEdit.bind(this);
     this.onChangeUsername = this.onChangeUsername.bind(this);
     this.onChangeEmail = this.onChangeEmail.bind(this);
@@ -20,10 +19,6 @@ export default class EditUser extends React.Component<IEditUser, Partial<User>> 
   }
 
   public render(): JSX.Element {
-    return this.renderUser();
-  }
-
-  private renderUser(): JSX.Element {
     return (
       <div>
         <Form horizontal={true}>

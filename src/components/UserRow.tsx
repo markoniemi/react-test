@@ -14,7 +14,7 @@ export interface IUserRowState extends User {
 }
 
 export default class UserRow extends React.Component<IUserRow, Partial<IUserRowState>> {
-  constructor(props) {
+  constructor(props: IUserRow) {
     super(props);
     this.finishEdit = this.finishEdit.bind(this);
     this.onKeyPress = this.onKeyPress.bind(this);
