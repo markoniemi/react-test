@@ -7,7 +7,7 @@ import UserActions from "../../src/actions/UserActions";
 import UserRow, {IUserRow, IUserRowState} from "../../src/components/UserRow";
 import User from "../../src/domain/User";
 import store from "../../src/stores/Store";
-const user1 = {username: "user1", email: "email", index: 0, _id: "1"};
+import {user1} from "../userList";
 describe("UserRow component", () => {
   beforeEach(() => {
     fetchMock.spy();
@@ -21,7 +21,7 @@ describe("UserRow component", () => {
 
     assert.equal(userWrapper.find("tr").length, 1, "Expected to have element <tr>");
     assert.equal(userWrapper.find("td").at(1).text(), "user1", "Expected to have element <td>");
-    assert.equal(userWrapper.find("td").at(2).text(), "email", "Expected to have element <td>");
+    assert.equal(userWrapper.find("td").at(2).text(), "email1", "Expected to have element <td>");
   });
   test("should not create error with empty user", () => {
     const emptyUser = new User();
@@ -47,7 +47,7 @@ describe("UserRow component", () => {
     assert.equal(userWrapper.state().username, "newUsername");
     // email
     const emailWrapper = userWrapper.find(FormControl).at(1).shallow();
-    assert.equal(emailWrapper.prop("defaultValue"), "email");
+    assert.equal(emailWrapper.prop("defaultValue"), "email1");
     emailWrapper.simulate("change", {target: {value: "newEmail"}});
     assert.equal(userWrapper.state().email, "newEmail");
     // finish editing with button
@@ -77,7 +77,7 @@ describe("UserRow component", () => {
     assert.equal(userWrapper.state().username, "newUsername");
     // email
     const emailWrapper = userWrapper.find(FormControl).at(1).shallow();
-    assert.equal(emailWrapper.prop("defaultValue"), "email");
+    assert.equal(emailWrapper.prop("defaultValue"), "email1");
     emailWrapper.simulate("change", {target: {value: "newEmail"}});
     assert.equal(userWrapper.state().email, "newEmail");
     // finish editing with enter

@@ -2,9 +2,8 @@ import {assert} from "chai";
 import * as fetchMock from "fetch-mock";
 import UserActions from "../../src/actions/UserActions";
 import store from "../../src/stores/Store";
+import {user1, user2} from "../userList";
 
-const user1 = {username: "user1", email: "email", index: 0, _id: "1"};
-const user2 = {username: "user2", email: "email", index: 1, _id: "2"};
 describe("Action", () => {
   beforeEach(() => {
     fetchMock.spy();

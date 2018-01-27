@@ -5,7 +5,7 @@ import User from "../domain/User";
 import {IRootState} from "../stores/Store";
 import EditUser from "./EditUser";
 
-interface IUserContainer {
+export interface IUserContainer {
   user: User;
 }
 

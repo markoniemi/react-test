@@ -9,7 +9,7 @@ import User from "../domain/User";
 import store, {IRootState} from "../stores/Store";
 import Users from "./Users";
 
-interface IUsersContainer {
+export interface IUsersContainer {
   users: User[];
 }
 
