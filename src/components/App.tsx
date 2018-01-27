@@ -1,25 +1,24 @@
 import * as React from "react";
-import {Button, Glyphicon, Panel} from "react-bootstrap";
+import {AppContainer} from "react-hot-loader";
 import {Provider} from "react-redux";
-import {browserHistory} from "react-router";
+import {browserHistory, Route, Router} from "react-router";
 import store from "../stores/Store";
+import UserContainer from "./UserContainer";
 import UsersContainer from "./UsersContainer";
 
 export default class App extends React.Component<any, any> {
   public render(): JSX.Element {
     return (
-      <Provider store={store}>
-        <Panel header="Users">
-          <UsersContainer/>
-          <Button id="addUser" bsStyle="primary" onClick={this.newUser}>
-            <Glyphicon glyph="glyphicon glyphicon-plus"/>
-          </Button>
-        </Panel>
-      </Provider>
+      <AppContainer>
+        <Provider store={store}>
+          <Router history={browserHistory}>
+            <Route path="/" component={UsersContainer}/>
+            <Route path="/users/new" component={UserContainer}/>
+            <Route path="/users/:id" component={UserContainer}/>
+          </Router>
+        </Provider>
+      </AppContainer>
     );
   }
 
-  private newUser(): void {
-    browserHistory.push("/users/new");
-  }
 }
