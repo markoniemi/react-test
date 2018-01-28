@@ -1,13 +1,13 @@
 import "bootstrap/dist/css/bootstrap.css";
-import * as IDebug from "debug";
+import * as Debug from "debug";
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 import App from "./components/App";
 import "./main.css";
 
 const render = (): void => {
-  // IDebug.enable("*");
-  IDebug.disable();
+  // Debug.enable("*");
+  Debug.disable();
   ReactDOM.render(
     <App/>,
     document.getElementById("root"),

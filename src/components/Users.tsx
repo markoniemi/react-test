@@ -3,7 +3,7 @@ import {Table} from "react-bootstrap";
 import User from "../domain/User";
 import UserRow from "./UserRow";
 interface IUsers {
-  users: User[];
+  users: ReadonlyArray<User>;
 }
 export default class Users extends React.Component<IUsers, any> {
   constructor(props: IUsers) {

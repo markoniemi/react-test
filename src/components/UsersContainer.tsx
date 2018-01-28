@@ -1,7 +1,5 @@
 import * as React from "react";
-import * as Button from "react-bootstrap/lib/Button";
-import * as Glyphicon from "react-bootstrap/lib/Glyphicon";
-import * as Panel from "react-bootstrap/lib/Panel";
+import {Button, Glyphicon, Panel} from "react-bootstrap";
 import {connect} from "react-redux";
 import {browserHistory} from "react-router";
 import UserActions from "../actions/UserActions";
@@ -10,7 +8,7 @@ import store, {IRootState} from "../stores/Store";
 import Users from "./Users";
 
 export interface IUsersContainer {
-  users: User[];
+  users: ReadonlyArray<User>;
 }
 
 export class UsersContainer extends React.Component<IUsersContainer, any> {
@@ -34,6 +32,7 @@ export class UsersContainer extends React.Component<IUsersContainer, any> {
       </Panel>
     );
   }
+
   private newUser(): void {
     browserHistory.push("/users/new");
   }

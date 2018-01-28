@@ -1,11 +1,10 @@
-import * as IDebug from "debug";
-import {IDebugger} from "debug";
+import * as Debug from "debug";
 import {browserHistory} from "react-router";
 import {IUserAction, UserActionType} from "../actions/UserActions";
 import User from "../domain/User";
 
-export default (state: User[] = [], action: IUserAction): any => {
-  const debug: IDebugger = IDebug("UsersReducer");
+export default (state: ReadonlyArray<User> = [], action: IUserAction): any => {
+  const debug: Debug.IDebugger = Debug("UsersReducer");
   switch (action.type) {
     case UserActionType.FETCH_USERS_SUCCESS:
       return [...action.users];

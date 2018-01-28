@@ -13,7 +13,7 @@ const middlewares: Middleware[] = [thunk];
 const storeEnhancer: GenericStoreEnhancer = Redux.applyMiddleware(...middlewares);
 
 export interface IRootState {
-  users: User[];
+  users: ReadonlyArray<User>;
 }
 
 const store: Redux.Store<IRootState> = Redux.createStore<IRootState>(reducers, storeEnhancer);

@@ -29,7 +29,7 @@ export class UserContainer extends React.Component<IUserContainer, any> {
     return {user};
   }
 
-  private static findUserById(users: User[], id: string): User {
+  private static findUserById(users: ReadonlyArray<User>, id: string): User {
     return users.find((user: User): boolean => user._id === id);
   }
 }
