@@ -2,14 +2,25 @@ import {assert} from "chai";
 import {shallow} from "enzyme";
 import "isomorphic-fetch";
 import * as React from "react";
-import EditUser from "../../src/components/EditUser";
-import {IUserContainer, UserContainer} from "../../src/components/UserContainer";
+import {Button} from "react-bootstrap";
+import * as sinon from "sinon";
 import UserRow from "../../src/components/UserRow";
 import {IUsersContainer, UsersContainer} from "../../src/components/UsersContainer";
 import {IRootState} from "../../src/stores/Store";
 import {user1, users} from "../userList";
 
 describe("UsersContainer component", () => {
+  test("should not create error with empty user list", () => {
+    const wrapper = shallow(<UsersContainer users={[]}/>);
+    assert.isNotNull(wrapper.find(UsersContainer), "Expected to have component UsersContainer");
+  });
+  test("New user button should call newUser", () => {
+    const spy = sinon.spy(UsersContainer.prototype, "newUser");
+    const wrapper = shallow(<UsersContainer users={[]}/>);
+    assert.isNotNull(wrapper.find(UsersContainer), "Expected to have component UsersContainer");
+    const element = wrapper.find(Button).simulate("click");
+    assert.isTrue(spy.calledOnce);
+  });
   test("mapStateToProps", () => {
     const state: IRootState = {users};
     const usersContainer: IUsersContainer = UsersContainer.mapStateToProps(state);

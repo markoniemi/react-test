@@ -158,7 +158,7 @@ async function parseUser(userRow: WebElement): Promise<User> {
 async function createChrome(): Promise<Driver> {
   const chromePath = chrome.path;
   const loggingPrefs = new logging.Preferences();
-  loggingPrefs.setLevel(logging.Type.DRIVER, logging.Level.INFO);
+  loggingPrefs.setLevel(logging.Type.DRIVER, logging.Level.WARNING);
   const options: Options = new Options();
   options.addArguments("headless", "disable-gpu", "no-sandbox", "start-maximized");
   // options.addArguments("--disable-gpu", "start-maximized");

@@ -55,19 +55,28 @@ describe("EditUser component", () => {
       done();
     }, 100, store);
   });
-  //   describe("edit with keyboard", () => {
-  //     test("should edit a user with keyboard", () => {
-  //       var user = {username: "username", email: "email1", index: 0};
-  //       const userWrapper = shallow(<UserRow user={user}/>);
+  test("edit with keyboard", async (done) => {
+      fetchMock.postOnce("http://localhost:8080/api/users/", user1);
+      fetchMock.putOnce("http://localhost:8080/api/users/1", 200);
+      await store.dispatch(UserActions.addUser(user1));
+      const editUserWrapper: ShallowWrapper<IEditUser, Partial<User>> = shallow(<EditUser user={user1}/>);
 
-  //       assert.equal(userWrapper.state("editing"), false, "should not be in editing state");
-  //       // start edit by clicking email
-  //       userWrapper.find("td").at(0).simulate("click");
-  //       assert.equal(userWrapper.state("editing"), true, "should enter editing state");
-  //       // finish editing with enter
-  //       const emailWrapper = userWrapper.find(FormControl).at(1).shallow();
-  //       emailWrapper.find("input").at(0).simulate("keyPress", {key: "Enter"});
-  //       assert.equal(userWrapper.state("editing"), false, "should enter view only state");
-  //     });
-  //   });
+      // username
+      let formControl: ShallowWrapper<any, any> = editUserWrapper.find(FormControl).at(1);
+      assert.equal(formControl.prop("defaultValue"), "user1");
+      formControl.simulate("change", {target: {value: "newUsername"}});
+      assert.equal(editUserWrapper.state().username, "newUsername");
+      // email
+      formControl = editUserWrapper.find(FormControl).at(2);
+      assert.equal(formControl.prop("defaultValue"), "email1");
+      formControl.simulate("change", {target: {value: "newEmail"}});
+      assert.equal(editUserWrapper.state().email, "newEmail");
+      await formControl.simulate("keyPress", {key: "Enter"});
+      setTimeout((store: Store<IRootState>) => {
+        assert.equal(store.getState().users.length, 1, "store should have a new user");
+        assert.equal(store.getState().users[0].username, "newUsername");
+        assert.equal(store.getState().users[0].email, "newEmail");
+        done();
+      }, 100, store);
+    });
 });
