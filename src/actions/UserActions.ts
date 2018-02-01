@@ -1,6 +1,7 @@
 import "isomorphic-fetch";
 import {Dispatch} from "react-redux";
 import {ThunkAction} from "redux-thunk";
+import UserApi from "../api/UserApi";
 import User from "../domain/User";
 import {IRootState} from "../stores/Store";
 
@@ -31,8 +32,7 @@ export default class UserActions {
     return async (dispatch: Dispatch<IRootState>): Promise<IUserAction> => {
       dispatch(this.fetchUsersRequest());
       try {
-        const response: Response = await fetch("http://localhost:8080/api/users");
-        const users: User[] = await response.json();
+        const users: User[] = await UserApi.fetchUsers();
         return dispatch(this.fetchUsersSuccess(users));
       } catch (e) {
         return dispatch(this.fetchUsersError());
@@ -68,15 +68,9 @@ export default class UserActions {
   public static addUser(user: User): ThunkAction<Promise<IUserAction>, IRootState, any> {
     return async (dispatch: Dispatch<IRootState>): Promise<IUserAction> => {
       dispatch(this.addUserRequest());
-      const request: RequestInit = {
-        body: JSON.stringify(user),
-        headers: new Headers({"content-type": "application/json"}),
-        method: "POST",
-      };
       try {
-        const response: Response = await fetch("http://localhost:8080/api/users/", request);
-        const user: User = await response.json();
-        return dispatch(this.addUserSuccess(user));
+        const savedUser: User = await UserApi.addUser(user);
+        return dispatch(this.addUserSuccess(savedUser));
       } catch (e) {
         return dispatch(this.addUserError());
       }
@@ -86,12 +80,8 @@ export default class UserActions {
   public static removeUser(user: User) {
     return async (dispatch: Dispatch<IRootState>): Promise<IUserAction> => {
       dispatch(this.removeUserRequest());
-      const request: RequestInit = {
-        headers: new Headers({"content-type": "application/json"}),
-        method: "DELETE",
-      };
       try {
-        await fetch("http://localhost:8080/api/users/" + user._id, request);
+        await UserApi.removeUser(user);
         return dispatch(this.removeUserSuccess(user));
       } catch (e) {
         return dispatch(this.removeUserError());
@@ -121,13 +111,8 @@ export default class UserActions {
   public static editUser(user: User) {
     return async (dispatch: Dispatch<IRootState>): Promise<IUserAction> => {
       dispatch(this.editUserRequest());
-      const request: RequestInit = {
-        body: JSON.stringify(user),
-        headers: new Headers({"content-type": "application/json"}),
-        method: "PUT",
-      };
       try {
-        await fetch("http://localhost:8080/api/users/" + user._id, request);
+        await UserApi.editUser(user);
         return dispatch(this.editUserSuccess(user));
       } catch (e) {
         return dispatch(this.editUserError());

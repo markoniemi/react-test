@@ -4,6 +4,7 @@ import UserActions from "../../src/actions/UserActions";
 import store from "../../src/stores/Store";
 import {user1, user2} from "../userList";
 
+const userApiUrl = "http://localhost:8080/api/users/";
 describe("Action", () => {
   beforeEach(() => {
     fetchMock.spy();
@@ -13,23 +14,23 @@ describe("Action", () => {
     store.dispatch(UserActions.resetUsers());
   });
   test("should fetch users from store", async (done) => {
-    fetchMock.getOnce("http://localhost:8080/api/users", [user1]);
+    fetchMock.getOnce(userApiUrl, [user1]);
     await store.dispatch(UserActions.fetchUsers());
     assert.equal(store.getState().users.length, 1);
     done();
   });
   test("should add user in store", async (done) => {
-    fetchMock.postOnce("http://localhost:8080/api/users/", user1);
-    fetchMock.postOnce("http://localhost:8080/api/users/", user2);
+    fetchMock.postOnce(userApiUrl, user1);
+    fetchMock.postOnce(userApiUrl, user2);
     await store.dispatch(UserActions.addUser(user1));
     await store.dispatch(UserActions.addUser(user2));
     assert.equal(store.getState().users.length, 2);
     done();
   });
   test("should remove user from store", async (done) => {
-    fetchMock.postOnce("http://localhost:8080/api/users/", user1);
-    fetchMock.postOnce("http://localhost:8080/api/users/", user2);
-    fetchMock.deleteOnce("http://localhost:8080/api/users/1", 200);
+    fetchMock.postOnce(userApiUrl, user1);
+    fetchMock.postOnce(userApiUrl, user2);
+    fetchMock.deleteOnce(userApiUrl + "1", 200);
     await store.dispatch(UserActions.addUser(user1));
     await store.dispatch(UserActions.addUser(user2));
     assert.equal(store.getState().users.length, 2);
@@ -38,8 +39,8 @@ describe("Action", () => {
     done();
   });
   test("should change username in store", async (done) => {
-    fetchMock.postOnce("http://localhost:8080/api/users/", user1);
-    fetchMock.putOnce("http://localhost:8080/api/users/1", 200);
+    fetchMock.postOnce(userApiUrl, user1);
+    fetchMock.putOnce(userApiUrl + "1", 200);
     await store.dispatch(UserActions.addUser(user1));
     await store.dispatch(UserActions.editUser({username: "username", email: "email", index: 0, _id: "1"}));
     assert.equal(store.getState().users[0].username, "username");
