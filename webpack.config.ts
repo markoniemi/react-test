@@ -30,13 +30,5 @@ const webpackConfig: webpack.Configuration = {
         loader: "url-loader?limit=100000@name=[name][ext]",
       }],
   },
-  devServer: {
-    proxy: {
-      "/api/*": {
-        // TODO get host and port as parameters?
-        target: "http://" + backendHost + ":" + backendPort,
-      },
-    },
-  },
 };
 export default webpackConfig;

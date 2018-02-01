@@ -20,7 +20,7 @@ export default function createBackend(host: string, port: number): Http.Server {
   return httpServer;
 }
 
-export function createUser(user: User) {
+export function createUser(user: User): void {
   userDatabase.insert(user);
 }
 
