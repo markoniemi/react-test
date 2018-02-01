@@ -32,8 +32,7 @@ export class UsersContainer extends React.Component<IUsersContainer, any> {
       </Panel>
     );
   }
-  // TODO change mock library and change to private
-  public newUser(): void {
+  private newUser(): void {
     browserHistory.push("/users/new");
   }
 

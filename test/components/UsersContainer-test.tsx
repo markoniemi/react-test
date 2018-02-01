@@ -3,6 +3,7 @@ import {shallow} from "enzyme";
 import "isomorphic-fetch";
 import * as React from "react";
 import {Button} from "react-bootstrap";
+import {SinonSpy} from "sinon";
 import * as sinon from "sinon";
 import UserRow from "../../src/components/UserRow";
 import {IUsersContainer, UsersContainer} from "../../src/components/UsersContainer";
@@ -15,7 +16,8 @@ describe("UsersContainer component", () => {
     assert.isNotNull(wrapper.find(UsersContainer), "Expected to have component UsersContainer");
   });
   test("New user button should call newUser", () => {
-    const spy = sinon.spy(UsersContainer.prototype, "newUser");
+    // @ts-ignore: Argument of type
+    const spy: SinonSpy = sinon.spy(UsersContainer.prototype, "newUser");
     const wrapper = shallow(<UsersContainer users={[]}/>);
     assert.isNotNull(wrapper.find(UsersContainer), "Expected to have component UsersContainer");
     const element = wrapper.find(Button).simulate("click");
