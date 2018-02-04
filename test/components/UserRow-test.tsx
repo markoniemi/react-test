@@ -1,4 +1,5 @@
 import {assert} from "chai";
+import * as dotenv from "dotenv";
 import {shallow, ShallowWrapper} from "enzyme";
 import * as fetchMock from "fetch-mock";
 import * as React from "react";
@@ -8,8 +9,10 @@ import UserRow, {IUserRow, IUserRowState} from "../../src/components/UserRow";
 import User from "../../src/domain/User";
 import store from "../../src/stores/Store";
 import {user1} from "../userList";
+
 describe("UserRow component", () => {
   beforeEach(() => {
+    dotenv.config({path: "config/development.env"});
     fetchMock.spy();
   });
   afterEach(() => {

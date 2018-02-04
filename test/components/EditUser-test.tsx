@@ -1,4 +1,5 @@
 import {assert} from "chai";
+import * as dotenv from "dotenv";
 import {shallow, ShallowWrapper} from "enzyme";
 import * as fetchMock from "fetch-mock";
 import * as React from "react";
@@ -12,6 +13,7 @@ import {user1} from "../userList";
 
 describe("EditUser component", () => {
   beforeEach(() => {
+    dotenv.config({path: "config/development.env"});
     fetchMock.spy();
   });
   afterEach(() => {

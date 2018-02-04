@@ -1,9 +1,9 @@
+import * as Debug from "debug";
 import User from "../domain/User";
 
 export default class UserApi {
-  private static apiUrl = "http://localhost:8080/api/users/";
   public static async fetchUsers(): Promise<User[]> {
-    const response: Response = await fetch(UserApi.apiUrl);
+    const response: Response = await fetch(UserApi.getApiUrl());
     return response.json();
   }
 
@@ -13,7 +13,7 @@ export default class UserApi {
       headers: new Headers({"content-type": "application/json"}),
       method: "POST",
     };
-    const response: Response = await fetch(UserApi.apiUrl, request);
+    const response: Response = await fetch(UserApi.getApiUrl(), request);
     return response.json();
   }
 
@@ -22,7 +22,7 @@ export default class UserApi {
       headers: new Headers({"content-type": "application/json"}),
       method: "DELETE",
     };
-    await fetch(UserApi.apiUrl + user._id, request);
+    await fetch(UserApi.getApiUrl() + user._id, request);
   }
 
   public static async editUser(user: User): Promise<void> {
@@ -31,6 +31,11 @@ export default class UserApi {
       headers: new Headers({"content-type": "application/json"}),
       method: "PUT",
     };
-    await fetch(UserApi.apiUrl + user._id, request);
+    await fetch(UserApi.getApiUrl() + user._id, request);
+  }
+  private static getApiUrl(): string {
+    const debug: Debug.IDebugger = Debug("UsersReducer");
+    debug(process.env.HOST);
+    return "http://" + process.env.HOST + ":" + process.env.PORT + "/api/users/";
   }
 }

@@ -1,4 +1,5 @@
 import {assert} from "chai";
+import * as dotenv from "dotenv";
 import * as fetchMock from "fetch-mock";
 import UserActions from "../../src/actions/UserActions";
 import store from "../../src/stores/Store";
@@ -7,6 +8,7 @@ import {user1, user2} from "../userList";
 const userApiUrl = "http://localhost:8080/api/users/";
 describe("Action", () => {
   beforeEach(() => {
+    dotenv.config({path: "config/development.env"});
     fetchMock.spy();
   });
   afterEach(() => {

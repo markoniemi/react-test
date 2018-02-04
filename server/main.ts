@@ -1,11 +1,12 @@
+import * as dotenv from "dotenv";
 import createBackend, {createUser} from "./backend";
 import createServer from "./server";
 
-// TODO set host and port as environment variables
-const serverHost = "localhost";
-const serverPort: number = 8080;
-const backendHost = "localhost";
-const backendPort: number = 5001;
+dotenv.config({path: "config/development.env"});
+const serverHost: string = process.env.HOST;
+const serverPort: number = process.env.PORT;
+const backendHost: string = process.env.BACKEND_HOST;
+const backendPort: number = process.env.BACKEND_PORT;
 
 createServer(serverHost, serverPort, backendHost, backendPort);
 createBackend(backendHost, backendPort);

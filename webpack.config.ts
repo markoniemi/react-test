@@ -1,8 +1,6 @@
+import * as Dotenv from "dotenv-webpack";
 import * as path from "path";
 import webpack = require("webpack");
-
-const backendHost = "localhost";
-const backendPort = "5001";
 
 const webpackConfig: webpack.Configuration = {
   devtool: "source-map",
@@ -30,5 +28,12 @@ const webpackConfig: webpack.Configuration = {
         loader: "url-loader?limit=100000@name=[name][ext]",
       }],
   },
+  plugins: [
+    // Dotenv reads config/development.env file to process.env
+    new Dotenv({
+      path: "config/development.env",
+      systemvars: true,
+    }),
+  ],
 };
 export default webpackConfig;
