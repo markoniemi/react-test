@@ -1,4 +1,5 @@
 {
+  "setupFiles": ["./test/jest.setup.js"],
   "moduleFileExtensions": [
     "ts",
     "tsx",
