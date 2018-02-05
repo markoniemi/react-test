@@ -24,14 +24,18 @@ export class UsersContainer extends React.Component<IUsersContainer, any> {
 
   public render(): JSX.Element {
     return (
-      <Panel header="Users">
-        <Users users={this.props.users}/>
-        <Button id="addUser" bsStyle="primary" onClick={this.newUser}>
-          <Glyphicon glyph="glyphicon glyphicon-plus"/>
-        </Button>
+      <Panel>
+        <Panel.Heading>Users</Panel.Heading>
+        <Panel.Body>
+          <Users users={this.props.users}/>
+          <Button id="addUser" bsStyle="primary" onClick={this.newUser}>
+            <Glyphicon glyph="glyphicon glyphicon-plus"/>
+          </Button>
+        </Panel.Body>
       </Panel>
     );
   }
+
   private newUser(): void {
     browserHistory.push("/users/new");
   }
