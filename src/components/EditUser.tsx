@@ -3,6 +3,7 @@ import {Button, Col, ControlLabel, Form, FormControl, FormGroup, Glyphicon} from
 import UserActions from "../actions/UserActions";
 import User from "../domain/User";
 import store from "../stores/Store";
+import {FormattedMessage} from "react-intl";
 
 export interface IEditUser {
   user: User;
@@ -24,7 +25,7 @@ export default class EditUser extends React.Component<IEditUser, Partial<User>> 
         <Form horizontal={true}>
           <FormGroup>
             <Col sm={1}>
-              <ControlLabel>Id:</ControlLabel>
+              <ControlLabel><FormattedMessage id="id"/>:</ControlLabel>
             </Col>
             <Col sm={4}>
               <FormControl
@@ -38,7 +39,7 @@ export default class EditUser extends React.Component<IEditUser, Partial<User>> 
           </FormGroup>
           <FormGroup>
             <Col sm={1}>
-              <ControlLabel>Username:</ControlLabel>
+              <ControlLabel><FormattedMessage id="username"/>:</ControlLabel>
             </Col>
             <Col sm={4}>
               <FormControl
@@ -54,7 +55,7 @@ export default class EditUser extends React.Component<IEditUser, Partial<User>> 
           </FormGroup>
           <FormGroup>
             <Col sm={1}>
-              <ControlLabel>Email:</ControlLabel>
+              <ControlLabel><FormattedMessage id="email"/>:</ControlLabel>
             </Col>
             <Col sm={4}>
               <FormControl

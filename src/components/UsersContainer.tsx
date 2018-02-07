@@ -6,6 +6,7 @@ import UserActions from "../actions/UserActions";
 import User from "../domain/User";
 import store, {IRootState} from "../stores/Store";
 import Users from "./Users";
+import {FormattedMessage} from "react-intl";
 
 export interface IUsersContainer {
   users: ReadonlyArray<User>;
@@ -25,7 +26,7 @@ export class UsersContainer extends React.Component<IUsersContainer, any> {
   public render(): JSX.Element {
     return (
       <Panel>
-        <Panel.Heading>Users</Panel.Heading>
+        <Panel.Heading><FormattedMessage id="users"/></Panel.Heading>
         <Panel.Body>
           <Users users={this.props.users}/>
           <Button id="addUser" bsStyle="primary" onClick={this.newUser}>
