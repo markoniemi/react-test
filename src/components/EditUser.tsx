@@ -1,9 +1,9 @@
 import * as React from "react";
 import {Button, Col, ControlLabel, Form, FormControl, FormGroup, Glyphicon} from "react-bootstrap";
+import {FormattedMessage} from "react-intl";
 import UserActions from "../actions/UserActions";
 import User from "../domain/User";
 import store from "../stores/Store";
-import {FormattedMessage} from "react-intl";
 
 export interface IEditUser {
   user: User;
@@ -81,20 +81,19 @@ export default class EditUser extends React.Component<IEditUser, Partial<User>> 
     );
   }
 
-  // TODO find type for event
-  private onChangeUsername(event: any): void {
+  private onChangeUsername(event: React.ChangeEvent<any>): void {
     this.setState({
       username: event.target.value,
     });
   }
 
-  private onChangeEmail(event: any): void {
+  private onChangeEmail(event: React.ChangeEvent<any>): void {
     this.setState({
       email: event.target.value,
     });
   }
 
-  private onKeyPress(event: any): void {
+  private onKeyPress(event: React.KeyboardEvent<FormControl>): void {
     if ("Enter" === event.key) {
       this.finishEdit();
     }
