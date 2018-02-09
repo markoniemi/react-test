@@ -1,7 +1,7 @@
 {
   "name": "react-test",
-  "version": "0.1.0",
-  "description": "",
+  "version": "0.2.0",
+  "description": "Small React/Redux skeleton app with Selenium tests.",
   "main": "server/main.js",
   "dependencies": {
     "bootstrap": "3.3.7",
