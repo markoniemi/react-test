@@ -11,6 +11,7 @@
   },
   "testRegex": "(/test/.*-(test|it))\\.tsx?",
   "coverageDirectory": "reports/coverage",
+  "coveragePathIgnorePatterns": ["src/index.tsx"],
   "collectCoverageFrom" : ["src/**"],
   "mapCoverage": true,
   "testURL": "http://localhost:8080",
