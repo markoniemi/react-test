@@ -42,7 +42,7 @@ describe("UserRow component", () => {
     assert.equal(userWrapper.state().editing, false);
     userWrapper.find("td").at(1).simulate("click");
     assert.equal(userWrapper.state().editing, true);
-    assert.equal(userWrapper.find(FormControl).length, 2);
+    assert.equal(userWrapper.find(FormControl).length, 3);
     // username
     const usernameWrapper = userWrapper.find(FormControl).at(0).shallow();
     assert.equal(usernameWrapper.prop("defaultValue"), "user1");
@@ -53,6 +53,11 @@ describe("UserRow component", () => {
     assert.equal(emailWrapper.prop("defaultValue"), "email1");
     emailWrapper.simulate("change", {target: {value: "newEmail"}});
     assert.equal(userWrapper.state().email, "newEmail");
+    // password
+    const passwordWrapper = userWrapper.find(FormControl).at(2).shallow();
+    assert.equal(passwordWrapper.prop("defaultValue"), "password1");
+    passwordWrapper.simulate("change", {target: {value: "newPassword"}});
+    assert.equal(userWrapper.state().password, "newPassword");
     // finish editing with button
     await userWrapper.find(Button).at(0).simulate("click");
     assert.equal(userWrapper.state().editing, false);

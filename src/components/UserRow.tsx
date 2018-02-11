@@ -23,6 +23,7 @@ export default class UserRow extends React.Component<IUserRow, Partial<IUserRowS
     this.renderUser = this.renderUser.bind(this);
     this.onChangeUsername = this.onChangeUsername.bind(this);
     this.onChangeEmail = this.onChangeEmail.bind(this);
+    this.onChangePassword = this.onChangePassword.bind(this);
     this.deleteUser = this.deleteUser.bind(this);
     this.editUser = this.editUser.bind(this);
     this.state = {...this.props.user, editing: false};
@@ -80,6 +81,17 @@ export default class UserRow extends React.Component<IUserRow, Partial<IUserRowS
           />
         </td>
         <td>
+          <FormControl
+            id="password"
+            type="text"
+            bsSize="small"
+            defaultValue={user.password}
+            ref="password"
+            onKeyPress={this.onKeyPress}
+            onChange={this.onChangePassword}
+          />
+        </td>
+        <td>
           <Button id="saveUser" bsSize="small" className="pull-right" onClick={this.finishEdit}>
             <Glyphicon glyph="glyphicon glyphicon-ok"/>
           </Button>
@@ -105,6 +117,11 @@ export default class UserRow extends React.Component<IUserRow, Partial<IUserRowS
       email: event.target.value,
     });
   }
+  private onChangePassword(event): void {
+    this.setState({
+      password: event.target.value,
+    });
+  }
 
   private onKeyPress(event): void {
     if ("Enter" === event.key) {
@@ -117,6 +134,7 @@ export default class UserRow extends React.Component<IUserRow, Partial<IUserRowS
       _id: this.state._id,
       email: this.state.email,
       index: this.state.index,
+      password: this.state.password,
       username: this.state.username,
     };
     this.setState({

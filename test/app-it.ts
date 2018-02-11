@@ -38,7 +38,7 @@ describe("Selenium", () => {
   describe("App", () => {
     test("addUserWithEditUser", async (done) => {
       try {
-        await addUserWithEditUser({username: "newUser", email: "newEmail", index: 0});
+        await addUserWithEditUser({username: "newUser", email: "newEmail", password: "newPassword", index: 0});
         done();
       } catch (e) {
         logger.error(e);
@@ -47,7 +47,8 @@ describe("Selenium", () => {
     }, jestTimeout);
     test("editUserWithUserRow", async (done) => {
       try {
-        await editUserWithUserRow("newUser", {username: "editedUser", email: "editedEmail", index: 0});
+        const user: User = {username: "editedUser", email: "editedEmail", password: "editedPassword", index: 0};
+        await editUserWithUserRow("newUser", user);
         done();
       } catch (e) {
         logger.error(e);
@@ -56,7 +57,8 @@ describe("Selenium", () => {
     }, jestTimeout);
     test("editUserWithEditUser", async (done) => {
       try {
-        await editUserWithEditUser("editedUser", {username: "editedUser2", email: "editedEmail2", index: 0});
+        const user: User = {username: "editedUser2", email: "editedEmail2", password: "password2", index: 0};
+        await editUserWithEditUser("editedUser", user);
         done();
       } catch (e) {
         logger.error(e);
@@ -152,7 +154,8 @@ async function parseUser(userRow: WebElement): Promise<User> {
   const username = await userRow.findElement(By.id("username")).getText();
   const email = await userRow.findElement(By.id("email")).getText();
   const index = await userRow.findElement(By.id("index")).getText();
-  return {username, email, index: parseInt(index, 10)};
+  // const password = await userRow.findElement(By.id("password")).getText();
+  return {username, email, password: "", index: parseInt(index, 10)};
 }
 
 async function createChrome(): Promise<Driver> {

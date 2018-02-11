@@ -44,7 +44,7 @@ describe("Action", () => {
     fetchMock.postOnce(userApiUrl, user1);
     fetchMock.putOnce(userApiUrl + "1", 200);
     await store.dispatch(UserActions.addUser(user1));
-    await store.dispatch(UserActions.editUser({username: "username", email: "email", index: 0, _id: "1"}));
+    await store.dispatch(UserActions.editUser({username: "username", email: "email", password: "password", index: 0, _id: "1"}));
     assert.equal(store.getState().users[0].username, "username");
     done();
   });

@@ -70,6 +70,22 @@ export default class EditUser extends React.Component<IEditUser, Partial<User>> 
             </Col>
           </FormGroup>
           <FormGroup>
+            <Col sm={1}>
+              <ControlLabel><FormattedMessage id="password"/>:</ControlLabel>
+            </Col>
+            <Col sm={4}>
+              <FormControl
+                id="password"
+                type="text"
+                bsSize="small"
+                defaultValue={this.props.user.password}
+                ref="password"
+                onKeyPress={this.onKeyPress}
+                onChange={this.onChangePassword}
+              />
+            </Col>
+          </FormGroup>
+          <FormGroup>
             <Col sm={5}>
               <Button id="saveUser" bsSize="small" className="pull-right" onClick={this.finishEdit}>
                 <Glyphicon glyph="glyphicon glyphicon-ok"/>
@@ -92,6 +108,11 @@ export default class EditUser extends React.Component<IEditUser, Partial<User>> 
       email: event.target.value,
     });
   }
+  private onChangePassword(event: React.ChangeEvent<any>): void {
+    this.setState({
+      password: event.target.value,
+    });
+  }
 
   private onKeyPress(event: React.KeyboardEvent<FormControl>): void {
     if ("Enter" === event.key) {
@@ -105,6 +126,7 @@ export default class EditUser extends React.Component<IEditUser, Partial<User>> 
       _id: this.state._id,
       email: this.state.email,
       index: this.state.index,
+      password: this.state.password,
       username: this.state.username,
     };
     if (this.state._id) {

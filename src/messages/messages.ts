@@ -5,6 +5,7 @@ const i18nConfig = {
     id: "Id",
     username: "Username",
     email: "Email",
+    password: "Password",
   },
 };
 export default i18nConfig;

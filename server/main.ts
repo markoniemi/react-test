@@ -10,4 +10,4 @@ const backendPort: number = process.env.BACKEND_PORT;
 
 createServer(serverHost, serverPort, backendHost, backendPort);
 createBackend(backendHost, backendPort);
-createUser({username: "user", email: "email", index: 0});
+createUser({username: "user", email: "email", password: "password", index: 0});
