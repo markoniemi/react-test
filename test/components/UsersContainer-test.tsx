@@ -20,7 +20,7 @@ describe("UsersContainer component", () => {
     const spy: SinonSpy = sinon.spy(UsersContainer.prototype, "newUser");
     const wrapper = shallow(<UsersContainer users={[]}/>);
     assert.isNotNull(wrapper.find(UsersContainer), "Expected to have component UsersContainer");
-    const element = wrapper.find(Button).simulate("click");
+    const element = wrapper.find(Button).at(1).simulate("click");
     assert.isTrue(spy.calledOnce);
   });
   test("mapStateToProps", () => {

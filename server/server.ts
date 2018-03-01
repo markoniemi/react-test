@@ -12,11 +12,11 @@ export default function createServer(serverHost: string, serverPort: number,
   const compiler: Compiler = Webpack(webpackConfig);
   const devServerConfig: Configuration = {
     contentBase: "./public",
-    publicPath: "",
     hot: true,
     proxy: {
       "/api/*": "http://" + backendHost + ":" + backendPort,
     },
+    publicPath: "",
   };
   const server = new WebpackDevServer(compiler, devServerConfig);
 

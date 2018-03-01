@@ -3,6 +3,7 @@ const i18nConfig = {
   messages: {
     users: "Users",
     id: "Id",
+    login: "Login",
     username: "Username",
     email: "Email",
     password: "Password",

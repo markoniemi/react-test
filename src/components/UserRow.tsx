@@ -1,6 +1,6 @@
 import * as React from "react";
 import {Button, FormControl, Glyphicon} from "react-bootstrap";
-import {browserHistory} from "react-router";
+import {hashHistory} from "react-router";
 import UserActions from "../actions/UserActions";
 import User from "../domain/User";
 import store from "../stores/Store";
@@ -148,6 +148,6 @@ export default class UserRow extends React.Component<IUserRow, Partial<IUserRowS
   }
 
   private editUser(): void {
-    browserHistory.push("/users/" + this.props.user._id);
+    hashHistory.push("/users/" + this.props.user._id);
   }
 }

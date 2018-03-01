@@ -1,5 +1,6 @@
 import "isomorphic-fetch";
 import {Dispatch} from "react-redux";
+import {hashHistory} from "react-router";
 import {ThunkAction} from "redux-thunk";
 import UserApi from "../api/UserApi";
 import User from "../domain/User";
@@ -34,7 +35,7 @@ export default class UserActions {
       try {
         const users: User[] = await UserApi.fetchUsers();
         return dispatch(this.fetchUsersSuccess(users));
-      } catch (e) {
+      } catch (error) {
         return dispatch(this.fetchUsersError());
       }
     };
@@ -71,7 +72,7 @@ export default class UserActions {
       try {
         const savedUser: User = await UserApi.addUser(user);
         return dispatch(this.addUserSuccess(savedUser));
-      } catch (e) {
+      } catch (error) {
         return dispatch(this.addUserError());
       }
     };
@@ -83,7 +84,7 @@ export default class UserActions {
       try {
         await UserApi.removeUser(user);
         return dispatch(this.removeUserSuccess(user));
-      } catch (e) {
+      } catch (error) {
         return dispatch(this.removeUserError());
       }
     };
@@ -96,6 +97,7 @@ export default class UserActions {
   }
 
   public static removeUserSuccess(user: User): IUserAction {
+    hashHistory.push("/users");
     return {
       type: UserActionType.REMOVE_USER_SUCCESS,
       user,
@@ -114,7 +116,7 @@ export default class UserActions {
       try {
         await UserApi.editUser(user);
         return dispatch(this.editUserSuccess(user));
-      } catch (e) {
+      } catch (error) {
         return dispatch(this.editUserError());
       }
     };
@@ -127,6 +129,7 @@ export default class UserActions {
   }
 
   public static editUserSuccess(user: User): IUserAction {
+    hashHistory.push("/users");
     return {
       type: UserActionType.EDIT_USER_SUCCESS,
       user,
@@ -140,6 +143,7 @@ export default class UserActions {
   }
 
   public static addUserSuccess(user: User): IUserAction {
+    hashHistory.push("/users");
     return {
       type: UserActionType.ADD_USER_SUCCESS,
       user,

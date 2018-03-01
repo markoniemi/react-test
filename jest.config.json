@@ -1,5 +1,5 @@
 {
-  "setupFiles": ["./test/jest.setup.js"],
+  "setupFiles": ["./test/jest.setup.js" , "jest-localstorage-mock"],
   "moduleFileExtensions": [
     "ts",
     "tsx",
