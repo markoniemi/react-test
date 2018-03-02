@@ -4,6 +4,7 @@ node_js:
 cache:
   directories:
     - $HOME/.npm
+    - node_modules
 after_script:
   # Send coverage data to Coveralls
   - "npm run coveralls"
