@@ -28,21 +28,23 @@ export default function createBackend(host: string, port: number): Http.Server {
   return httpServer;
 }
 
-async function handleLogin(request: Request, response: Response): Promise<void> {
+async function handleLogin(request: Request, response: Response, next: NextFunction): Promise<void> {
   const loginForm: ILoginForm = {username: request.body.username, password: request.body.password};
   logger.info("authenticating user: " + loginForm.username);
   const user: User = await findUser(loginForm.username);
-  if (user != null) {
-    logger.info("authenticated user: " + user.username);
-    const loginState: ILoginState = {
-      isAuthenticated: true,
-      token: jwt.sign(loginForm, JWT_SECRET),
-      user: {username: loginForm.username, password: loginForm.password, email: "", index: 0},
-    };
-    logger.info("created token: " + loginState.token);
-    response.json(loginState);
+  if (user == null) {
+    logger.info("login error");
+    response.sendStatus(402);
+    return;
   }
-  // TODO throw an error
+  logger.info("authenticated user: " + user.username);
+  const loginState: ILoginState = {
+    isAuthenticated: true,
+    token: jwt.sign(loginForm, JWT_SECRET),
+    user: {username: loginForm.username, password: loginForm.password, email: "", index: 0},
+  };
+  logger.info("created token: " + loginState.token);
+  response.json(loginState);
 }
 
 export function createUser(user: User): void {
@@ -60,7 +62,6 @@ export async function findUser(username: string): Promise<User> {
       if (err) {
         reject(err);
       } else {
-        logger.info("Found user: ", doc.username);
         resolve(doc as User);
       }
     });

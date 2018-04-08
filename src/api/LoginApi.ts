@@ -1,8 +1,10 @@
+import * as Debug from "debug";
 import Jwt from "../api/Jwt";
 import {ILoginForm} from "../components/LoginForm";
 import User from "../domain/User";
 import {ILoginState} from "../reducers/LoginReducer";
 
+const debug: Debug.IDebugger = Debug("LoginApi");
 export default class LoginApi {
   // TODO return user + token
   public static async login(loginForm: ILoginForm): Promise<ILoginState> {
@@ -12,9 +14,13 @@ export default class LoginApi {
       method: "POST",
     };
     const response: Response = await fetch(LoginApi.getApiUrl(), request);
+    if (!response.ok) {
+      throw new Error("login.error");
+    }
     const loginState: ILoginState = await response.json();
     return loginState;
   }
+
   // TODO logout using token?
   // TODO return void?
   // TODO not needed in api?
