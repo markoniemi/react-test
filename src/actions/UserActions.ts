@@ -1,15 +1,19 @@
 import "isomorphic-fetch";
 import {Dispatch} from "react-redux";
 import {hashHistory} from "react-router";
+import {Action} from "redux-actions";
 import {ThunkAction} from "redux-thunk";
 import UserApi from "../api/UserApi";
 import User from "../domain/User";
 import {IRootState} from "../stores/Store";
 
-export interface IUserAction {
-  type: UserActionType;
+export interface IUserActionPayload {
   user?: User;
   users?: User[];
+}
+
+export interface IUserAction extends Action<IUserActionPayload> {
+  type: UserActionType;
 }
 
 export enum UserActionType {
@@ -50,7 +54,7 @@ export default class UserActions {
   public static fetchUsersSuccess(users: User[]): IUserAction {
     return {
       type: UserActionType.FETCH_USERS_SUCCESS,
-      users,
+      payload: {users},
     };
   }
 
@@ -100,7 +104,7 @@ export default class UserActions {
     hashHistory.push("/users");
     return {
       type: UserActionType.REMOVE_USER_SUCCESS,
-      user,
+      payload: {user},
     };
   }
 
@@ -132,7 +136,7 @@ export default class UserActions {
     hashHistory.push("/users");
     return {
       type: UserActionType.EDIT_USER_SUCCESS,
-      user,
+      payload: {user},
     };
   }
 
@@ -146,7 +150,7 @@ export default class UserActions {
     hashHistory.push("/users");
     return {
       type: UserActionType.ADD_USER_SUCCESS,
-      user,
+      payload: {user},
     };
   }
 

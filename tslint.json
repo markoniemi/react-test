@@ -6,6 +6,7 @@
   ],
   "rules": {
     "no-implicit-dependencies": [true, "dev"],
-    "member-ordering": "fields-first"
+    "member-ordering": "fields-first",
+    "object-literal-sort-keys": false
   }
 }
