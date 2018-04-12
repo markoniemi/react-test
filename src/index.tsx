@@ -6,8 +6,6 @@ import App from "./components/App";
 import "./main.css";
 
 const render = (): void => {
-  // Debug.enable("*");
-  Debug.disable();
   ReactDOM.render(
     <App/>,
     document.getElementById("root"),

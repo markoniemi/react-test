@@ -1,17 +1,22 @@
 import * as Debug from "debug";
 import * as React from "react";
 import {AppContainer} from "react-hot-loader";
+import {IntlProvider} from "react-intl";
 import {Provider} from "react-redux";
-import {browserHistory, Route, Router, hashHistory, RouterState, RedirectFunction} from "react-router";
+import {hashHistory, RedirectFunction, Route, Router, RouterState} from "react-router";
 import Jwt from "../api/Jwt";
 import i18nConfig from "../messages/messages";
 import store from "../stores/Store";
 import LoginForm from "./LoginForm";
 import UserContainer from "./UserContainer";
 import UsersContainer from "./UsersContainer";
-import {IntlProvider} from "react-intl";
 
 export default class App extends React.Component<any, any> {
+  constructor(props: any) {
+    super(props);
+    this.initLog();
+  }
+
   private static debug: Debug.IDebugger = Debug("App");
 
   public render(): JSX.Element {
@@ -36,6 +41,14 @@ export default class App extends React.Component<any, any> {
     if (!Jwt.isAuthenticated()) {
       App.debug("not authenticated, return to login");
       replace("/");
+    }
+  }
+
+  private initLog() {
+    if (process.env.LOG_LEVEL === "debug") {
+      Debug.enable("*");
+    } else {
+      Debug.disable();
     }
   }
 }
