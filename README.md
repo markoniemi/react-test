@@ -10,7 +10,7 @@
 A small React skeleton application that uses:
 
  - React.
- - Redux + Thunk.
+ - Redux + Thunk + flux-standard-actions.
  - React Router.
  - Bootstrap.
  - Server side logging using winston.
