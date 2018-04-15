@@ -34,7 +34,7 @@ describe("LoginActions", () => {
     done();
   });
   test("failed login", async (done) => {
-    fetchMock.postOnce(loginApiUrl, {});
+    fetchMock.postOnce(loginApiUrl, 402);
     await store.dispatch(LoginActions.login(user1));
     assert.equal(sessionStorage.getItem(Jwt.JWT_TOKEN_KEY), null);
     done();

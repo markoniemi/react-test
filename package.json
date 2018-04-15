@@ -30,7 +30,7 @@
     "dev:compile": "tsc",
     "dev:start-server": "node dist/server/main",
     "dev": "node_modules/.bin/npm-run-all -s dev:*",
-    "nodemon":"nodemon -e ts --exec \"npm run dev\"",
+    "nodemon": "nodemon -e ts --exec \"npm run dev\"",
     "start": "node_modules/.bin/ts-node server/main",
     "test": "node_modules/.bin/npm-run-all -r -p test:*",
     "test:start-server": "npm start",
