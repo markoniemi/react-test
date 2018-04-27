@@ -6,6 +6,7 @@
 [![Dependency Status](https://david-dm.org/markoniemi/react-test.svg)](https://david-dm.org/markoniemi/react-test)
 [![devDependency Status](https://david-dm.org/markoniemi/react-test/dev-status.svg)](https://david-dm.org/markoniemi/react-test#info=devDependencies)
 [![SonarCloud status](https://sonarcloud.io/api/project_badges/measure?project=markoniemi%3Areact-test&metric=alert_status)]
+[![Known Vulnerabilities](https://snyk.io/test/github/markoniemi/react-test/badge.svg)](https://snyk.io/test/github/markoniemi/react-test)
 
 A small React skeleton application that uses:
 
