@@ -1,7 +1,7 @@
 import * as dotenv from "dotenv";
 import * as winston from "winston";
-import createBackend, {createUser} from "./backend";
-import {default as Server} from "./server";
+import Backend from "./backend";
+import Server from "./server";
 
 dotenv.config({path: "config/development.env"});
 initLogs();
@@ -11,8 +11,9 @@ const backendHost: string = process.env.BACKEND_HOST;
 const backendPort: number = parseInt(process.env.BACKEND_PORT, 10);
 
 new Server(serverHost, serverPort, backendHost, backendPort).start();
-createBackend(backendHost, backendPort);
-createUser({username: "user", email: "email", password: "password", index: 0});
+let backend = new Backend(backendHost, backendPort);
+backend.start();
+backend.createUser({username: "user", email: "email", password: "password", index: 0});
 
 function initLogs() {
   const logger = winston.configure({
