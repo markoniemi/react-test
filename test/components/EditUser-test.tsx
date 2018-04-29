@@ -10,6 +10,7 @@ import EditUser, {IEditUser} from "../../src/components/EditUser";
 import User from "../../src/domain/User";
 import store, {IRootState} from "../../src/stores/Store";
 import {user1} from "../userList";
+import UserApi from "../../src/api/UserApi";
 
 describe("EditUser component", () => {
   beforeEach(() => {
@@ -34,8 +35,8 @@ describe("EditUser component", () => {
     assert.equal(userWrapper.state("username"), "");
   });
   test("should edit a user", async (done) => {
-    fetchMock.postOnce("http://localhost:8080/api/users/", user1);
-    fetchMock.putOnce("http://localhost:8080/api/users/1", 200);
+    fetchMock.postOnce(UserApi.getApiUrl(), user1);
+    fetchMock.putOnce(UserApi.getApiUrl() + "1", 200);
     await store.dispatch(UserActions.addUser(user1));
     const editUserWrapper: ShallowWrapper<IEditUser, Partial<User>> = shallow(<EditUser user={user1}/>);
 
@@ -58,27 +59,27 @@ describe("EditUser component", () => {
     }, 100, store);
   });
   test("edit with keyboard", async (done) => {
-      fetchMock.postOnce("http://localhost:8080/api/users/", user1);
-      fetchMock.putOnce("http://localhost:8080/api/users/1", 200);
-      await store.dispatch(UserActions.addUser(user1));
-      const editUserWrapper: ShallowWrapper<IEditUser, Partial<User>> = shallow(<EditUser user={user1}/>);
+    fetchMock.postOnce(UserApi.getApiUrl(), user1);
+    fetchMock.putOnce(UserApi.getApiUrl() + "1s", 200);
+    await store.dispatch(UserActions.addUser(user1));
+    const editUserWrapper: ShallowWrapper<IEditUser, Partial<User>> = shallow(<EditUser user={user1}/>);
 
-      // username
-      let formControl: ShallowWrapper<any, any> = editUserWrapper.find(FormControl).at(1);
-      assert.equal(formControl.prop("defaultValue"), "user1");
-      formControl.simulate("change", {target: {value: "newUsername"}});
-      assert.equal(editUserWrapper.state().username, "newUsername");
-      // email
-      formControl = editUserWrapper.find(FormControl).at(2);
-      assert.equal(formControl.prop("defaultValue"), "email1");
-      formControl.simulate("change", {target: {value: "newEmail"}});
-      assert.equal(editUserWrapper.state().email, "newEmail");
-      await formControl.simulate("keyPress", {key: "Enter"});
-      setTimeout((store: Store<IRootState>) => {
-        assert.equal(store.getState().users.length, 1, "store should have a new user");
-        assert.equal(store.getState().users[0].username, "newUsername");
-        assert.equal(store.getState().users[0].email, "newEmail");
-        done();
-      }, 100, store);
-    });
+    // username
+    let formControl: ShallowWrapper<any, any> = editUserWrapper.find(FormControl).at(1);
+    assert.equal(formControl.prop("defaultValue"), "user1");
+    formControl.simulate("change", {target: {value: "newUsername"}});
+    assert.equal(editUserWrapper.state().username, "newUsername");
+    // email
+    formControl = editUserWrapper.find(FormControl).at(2);
+    assert.equal(formControl.prop("defaultValue"), "email1");
+    formControl.simulate("change", {target: {value: "newEmail"}});
+    assert.equal(editUserWrapper.state().email, "newEmail");
+    await formControl.simulate("keyPress", {key: "Enter"});
+    setTimeout((store: Store<IRootState>) => {
+      assert.equal(store.getState().users.length, 1, "store should have a new user");
+      assert.equal(store.getState().users[0].username, "newUsername");
+      assert.equal(store.getState().users[0].email, "newEmail");
+      done();
+    }, 100, store);
+  });
 });

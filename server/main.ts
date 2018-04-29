@@ -1,7 +1,7 @@
 import * as dotenv from "dotenv";
 import * as winston from "winston";
 import createBackend, {createUser} from "./backend";
-import createServer from "./server";
+import {default as Server} from "./server";
 
 dotenv.config({path: "config/development.env"});
 initLogs();
@@ -10,8 +10,7 @@ const serverPort: number = parseInt(process.env.PORT, 10);
 const backendHost: string = process.env.BACKEND_HOST;
 const backendPort: number = parseInt(process.env.BACKEND_PORT, 10);
 
-// TODO set log level from to .env file
-createServer(serverHost, serverPort, backendHost, backendPort);
+new Server(serverHost, serverPort, backendHost, backendPort).start();
 createBackend(backendHost, backendPort);
 createUser({username: "user", email: "email", password: "password", index: 0});
 

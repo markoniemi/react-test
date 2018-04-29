@@ -7,8 +7,8 @@ import {Button, FormControl} from "react-bootstrap";
 import Jwt from "../../src/api/Jwt";
 import LoginForm, {ILoginForm} from "../../src/components/LoginForm";
 import {ILoginState} from "../../src/reducers/LoginReducer";
+import LoginApi from "../../src/api/LoginApi";
 
-const loginApiUrl = "http://localhost:8080/api/login/";
 describe("LoginForm component", () => {
   beforeEach(() => {
     dotenv.config({path: "config/development.env"});
@@ -46,7 +46,7 @@ describe("LoginForm component", () => {
   });
   test("should dispatch login action", async (done) => {
     const loginState: ILoginState = {isAuthenticated: true, token: "token"};
-    fetchMock.postOnce(loginApiUrl, loginState);
+    fetchMock.postOnce(LoginApi.getApiUrl(), loginState);
     const loginWrapper: ShallowWrapper<any, ILoginForm> =
       shallow(<LoginForm />);
     // username

@@ -37,7 +37,7 @@ export default class UserApi {
     };
     await fetch(UserApi.getApiUrl() + user._id, request);
   }
-  private static getApiUrl(): string {
+  public static getApiUrl(): string {
     return "http://" + process.env.HOST + ":" + process.env.PORT + "/api/users/";
   }
 }

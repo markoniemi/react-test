@@ -9,6 +9,7 @@ import UserRow, {IUserRow, IUserRowState} from "../../src/components/UserRow";
 import User from "../../src/domain/User";
 import store from "../../src/stores/Store";
 import {user1} from "../userList";
+import UserApi from "../../src/api/UserApi";
 
 describe("UserRow component", () => {
   beforeEach(() => {
@@ -33,8 +34,8 @@ describe("UserRow component", () => {
     assert.equal(userWrapper.state().username, "");
   });
   test("should edit a user", async (done) => {
-    fetchMock.postOnce("http://localhost:8080/api/users/", user1);
-    fetchMock.putOnce("http://localhost:8080/api/users/1", 200);
+    fetchMock.postOnce(UserApi.getApiUrl(), user1);
+    fetchMock.putOnce(UserApi.getApiUrl() + "1", 200);
     await store.dispatch(UserActions.addUser(user1));
     assert.equal(store.getState().users.length, 1, "store should have a new user");
     const userWrapper = shallow(<UserRow user={user1}/>);
@@ -69,8 +70,8 @@ describe("UserRow component", () => {
     }, 1000, store);
   });
   test("should edit a user with keyboard", async (done) => {
-    fetchMock.postOnce("http://localhost:8080/api/users/", user1);
-    fetchMock.putOnce("http://localhost:8080/api/users/1", 200);
+    fetchMock.postOnce(UserApi.getApiUrl(), user1);
+    fetchMock.putOnce(UserApi.getApiUrl() + "1", 200);
     await store.dispatch(UserActions.addUser(user1));
     const userWrapper = shallow(<UserRow user={user1}/>);
 
@@ -99,8 +100,8 @@ describe("UserRow component", () => {
     }, 1000, store);
   });
   test("should delete a user", async (done) => {
-    fetchMock.postOnce("http://localhost:8080/api/users/", user1);
-    fetchMock.deleteOnce("http://localhost:8080/api/users/1", 200);
+    fetchMock.postOnce(UserApi.getApiUrl(), user1);
+    fetchMock.deleteOnce(UserApi.getApiUrl() + "1", 200);
     await store.dispatch(UserActions.addUser(user1));
     const userWrapper = shallow(<UserRow user={user1}/>);
 
