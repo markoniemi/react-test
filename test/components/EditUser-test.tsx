@@ -60,7 +60,7 @@ describe("EditUser component", () => {
   });
   test("edit with keyboard", async (done) => {
     fetchMock.postOnce(UserApi.getApiUrl(), user1);
-    fetchMock.putOnce(UserApi.getApiUrl() + "1s", 200);
+    fetchMock.putOnce(UserApi.getApiUrl() + "1", 200);
     await store.dispatch(UserActions.addUser(user1));
     const editUserWrapper: ShallowWrapper<IEditUser, Partial<User>> = shallow(<EditUser user={user1}/>);
 
