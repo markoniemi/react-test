@@ -13,7 +13,6 @@
   "coverageDirectory": "reports/coverage",
   "coveragePathIgnorePatterns": ["src/index.tsx"],
   "collectCoverageFrom" : ["src/**"],
-  "mapCoverage": true,
   "testURL": "http://localhost:8080",
   "testResultsProcessor": "./node_modules/jest-junit"
 }
