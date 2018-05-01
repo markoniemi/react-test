@@ -8,15 +8,11 @@ import webpackConfig from "../webpack.config";
 
 // TODO rename file to Server.ts
 export default class Server {
-  private readonly serverHost: string;
-  private readonly serverPort: number;
   private readonly compiler: Compiler;
   private readonly devServerConfig: Configuration;
 
-  public constructor(serverHost: string, serverPort: number,
-                     backendHost: string, backendPort: number) {
-    this.serverHost = serverHost;
-    this.serverPort = serverPort;
+  public constructor(private serverHost: string, private serverPort: number,
+                     private backendHost: string, private backendPort: number) {
     this.compiler = Webpack(webpackConfig);
     this.devServerConfig = {
       contentBase: "./public",

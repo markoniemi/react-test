@@ -1,8 +1,12 @@
 {
   "name": "react-test",
-  "version": "0.2.0",
-  "description": "Small React/Redux skeleton app with Selenium tests.",
-  "main": "server/main.js",
+  "version": "0.5.0",
+  "description": "Small React/Redux skeleton app with Jest and Selenium tests.",
+  "author": {
+    "name": "Marko Niemi",
+    "email": "marko.j.niemi@gmail.com"
+  },
+  "repository": "github:markoniemi/react-test",
   "dependencies": {
     "bootstrap": "3.3.7",
     "css-loader": "0.28.9",

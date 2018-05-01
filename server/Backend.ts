@@ -14,12 +14,8 @@ let userDatabase;
 const JWT_SECRET: string = "JWT_SECRET";
 
 export default class Backend {
-  private readonly host: string;
-  private readonly port: number;
 
-  constructor(host: string, port: number) {
-    this.host = host;
-    this.port = port;
+  constructor(private host: string, private port: number) {
     this.authenticate = this.authenticate.bind(this);
     this.handleLogin = this.handleLogin.bind(this);
   }
