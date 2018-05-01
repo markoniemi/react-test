@@ -32,10 +32,10 @@
   },
   "scripts": {
     "dev:compile": "tsc",
-    "dev:start-server": "node dist/server/main",
+    "dev:start-server": "node dist/server/Application",
     "dev": "node_modules/.bin/npm-run-all -s dev:*",
     "nodemon": "nodemon -e ts --exec \"npm run dev\"",
-    "start": "node_modules/.bin/ts-node server/main",
+    "start": "node_modules/.bin/ts-node server/Application",
     "test": "node_modules/.bin/npm-run-all -r -p test:*",
     "test:start-server": "npm start",
     "test:run-tests": "jest --coverage --config jest.config.json",
