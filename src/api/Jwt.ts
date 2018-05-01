@@ -1,7 +1,7 @@
 import * as Debug from "debug";
 
 export default class Jwt {
-  private static debug: Debug.IDebugger = Debug("Jwt");
+  private static readonly debug: Debug.IDebugger = Debug("Jwt");
   public static JWT_TOKEN_KEY: string = "jwt";
 
   public static getHeaders(): Headers {

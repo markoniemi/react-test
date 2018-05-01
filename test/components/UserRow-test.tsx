@@ -5,11 +5,11 @@ import * as fetchMock from "fetch-mock";
 import * as React from "react";
 import {Button, FormControl} from "react-bootstrap";
 import UserActions from "../../src/actions/UserActions";
+import UserApi from "../../src/api/UserApi";
 import UserRow, {IUserRow, IUserRowState} from "../../src/components/UserRow";
 import User from "../../src/domain/User";
 import store from "../../src/stores/Store";
 import {user1} from "../userList";
-import UserApi from "../../src/api/UserApi";
 
 describe("UserRow component", () => {
   beforeEach(() => {

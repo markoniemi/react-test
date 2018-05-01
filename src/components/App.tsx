@@ -12,12 +12,12 @@ import UserContainer from "./UserContainer";
 import UsersContainer from "./UsersContainer";
 
 export default class App extends React.Component<any, any> {
+  private static readonly debug: Debug.IDebugger = Debug("App");
+
   constructor(props: any) {
     super(props);
     this.initLog();
   }
-
-  private static debug: Debug.IDebugger = Debug("App");
 
   public render(): JSX.Element {
     // TODO replace isAuthenticated check with protected routes

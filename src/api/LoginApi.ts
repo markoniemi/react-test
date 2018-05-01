@@ -17,8 +17,7 @@ export default class LoginApi {
     if (!response.ok) {
       throw new Error("login.error");
     }
-    const loginState: ILoginState = await response.json();
-    return loginState;
+    return response.json();
   }
 
   // TODO logout using token?

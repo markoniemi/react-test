@@ -1,5 +1,4 @@
 import {Driver} from "selenium-webdriver/chrome";
-import LoginApi from "../../src/api/LoginApi";
 
 export default class WebDriverTest {
   protected browser: Driver;

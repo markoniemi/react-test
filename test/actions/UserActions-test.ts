@@ -2,9 +2,9 @@ import {assert} from "chai";
 import * as dotenv from "dotenv";
 import * as fetchMock from "fetch-mock";
 import UserActions from "../../src/actions/UserActions";
+import UserApi from "../../src/api/UserApi";
 import store from "../../src/stores/Store";
 import {user1, user2} from "../userList";
-import UserApi from "../../src/api/UserApi";
 
 describe("UserActions", () => {
   beforeEach(() => {

@@ -11,7 +11,7 @@ const backendHost: string = process.env.BACKEND_HOST;
 const backendPort: number = parseInt(process.env.BACKEND_PORT, 10);
 
 new Server(serverHost, serverPort, backendHost, backendPort).start();
-let backend = new Backend(backendHost, backendPort);
+const backend = new Backend(backendHost, backendPort);
 backend.start();
 backend.createUser({username: "user", email: "email", password: "password", index: 0});
 

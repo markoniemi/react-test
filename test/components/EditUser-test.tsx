@@ -6,11 +6,11 @@ import * as React from "react";
 import {Button, FormControl} from "react-bootstrap";
 import {Store} from "react-redux";
 import UserActions from "../../src/actions/UserActions";
+import UserApi from "../../src/api/UserApi";
 import EditUser, {IEditUser} from "../../src/components/EditUser";
 import User from "../../src/domain/User";
 import store, {IRootState} from "../../src/stores/Store";
 import {user1} from "../userList";
-import UserApi from "../../src/api/UserApi";
 
 describe("EditUser component", () => {
   beforeEach(() => {

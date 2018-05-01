@@ -98,7 +98,7 @@ export default class LoginForm extends React.Component<{}, ILoginForm> {
     const loginForm: ILoginForm = {
       password: this.state.password,
       username: this.state.username,
-    }
+    };
     store.dispatch(LoginActions.login(loginForm));
   }
 }

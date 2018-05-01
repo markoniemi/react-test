@@ -14,8 +14,8 @@ let userDatabase;
 const JWT_SECRET: string = "JWT_SECRET";
 
 export default class Backend {
-  private host: string;
-  private port: number;
+  private readonly host: string;
+  private readonly port: number;
 
   constructor(host: string, port: number) {
     this.host = host;
@@ -43,7 +43,7 @@ export default class Backend {
     const loginForm: ILoginForm = {username: request.body.username, password: request.body.password};
     logger.info("authenticating user: " + loginForm.username);
     const user: User = await this.findUser(loginForm.username);
-    if (user == null) {
+    if (user === null) {
       logger.info("login error");
       response.sendStatus(402);
       return;
