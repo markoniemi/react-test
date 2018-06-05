@@ -6,7 +6,6 @@ import {Configuration} from "webpack-dev-server";
 import * as logger from "winston";
 import webpackConfig from "../webpack.config";
 
-// TODO rename file to Server.ts
 export default class Server {
   private readonly compiler: Compiler;
   private readonly devServerConfig: Configuration;

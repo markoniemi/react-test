@@ -6,7 +6,6 @@ import {ILoginState} from "../reducers/LoginReducer";
 
 const debug: Debug.IDebugger = Debug("LoginApi");
 export default class LoginApi {
-  // TODO return user + token
   public static async login(loginForm: ILoginForm): Promise<ILoginState> {
     const request: RequestInit = {
       body: JSON.stringify(loginForm),
