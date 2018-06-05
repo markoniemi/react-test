@@ -29,6 +29,7 @@ export default class EditUser extends React.Component<IEditUser, Partial<User>> 
             </Col>
             <Col sm={4}>
               <FormControl
+                disabled={true}
                 type="text"
                 bsSize="small"
                 autoFocus={true}
@@ -76,7 +77,7 @@ export default class EditUser extends React.Component<IEditUser, Partial<User>> 
             <Col sm={4}>
               <FormControl
                 id="password"
-                type="text"
+                type="password"
                 bsSize="small"
                 defaultValue={this.props.user.password}
                 ref="password"

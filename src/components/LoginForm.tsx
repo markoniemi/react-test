@@ -52,7 +52,7 @@ export default class LoginForm extends React.Component<{}, ILoginForm> {
                     <Col sm={4}>
                       <FormControl
                         id="password"
-                        type="text"
+                        type="password"
                         bsSize="small"
                         ref="password"
                         onKeyPress={this.onKeyPress}

@@ -83,7 +83,7 @@ export default class UserRow extends React.Component<IUserRow, Partial<IUserRowS
         <td>
           <FormControl
             id="password"
-            type="text"
+            type="password"
             bsSize="small"
             defaultValue={user.password}
             ref="password"
