@@ -121,7 +121,7 @@ export default class EditUser extends React.Component<IEditUser, Partial<User>> 
     }
   }
 
-  private finishEdit(): void {
+  private async finishEdit(): Promise<void> {
     // TODO find a better way to map from Partial to strict
     const user: User = {
       _id: this.state._id,
@@ -131,9 +131,9 @@ export default class EditUser extends React.Component<IEditUser, Partial<User>> 
       username: this.state.username,
     };
     if (this.state._id) {
-      store.dispatch(UserActions.editUser(user));
+      await store.dispatch(UserActions.editUser(user));
     } else {
-      store.dispatch(UserActions.addUser(user));
+      await store.dispatch(UserActions.addUser(user));
     }
   }
 }

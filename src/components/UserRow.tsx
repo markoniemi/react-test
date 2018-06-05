@@ -129,7 +129,7 @@ export default class UserRow extends React.Component<IUserRow, Partial<IUserRowS
     }
   }
 
-  private finishEdit(): void {
+  private async finishEdit(): Promise<void> {
     const user: User = {
       _id: this.state._id,
       email: this.state.email,
@@ -140,11 +140,11 @@ export default class UserRow extends React.Component<IUserRow, Partial<IUserRowS
     this.setState({
       editing: false,
     });
-    store.dispatch(UserActions.editUser(user));
+    await store.dispatch(UserActions.editUser(user));
   }
 
-  private deleteUser(): void {
-    store.dispatch(UserActions.removeUser(this.props.user));
+  private async deleteUser(): Promise<void> {
+    await store.dispatch(UserActions.removeUser(this.props.user));
   }
 
   private editUser(): void {

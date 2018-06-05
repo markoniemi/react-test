@@ -20,9 +20,9 @@ export class UsersContainer extends React.Component<IUsersContainer, any> {
     super(props);
   }
 
-  public componentDidMount(): void {
+  public async componentDidMount(): Promise<void> {
     if (0 === this.props.users.length) {
-      store.dispatch(UserActions.fetchUsers());
+      await store.dispatch(UserActions.fetchUsers());
     }
   }
   // move NavBar to App?
@@ -60,9 +60,9 @@ export class UsersContainer extends React.Component<IUsersContainer, any> {
   private newUser(): void {
     hashHistory.push("/users/new");
   }
-  private logout(): void {
+  private async logout(): Promise<void> {
     debug("logout");
-    store.dispatch(LoginActions.logout());
+    await store.dispatch(LoginActions.logout());
   }
 
   public static mapStateToProps(state: IRootState): IUsersContainer {

@@ -94,11 +94,11 @@ export default class LoginForm extends React.Component<{}, ILoginForm> {
     }
   }
 
-  private login(): void {
+  private async login(): Promise<void> {
     const loginForm: ILoginForm = {
       password: this.state.password,
       username: this.state.username,
     };
-    store.dispatch(LoginActions.login(loginForm));
+    await store.dispatch(LoginActions.login(loginForm));
   }
 }
