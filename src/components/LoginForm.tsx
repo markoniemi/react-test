@@ -88,9 +88,9 @@ export default class LoginForm extends React.Component<{}, ILoginForm> {
     });
   }
 
-  private onKeyPress(event: React.KeyboardEvent<FormControl>): void {
+  private async onKeyPress(event: React.KeyboardEvent<FormControl>): Promise<void> {
     if ("Enter" === event.key) {
-      this.login();
+      await this.login();
     }
   }
 

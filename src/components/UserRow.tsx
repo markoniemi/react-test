@@ -123,9 +123,9 @@ export default class UserRow extends React.Component<IUserRow, Partial<IUserRowS
     });
   }
 
-  private onKeyPress(event): void {
+  private async onKeyPress(event): Promise<void> {
     if ("Enter" === event.key) {
-      this.finishEdit();
+      await this.finishEdit();
     }
   }
 

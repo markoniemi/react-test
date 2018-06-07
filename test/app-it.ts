@@ -12,9 +12,6 @@ import {user1} from "./userList";
 import Entry = logging.Entry;
 
 const jestTimeout: number = 20000;
-// phantomJs
-// import {Driver} from "selenium-webdriver/phantomjs";
-// const phantomJsPath = require("phantomjs-prebuilt").path;
 
 let browser: Driver;
 describe("Selenium", () => {
@@ -22,7 +19,6 @@ describe("Selenium", () => {
     try {
       dotenv.config({path: "config/development.env"});
       browser = await createChrome();
-      // browser = await createPhantomJs();
     } catch (e) {
       logger.error(e);
       fail(e);
@@ -161,9 +157,7 @@ async function createChrome(): Promise<Driver> {
   const loggingPrefs = new logging.Preferences();
   loggingPrefs.setLevel(logging.Type.DRIVER, logging.Level.WARNING);
   const options: Options = new Options();
-  // options.addArguments("headless", "disable-gpu", "no-sandbox", "start-maximized");
   options.addArguments("headless", "disable-gpu", "no-sandbox", "start-maximized", "proxy-server='direct://'", "proxy-bypass-list=*");
-  // options.addArguments("disable-gpu", "start-maximized");
   options.setLoggingPrefs(loggingPrefs);
   const driver: Driver = await new Builder()
     .withCapabilities(Capabilities.chrome())
@@ -172,15 +166,3 @@ async function createChrome(): Promise<Driver> {
     .build();
   return driver;
 }
-
-// async function createPhantomJs(): Promise<Driver> {
-//   const loggingPrefs = new logging.Preferences();
-//   loggingPrefs.setLevel(logging.Type.DRIVER, logging.Level.INFO);
-//   const phantomjs = Capabilities.phantomjs();
-//   phantomjs.set("phantomjs.binary.path", phantomJsPath);
-//   const driver: Driver = await new Builder()
-//     .withCapabilities(phantomjs)
-//     .setLoggingPrefs(loggingPrefs)
-//     .build();
-//   return driver;
-// }

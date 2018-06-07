@@ -26,7 +26,7 @@ export default class Application {
   }
 
   private initLogs() {
-    const logger = winston.configure({
+    winston.configure({
       level: process.env.LOG_LEVEL,
       transports: [
         new winston.transports.Console(),

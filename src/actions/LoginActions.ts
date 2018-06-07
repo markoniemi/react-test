@@ -77,6 +77,7 @@ export default class LoginActions {
   }
 
   public static loginError(error: Error): ILoginAction {
+    debug(error);
     return {
       type: LoginActionType.LOGIN_ERROR,
     };

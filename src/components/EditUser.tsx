@@ -115,9 +115,9 @@ export default class EditUser extends React.Component<IEditUser, Partial<User>> 
     });
   }
 
-  private onKeyPress(event: React.KeyboardEvent<FormControl>): void {
+  private async onKeyPress(event: React.KeyboardEvent<FormControl>): Promise<void> {
     if ("Enter" === event.key) {
-      this.finishEdit();
+      await this.finishEdit();
     }
   }
 
