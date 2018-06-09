@@ -13,7 +13,7 @@ A small React skeleton application that uses:
  - React.
  - Redux + Thunk + flux-standard-actions.
  - React Router.
- - Bootstrap.
+ - Bootstrap using react-bootstrap component library.
  - Server side logging using winston.
  - Client side logging using debug.
  - Typescript in client side, server side and test code.
@@ -30,3 +30,9 @@ A small React skeleton application that uses:
  - Uploading coverage report to Coveralls.io.
  - Dependency report using david-dm.
  - Uploading static analysis report to SonarCloud.
+
+### build instructions
+
+  npm install
+  npm test
+  npm run dev
