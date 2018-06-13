@@ -155,7 +155,7 @@ async function createChrome(): Promise<Driver> {
   }, jestTimeout);
   const chromePath = chrome.path;
   const loggingPrefs = new logging.Preferences();
-  loggingPrefs.setLevel(logging.Type.DRIVER, logging.Level.WARNING);
+  loggingPrefs.setLevel(logging.Type.DRIVER, logging.Level.DEBUG);
   const options: Options = new Options();
   options.addArguments("headless", "disable-gpu", "no-sandbox", "start-maximized", "proxy-server='direct://'", "proxy-bypass-list=*");
   options.setLoggingPrefs(loggingPrefs);
