@@ -2,6 +2,7 @@
 ## react-test
 
 [![Travis build status](https://travis-ci.org/markoniemi/react-test.svg?branch=master)](https://travis-ci.org/markoniemi/react-test)
+[![Build Status](https://semaphoreci.com/api/v1/markoniemi/react-test/branches/master/badge.svg)](https://semaphoreci.com/markoniemi/react-test)
 [![Coverage Status](https://img.shields.io/coveralls/markoniemi/react-test/master.svg)](https://coveralls.io/r/markoniemi/react-test?branch=master)
 [![Dependency Status](https://david-dm.org/markoniemi/react-test.svg)](https://david-dm.org/markoniemi/react-test)
 [![devDependency Status](https://david-dm.org/markoniemi/react-test/dev-status.svg)](https://david-dm.org/markoniemi/react-test#info=devDependencies)
@@ -25,6 +26,7 @@ A small React skeleton application that uses:
  - Unit tests for actions using fetch-mock.
  - Integration tests using selenium-webdriver with headless Chrome.
  - Coverage report using Jest.
+ - CI using Semaphore.
  - CI using Travis.org.
  - CI using CircleCI.
  - Uploading coverage report to Coveralls.io.
