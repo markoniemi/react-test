@@ -7,3 +7,4 @@ dist/
 reports/
 .scannerwork/
 package-lock.json
+.vagrant/
