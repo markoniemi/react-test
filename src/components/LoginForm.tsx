@@ -1,11 +1,9 @@
 import * as React from "react";
 import {Button, Col, ControlLabel, Form, FormControl, FormGroup, Glyphicon, Grid, Panel, Row} from "react-bootstrap";
-import {AppContainer} from "react-hot-loader";
 import {FormattedMessage} from "react-intl";
 import LoginActions from "../actions/LoginActions";
-import UserActions from "../actions/UserActions";
-import User from "../domain/User";
 import store from "../stores/Store";
+import {Formik} from "formik";
 
 export interface ILoginForm {
   username: string;
@@ -13,15 +11,31 @@ export interface ILoginForm {
 }
 
 export default class LoginForm extends React.Component<{}, ILoginForm> {
+  private initialValues: ILoginForm;
+
   constructor(props: any) {
     super(props);
+    this.onSubmit = this.onSubmit.bind(this);
     this.login = this.login.bind(this);
     this.onChangeUsername = this.onChangeUsername.bind(this);
     this.onChangePassword = this.onChangePassword.bind(this);
+    this.renderForm = this.renderForm.bind(this);
     this.onKeyPress = this.onKeyPress.bind(this);
+    this.initialValues = {username: "a", password: "a"};
   }
 
   public render(): JSX.Element {
+    return (
+      <Formik initialValues={this.initialValues} onSubmit={this.onSubmit} render={this.renderForm}/>
+    );
+  }
+
+  private onSubmit(form: ILoginForm) {
+    this.setState({username: form.username, password: form.password});
+    this.login();
+  }
+
+  public renderForm(props): JSX.Element {
     return (
       <Grid>
         <Row>
@@ -29,19 +43,20 @@ export default class LoginForm extends React.Component<{}, ILoginForm> {
             <Panel>
               <Panel.Heading><FormattedMessage id="login"/></Panel.Heading>
               <Panel.Body>
-                <Form horizontal={true}>
+                <Form id="loginForm" horizontal={true} onSubmit={props.handleSubmit}>
                   <FormGroup>
                     <Col sm={4}>
                       <ControlLabel><FormattedMessage id="username"/>:</ControlLabel>
                     </Col>
                     <Col sm={4}>
                       <FormControl
+                        name="username"
                         id="username"
                         type="text"
                         bsSize="small"
                         autoFocus={true}
                         ref="username"
-                        onChange={this.onChangeUsername}
+                        onChange={props.onChange}
                       />
                     </Col>
                   </FormGroup>
@@ -52,17 +67,18 @@ export default class LoginForm extends React.Component<{}, ILoginForm> {
                     <Col sm={4}>
                       <FormControl
                         id="password"
+                        name="password"
                         type="password"
                         bsSize="small"
                         ref="password"
                         onKeyPress={this.onKeyPress}
-                        onChange={this.onChangePassword}
+                        onChange={props.onChange}
                       />
                     </Col>
                   </FormGroup>
                   <FormGroup>
                     <Col sm={5}>
-                      <Button id="login" bsSize="small" className="pull-right" onClick={this.login}>
+                      <Button type="submit" id="login" bsSize="small" className="pull-right">
                         <Glyphicon glyph="glyphicon glyphicon-ok"/>
                       </Button>
                     </Col>
