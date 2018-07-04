@@ -1,9 +1,20 @@
+import {Form, Formik} from "formik";
 import * as React from "react";
-import {Button, Col, ControlLabel, Form, FormControl, FormGroup, Glyphicon, Grid, Panel, Row} from "react-bootstrap";
+import {
+  Button,
+  Col,
+  ControlLabel,
+  Form as BSForm,
+  FormControl,
+  FormGroup,
+  Glyphicon,
+  Grid,
+  Panel,
+  Row
+} from "react-bootstrap";
 import {FormattedMessage} from "react-intl";
 import LoginActions from "../actions/LoginActions";
 import store from "../stores/Store";
-import {Formik} from "formik";
 
 export interface ILoginForm {
   username: string;
@@ -30,8 +41,8 @@ export default class LoginForm extends React.Component<{}, ILoginForm> {
     );
   }
 
-  private onSubmit(form: ILoginForm) {
-    this.setState({username: form.username, password: form.password});
+  private async onSubmit(form: ILoginForm) {
+    await this.setState({username: form.username, password: form.password});
     this.login();
   }
 
@@ -43,47 +54,47 @@ export default class LoginForm extends React.Component<{}, ILoginForm> {
             <Panel>
               <Panel.Heading><FormattedMessage id="login"/></Panel.Heading>
               <Panel.Body>
-                <Form id="loginForm" horizontal={true} onSubmit={props.handleSubmit}>
-                  <FormGroup>
-                    <Col sm={4}>
-                      <ControlLabel><FormattedMessage id="username"/>:</ControlLabel>
-                    </Col>
-                    <Col sm={4}>
-                      <FormControl
-                        name="username"
-                        id="username"
-                        type="text"
-                        bsSize="small"
-                        autoFocus={true}
-                        ref="username"
-                        onChange={props.onChange}
-                      />
-                    </Col>
-                  </FormGroup>
-                  <FormGroup>
-                    <Col sm={4}>
-                      <ControlLabel><FormattedMessage id="password"/>:</ControlLabel>
-                    </Col>
-                    <Col sm={4}>
-                      <FormControl
-                        id="password"
-                        name="password"
-                        type="password"
-                        bsSize="small"
-                        ref="password"
-                        onKeyPress={this.onKeyPress}
-                        onChange={props.onChange}
-                      />
-                    </Col>
-                  </FormGroup>
-                  <FormGroup>
-                    <Col sm={5}>
-                      <Button type="submit" id="login" bsSize="small" className="pull-right">
-                        <Glyphicon glyph="glyphicon glyphicon-ok"/>
-                      </Button>
-                    </Col>
-                  </FormGroup>
-                </Form>
+                  <Form id="loginForm" horizontal={true} onSubmit={props.handleSubmit}>
+                    <FormGroup>
+                      <Col sm={4}>
+                        <ControlLabel><FormattedMessage id="username"/>:</ControlLabel>
+                      </Col>
+                      <Col sm={4}>
+                        <FormControl
+                          name="username"
+                          id="username"
+                          type="text"
+                          bsSize="small"
+                          autoFocus={true}
+                          ref="username"
+                          onChange={props.handleChange}
+                        />
+                      </Col>
+                    </FormGroup>
+                    <FormGroup>
+                      <Col sm={4}>
+                        <ControlLabel><FormattedMessage id="password"/>:</ControlLabel>
+                      </Col>
+                      <Col sm={4}>
+                        <FormControl
+                          id="password"
+                          name="password"
+                          type="password"
+                          bsSize="small"
+                          ref="password"
+                          onKeyPress={this.onKeyPress}
+                          onChange={props.handleChange}
+                        />
+                      </Col>
+                    </FormGroup>
+                    <FormGroup>
+                      <Col sm={5}>
+                        <Button type="submit" id="login" bsSize="small" className="pull-right">
+                          <Glyphicon glyph="glyphicon glyphicon-ok"/>
+                        </Button>
+                      </Col>
+                    </FormGroup>
+                  </Form>
               </Panel.Body>
             </Panel>
           </Col>
