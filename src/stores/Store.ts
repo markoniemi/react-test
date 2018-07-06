@@ -3,6 +3,7 @@ import {GenericStoreEnhancer, Middleware} from "redux";
 import thunk from "redux-thunk";
 import User from "../domain/User";
 import loginReducer, {ILoginState} from "../reducers/LoginReducer";
+import {INotificationState} from "../reducers/NotificationReducer";
 import usersReducer from "../reducers/UsersReducer";
 
 export const reducers = Redux.combineReducers<IRootState>({
@@ -16,6 +17,7 @@ const storeEnhancer: GenericStoreEnhancer = Redux.applyMiddleware(...middlewares
 export interface IRootState {
   users: ReadonlyArray<User>;
   login?: Readonly<ILoginState>;
+  notifications?: ReadonlyArray<INotificationState>;
 }
 
 const store: Redux.Store<IRootState> = Redux.createStore<IRootState>(reducers, storeEnhancer);
