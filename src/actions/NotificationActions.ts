@@ -1,14 +1,20 @@
-import * as Debug from "debug";
 import {Dispatch} from "react-redux";
 import {Action} from "redux-actions";
 import {ThunkAction} from "redux-thunk";
-import {INotificationState} from "../reducers/NotificationReducer";
-import {default as store, IRootState} from "../stores/Store";
-import {IUserAction} from "./UserActions";
+import {IRootState} from "../stores/Store";
+import Notification from "../domain/Notification";
 
-export interface INotificationAction extends Action<INotificationState> {
+export interface INotificationActionPayload {
+  notification: Notification;
+}
+
+export interface INotificationAction extends Action<INotificationActionPayload> {
   type: NotificationActionType;
   message: string;
+}
+
+export interface INotificationAction extends Action<INotificationActionPayload> {
+  type: NotificationActionType;
 }
 
 export enum NotificationActionType {
@@ -16,6 +22,8 @@ export enum NotificationActionType {
   WARN = "WARN",
   ERROR = "ERROR",
   RESET = "RESET",
+  RESET_NOTIFICATION = "RESET_NOTIFICATION",
+  RESET_NOTIFICATIONS = "RESET_NOTIFICATIONS",
 }
 
 export default class NotificationActions {
@@ -27,4 +35,5 @@ export default class NotificationActions {
       });
     };
   }
+  // TODO add missing actions
 }
