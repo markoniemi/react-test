@@ -16,18 +16,19 @@ export default (state: ReadonlyArray<Notification> = [], action: INotificationAc
   return state;
 };
 
-function addNotification(state: ReadonlyArray<Notification>, action: INotificationAction) {
-  debug("ADD_USER_SUCCESS: %s", action.payload.user.username);
-  return [...state.filter((user: Notification) => {
-    return user._id !== action.payload.user._id;
-  }), {...action.payload.user}];
+function addNotification(state: ReadonlyArray<Notification>, action: INotificationAction): ReadonlyArray<Notification> {
+  debug("addNotification: %s", action.payload.notification.type);
+  return [...state, action.payload.notification];
 }
 
-function resetNotification(state: ReadonlyArray<Notification>, action: INotificationAction) {
-  debug("REMOVE_USER_SUCCESS: %s", action.payload.user._id);
-  return [...state.filter((user: Notification) => {
-    return user._id !== action.payload.user._id;
-  })];
+function resetNotification(state: ReadonlyArray<Notification>, action: INotificationAction): ReadonlyArray<Notification> {
+  // TODO reset notification
+  debug("resetNotification: %s", action.payload.id);
+  return state.map((notification) => {
+    if (notification._id !== action.payload.id) {
+      return notification;
+    }
+  });
 }
 
 function resetNotifications(state: ReadonlyArray<Notification>, action: INotificationAction) {

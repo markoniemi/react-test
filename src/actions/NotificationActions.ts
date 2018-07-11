@@ -1,16 +1,14 @@
 import {Dispatch} from "react-redux";
 import {Action} from "redux-actions";
 import {ThunkAction} from "redux-thunk";
+import Notification, {NotificationType} from "../domain/Notification";
 import {IRootState} from "../stores/Store";
-import Notification from "../domain/Notification";
+import {UserActionType} from "./UserActions";
 
+// TODO is there a better way to do this?
 export interface INotificationActionPayload {
-  notification: Notification;
-}
-
-export interface INotificationAction extends Action<INotificationActionPayload> {
-  type: NotificationActionType;
-  message: string;
+  notification?: Notification;
+  id?: string;
 }
 
 export interface INotificationAction extends Action<INotificationActionPayload> {
@@ -27,13 +25,29 @@ export enum NotificationActionType {
 }
 
 export default class NotificationActions {
-  public static info(message: string): ThunkAction<Promise<INotificationAction>, IRootState, any> {
+  private static id = 0;
+
+  public static error(message: string): ThunkAction<Promise<INotificationAction>, IRootState, any> {
     return async (dispatch: Dispatch<IRootState>): Promise<INotificationAction> => {
+      this.id++;
       return dispatch({
-        type: NotificationActionType.INFO,
-        message,
+        type: NotificationActionType.ERROR,
+        payload: {notification: {_id: this.id.toString(), type: NotificationType.ERROR, message: message}},
       });
     };
   }
+
   // TODO add missing actions
+  public static resetNotification(id: string): INotificationAction {
+    return {
+      type: NotificationActionType.RESET_NOTIFICATION,
+      payload: {id: id},
+    };
+  }
+
+  public static resetNotifications(): INotificationAction {
+    return {
+      type: NotificationActionType.RESET_NOTIFICATIONS,
+    };
+  }
 }

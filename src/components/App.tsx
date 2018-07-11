@@ -8,6 +8,7 @@ import Jwt from "../api/Jwt";
 import i18nConfig from "../messages/messages";
 import store from "../stores/Store";
 import LoginForm from "./LoginForm";
+import NotificationsContainer from "./NotificationsContainer";
 import UserContainer from "./UserContainer";
 import UsersContainer from "./UsersContainer";
 
@@ -25,12 +26,15 @@ export default class App extends React.Component<any, any> {
       <AppContainer>
         <IntlProvider locale={i18nConfig.locale} messages={i18nConfig.messages}>
           <Provider store={store}>
-            <Router history={hashHistory}>
-              <Route path="/users" component={UsersContainer} onEnter={this.isAuthenticated}/>
-              <Route path="/users/new" component={UserContainer} onEnter={this.isAuthenticated}/>
-              <Route path="/users/:id" component={UserContainer} onEnter={this.isAuthenticated}/>
-              <Route path="*" component={LoginForm}/>
-            </Router>
+            <div>
+              <NotificationsContainer/>
+              <Router history={hashHistory}>
+                <Route path="/users" component={UsersContainer} onEnter={this.isAuthenticated}/>
+                <Route path="/users/new" component={UserContainer} onEnter={this.isAuthenticated}/>
+                <Route path="/users/:id" component={UserContainer} onEnter={this.isAuthenticated}/>
+                <Route path="*" component={LoginForm}/>
+              </Router>
+            </div>
           </Provider>
         </IntlProvider>
       </AppContainer>

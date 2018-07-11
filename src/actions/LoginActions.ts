@@ -10,6 +10,7 @@ import {ILoginForm} from "../components/LoginForm";
 import User from "../domain/User";
 import {ILoginState} from "../reducers/LoginReducer";
 import {default as store, IRootState} from "../stores/Store";
+import NotificationActions from "./NotificationActions";
 import UserActions from "./UserActions";
 
 export interface ILoginAction extends Action<ILoginState> {
@@ -30,12 +31,14 @@ const debug: Debug.IDebugger = Debug("LoginActions");
 export default class LoginActions {
   public static login(loginForm: ILoginForm): ThunkAction<Promise<ILoginAction>, IRootState, any> {
     return async (dispatch: Dispatch<IRootState>): Promise<ILoginAction> => {
+      dispatch(NotificationActions.resetNotifications());
       dispatch(this.loginRequest());
       try {
         const loginState: ILoginState = await LoginApi.login(loginForm);
         debug("login returned token: " + loginState.token);
         return dispatch(this.loginSuccess(loginState));
       } catch (error) {
+        dispatch(NotificationActions.error(error.toString()));
         return dispatch(this.loginError(error));
       }
     };
