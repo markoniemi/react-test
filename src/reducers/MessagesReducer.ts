@@ -6,9 +6,9 @@ const debug: Debug.IDebugger = Debug("MessagesReducer");
 
 export default (state: ReadonlyArray<Message> = [], action: IMessageAction): ReadonlyArray<Message> => {
   switch (action.type) {
-    case MessageActionType.ERROR:
+    case MessageActionType.ADD_MESSAGE:
       return addMessage(state, action);
-    case MessageActionType.RESET:
+    case MessageActionType.RESET_MESSAGES:
       return resetMessages(state, action);
   }
   return state;

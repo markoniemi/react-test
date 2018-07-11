@@ -14,29 +14,30 @@ export interface IMessageAction extends Action<IMessageActionPayload> {
 }
 
 export enum MessageActionType {
-  INFO = "INFO",
-  WARN = "WARN",
-  ERROR = "ERROR",
-  RESET = "RESET",
+  ADD_MESSAGE = "ADD_MESSAGE",
+  RESET_MESSAGES = "RESET_MESSAGES",
 }
 
 export default class MessageActions {
   private static id = 0;
 
   public static error(text: string): ThunkAction<Promise<IMessageAction>, IRootState, any> {
+    return this.addMessage(text, MessageType.ERROR);
+  }
+  public static addMessage(text: string, type: MessageType): ThunkAction<Promise<IMessageAction>, IRootState, any> {
     return async (dispatch: Dispatch<IRootState>): Promise<IMessageAction> => {
       this.id++;
-      const message: Message = {_id: this.id.toString(), type: MessageType.ERROR, text: text};
+      const message: Message = {_id: this.id.toString(), type, text};
       return dispatch({
-        type: MessageActionType.ERROR,
-        payload: {message: message},
+        type: MessageActionType.ADD_MESSAGE,
+        payload: {message},
       });
     };
   }
 
   public static resetMessages(): IMessageAction {
     return {
-      type: MessageActionType.RESET,
+      type: MessageActionType.RESET_MESSAGES,
     };
   }
 }

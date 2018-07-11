@@ -2,6 +2,7 @@ export enum MessageType {
   INFO = "INFO",
   WARN = "WARN",
   ERROR = "ERROR",
+  SUCCESS = "SUCCESS",
 }
 
 export default class Message {
