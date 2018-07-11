@@ -1,12 +1,9 @@
 import * as Debug from "debug";
 import * as React from "react";
-import {Panel} from "react-bootstrap";
+import {Alert} from "react-bootstrap";
 import {connect} from "react-redux";
-import UserActions from "../actions/UserActions";
 import Notification from "../domain/Notification";
-import store from "../stores/Store";
 import {IRootState} from "../stores/Store";
-import Notifications from "./Notifications";
 
 export interface INotificationsContainer {
   notifications?: ReadonlyArray<Notification>;
@@ -28,11 +25,18 @@ class NotificationsContainer extends React.Component<INotificationsContainer, an
     if (this.props.notifications != null && this.props.notifications.length > 0) {
       debug("render");
       return (
-        <Notifications notifications={this.props.notifications}/>
+        <div>
+          {this.props.notifications.map(this.renderNotification)}
+        </div>
       );
     } else {
       return null;
     }
+  }
+  private renderNotification(notification: Notification): JSX.Element {
+    return (
+      <Alert bsStyle="danger" key={notification._id}>{notification.message}</Alert>
+    );
   }
 
   public static mapStateToProps(state: IRootState): INotificationsContainer {
