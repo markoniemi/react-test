@@ -14,7 +14,8 @@ export interface INotificationsContainer {
 
 // TODO move this to class
 const debug: Debug.IDebugger = Debug("NotificationsContainer");
-export class NotificationsContainer extends React.Component<INotificationsContainer, any> {
+
+class NotificationsContainer extends React.Component<INotificationsContainer, any> {
   constructor(props: INotificationsContainer) {
     super(props);
   }
@@ -24,15 +25,14 @@ export class NotificationsContainer extends React.Component<INotificationsContai
   }
 
   public render(): JSX.Element {
-    return (
-      <div>
-        <Panel>
-          <Panel.Body>
-            <Notifications notifications={this.props.notifications}/>
-          </Panel.Body>
-        </Panel>
-      </div>
-    );
+    if (this.props.notifications != null && this.props.notifications.length > 0) {
+      debug("render");
+      return (
+        <Notifications notifications={this.props.notifications}/>
+      );
+    } else {
+      return null;
+    }
   }
 
   public static mapStateToProps(state: IRootState): INotificationsContainer {

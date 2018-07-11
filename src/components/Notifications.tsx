@@ -1,5 +1,7 @@
+import * as Debug from "debug";
 import * as React from "react";
-import {Button, Table} from "react-bootstrap";
+import {Table} from "react-bootstrap";
+import * as Panel from "react-bootstrap/lib/Panel";
 import Notification from "../domain/Notification";
 import NotificationRow from "./NotificationRow";
 
@@ -7,6 +9,7 @@ interface INotifications {
   notifications: ReadonlyArray<Notification>;
 }
 
+const debug: Debug.IDebugger = Debug("Notifications");
 export default class Notifications extends React.Component<INotifications, any> {
   constructor(props: INotifications) {
     super(props);
@@ -15,12 +18,12 @@ export default class Notifications extends React.Component<INotifications, any> 
 
   public render(): JSX.Element {
     if (this.props.notifications) {
+      debug("render");
       return (
-        <Table>
-          <tbody>
-          {this.props.notifications.map(this.renderNotification)}
-          </tbody>
-        </Table>);
+        <div>
+                {this.props.notifications.map(this.renderNotification)}
+        </div>
+      );
     } else {
       return null;
     }

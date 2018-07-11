@@ -27,7 +27,6 @@ export default class App extends React.Component<any, any> {
         <IntlProvider locale={i18nConfig.locale} messages={i18nConfig.messages}>
           <Provider store={store}>
             <div>
-              <NotificationsContainer/>
               <Router history={hashHistory}>
                 <Route path="/users" component={UsersContainer} onEnter={this.isAuthenticated}/>
                 <Route path="/users/new" component={UserContainer} onEnter={this.isAuthenticated}/>
