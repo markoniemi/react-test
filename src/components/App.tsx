@@ -8,7 +8,6 @@ import Jwt from "../api/Jwt";
 import i18nConfig from "../messages/messages";
 import store from "../stores/Store";
 import LoginForm from "./LoginForm";
-import NotificationsContainer from "./NotificationsContainer";
 import UserContainer from "./UserContainer";
 import UsersContainer from "./UsersContainer";
 

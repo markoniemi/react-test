@@ -7,7 +7,7 @@ import LoginActions from "../actions/LoginActions";
 import UserActions from "../actions/UserActions";
 import User from "../domain/User";
 import store from "../stores/Store";
-import NotificationsContainer from "./NotificationsContainer";
+import Messages from "./Messages";
 
 export interface ILoginForm {
   username: string;
@@ -31,7 +31,7 @@ export default class LoginForm extends React.Component<{}, ILoginForm> {
             <Panel>
               <Panel.Heading><FormattedMessage id="login"/></Panel.Heading>
               <Panel.Body>
-                <NotificationsContainer/>
+                <Messages/>
                 <Form horizontal={true}>
                   <FormGroup>
                     <Col sm={4}>
