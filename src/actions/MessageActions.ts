@@ -4,10 +4,7 @@ import {ThunkAction} from "redux-thunk";
 import Message, {MessageType} from "../domain/Message";
 import {IRootState} from "../stores/Store";
 
-// TODO replace this with export type IMessageActionPayload = Message | string;
-export interface IMessageActionPayload {
-  message: Message;
-}
+export type IMessageActionPayload = Message;
 
 export interface IMessageAction extends Action<IMessageActionPayload> {
   type: MessageActionType;
@@ -30,7 +27,7 @@ export default class MessageActions {
       const message: Message = {_id: this.id.toString(), type, text};
       return dispatch({
         type: MessageActionType.ADD_MESSAGE,
-        payload: {message},
+        payload: message,
       });
     };
   }

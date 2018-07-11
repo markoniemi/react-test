@@ -15,8 +15,8 @@ export default (state: ReadonlyArray<Message> = [], action: IMessageAction): Rea
 };
 
 function addMessage(state: ReadonlyArray<Message>, action: IMessageAction): ReadonlyArray<Message> {
-  debug("addMessage: %s", action.payload.message.type);
-  return [...state, action.payload.message];
+  debug("addMessage: %s", action.payload.type);
+  return [...state, action.payload];
 }
 
 function resetMessages(state: ReadonlyArray<Message>, action: IMessageAction) {
