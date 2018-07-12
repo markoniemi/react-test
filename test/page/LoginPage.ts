@@ -30,4 +30,12 @@ export default class LoginPage extends WebDriverTest {
   public async clickLogin() {
     await this.browser.findElement(By.id("login")).click();
   }
+
+  public async waitForErrorMessages() {
+    await this.browser.wait(until.elementLocated(By.id("messages")));
+  }
+
+  public async getErrorMessages() {
+    return this.browser.findElement(By.id("messages"));
+  }
 }

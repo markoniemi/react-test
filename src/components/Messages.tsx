@@ -19,7 +19,7 @@ class Messages extends React.Component<IMessages, any> {
   public render(): JSX.Element {
     if (this.props.messages != null && this.props.messages.length > 0) {
       return (
-        <div>
+        <div id="messages">
           {this.props.messages.map(this.renderMessage)}
         </div>
       );
