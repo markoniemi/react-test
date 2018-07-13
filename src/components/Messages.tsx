@@ -11,7 +11,7 @@ export interface IMessages {
 
 const debug: Debug.IDebugger = Debug("Messages");
 
-class Messages extends React.Component<IMessages, any> {
+export class Messages extends React.Component<IMessages, {}> {
   constructor(props: IMessages) {
     super(props);
   }

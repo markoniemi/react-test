@@ -159,8 +159,7 @@ async function createChrome(): Promise<Driver> {
   const loggingPrefs = new logging.Preferences();
   loggingPrefs.setLevel(logging.Type.DRIVER, logging.Level.WARNING);
   const options: Options = new Options();
-  options.addArguments("disable-gpu", "no-sandbox", "start-maximized", "proxy-server='direct://'", "proxy-bypass-list=*");
-  // options.addArguments("headless", "disable-gpu", "no-sandbox", "start-maximized", "proxy-server='direct://'", "proxy-bypass-list=*");
+  options.addArguments("headless", "disable-gpu", "no-sandbox", "start-maximized", "proxy-server='direct://'", "proxy-bypass-list=*");
   options.setLoggingPrefs(loggingPrefs);
   const driver: Driver = await new Builder()
     .withCapabilities(Capabilities.chrome())
