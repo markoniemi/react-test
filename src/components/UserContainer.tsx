@@ -1,6 +1,8 @@
 import * as React from "react";
-import {connect} from "react-redux";
-import {RouterState} from "react-router";
+import {connect, DispatchProp} from "react-redux";
+import {hashHistory, RouterState} from "react-router";
+import {Action, Dispatch} from "redux";
+import UserActions from "../actions/UserActions";
 import User from "../domain/User";
 import {IRootState} from "../stores/Store";
 import EditUser from "./EditUser";
@@ -9,7 +11,11 @@ export interface IUserContainer {
   user: User;
 }
 
-export class UserContainer extends React.Component<IUserContainer, any> {
+export interface IUserContainerActions {
+  addUser: () => Promise<void>;
+}
+
+export class UserContainer extends React.Component<IUserContainer, RouterState> {
   public constructor(props: IUserContainer) {
     super(props);
   }
@@ -29,9 +35,21 @@ export class UserContainer extends React.Component<IUserContainer, any> {
     return {user};
   }
 
+  public static mapDispatchToProps(dispatch: Dispatch<IUserContainerActions>): any {
+    return {
+      newUser: UserContainer.newUser(),
+    };
+  }
+
   private static findUserById(users: ReadonlyArray<User>, id: string): User {
     return users.find((user: User): boolean => user._id === id);
   }
+
+  private static newUser(): void {
+
+  }
 }
 
-export default connect(UserContainer.mapStateToProps)(UserContainer);
+export default connect<IUserContainer, any, RouterState>
+(UserContainer.mapStateToProps, UserContainer.mapDispatchToProps)
+(UserContainer);

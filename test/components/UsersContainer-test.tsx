@@ -15,10 +15,10 @@ describe("UsersContainer component", () => {
     const wrapper = shallow(<UsersContainer users={[]}/>);
     assert.isNotNull(wrapper.find(UsersContainer), "Expected to have component UsersContainer");
   });
-  test("New user button should call newUser", () => {
+  test("New user button should call addUser", () => {
     // @ts-ignore: Argument of type
-    const spy: SinonSpy = sinon.spy(UsersContainer.prototype, "newUser");
-    const wrapper = shallow(<UsersContainer users={[]}/>);
+    const spy: SinonSpy = sinon.spy(UsersContainer, "newUser");
+    const wrapper = shallow(<UsersContainer users={[]} newUser={spy}/>);
     assert.isNotNull(wrapper.find(UsersContainer), "Expected to have component UsersContainer");
     wrapper.find(Button).at(1).simulate("click");
     assert.isTrue(spy.calledOnce);

@@ -2,8 +2,12 @@ import * as React from "react";
 import {Table} from "react-bootstrap";
 import User from "../domain/User";
 import UserRow from "./UserRow";
+
 interface IUsers {
   users: ReadonlyArray<User>;
+  deleteUser: (user: User) => void;
+  editUser: (user: User) => void;
+  saveUser: (user: User) => void;
 }
 export default class Users extends React.Component<IUsers, any> {
   constructor(props: IUsers) {
@@ -22,7 +26,13 @@ export default class Users extends React.Component<IUsers, any> {
 
   private renderUser(user: User): JSX.Element {
     return (
-      <UserRow user={user} key={user._id}/>
+      <UserRow
+        user={user}
+        key={user._id}
+        deleteUser={this.props.deleteUser}
+        saveUser={this.props.saveUser}
+        editUser={this.props.editUser}
+      />
     );
   }
 }

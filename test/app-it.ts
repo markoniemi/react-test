@@ -76,7 +76,7 @@ describe("Selenium", () => {
         await usersPage.waitForPageLoad();
         await usersPage.clickAddUser();
         const editUserPage: EditUserPage = new EditUserPage(browser);
-        const user: User = {username: "newUser", email: "newEmail", password: "newPassword", index: 0};
+        const user: User = {username: "addUser", email: "newEmail", password: "newPassword", index: 0};
         await editUserPage.editUser(user);
         await usersPage.waitForPageLoad();
         await usersPage.waitForUserRow(user.username);
@@ -97,7 +97,7 @@ describe("Selenium", () => {
         await loginPage.login("user", "password");
         const usersPage: UsersPage = new UsersPage(browser);
         await usersPage.waitForPageLoad();
-        await usersPage.editWithUserRow("newUser", user);
+        await usersPage.editWithUserRow("addUser", user);
         await usersPage.waitForUserRow(user.username);
         await usersPage.assertUser(user);
         await usersPage.clickLogout();

@@ -1,12 +1,12 @@
 import * as React from "react";
 import {Button, FormControl, Glyphicon} from "react-bootstrap";
-import {hashHistory} from "react-router";
-import UserActions from "../actions/UserActions";
 import User from "../domain/User";
-import store from "../stores/Store";
 
 export interface IUserRow {
   user: User;
+  deleteUser: (user: User) => void;
+  editUser: (user: User) => void;
+  saveUser: (user: User) => void;
 }
 
 export interface IUserRowState extends User {
@@ -140,14 +140,14 @@ export default class UserRow extends React.Component<IUserRow, Partial<IUserRowS
     this.setState({
       editing: false,
     });
-    await store.dispatch(UserActions.editUser(user));
+    this.props.saveUser(user);
   }
 
   private async deleteUser(): Promise<void> {
-    await store.dispatch(UserActions.removeUser(this.props.user));
+    this.props.deleteUser(this.props.user);
   }
 
   private editUser(): void {
-    hashHistory.push("/users/" + this.props.user._id);
+    this.props.editUser(this.props.user);
   }
 }
