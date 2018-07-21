@@ -22,10 +22,9 @@ export interface IUsersContainerActions {
   saveUser?: (user: User) => void;
 }
 
-// TODO move this to class
-const debug: Debug.IDebugger = Debug("UsersContainer");
-
 export class UsersContainer extends React.Component<IUsersContainer & IUsersContainerActions, RouterState> {
+  private static readonly debug: Debug.IDebugger = Debug("UsersContainer");
+
   constructor(props: IUsersContainer) {
     super(props);
   }

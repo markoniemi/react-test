@@ -9,9 +9,9 @@ export interface IMessages {
   messages?: ReadonlyArray<Message>;
 }
 
-const debug: Debug.IDebugger = Debug("Messages");
-
 export class Messages extends React.Component<IMessages, {}> {
+  private static readonly debug: Debug.IDebugger = Debug("Messages");
+
   constructor(props: IMessages) {
     super(props);
   }

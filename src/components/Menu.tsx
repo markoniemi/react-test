@@ -6,10 +6,9 @@ import {RouterState} from "react-router";
 import LoginActions from "../actions/LoginActions";
 import store from "../stores/Store";
 
-// TODO move this to class
-const debug: Debug.IDebugger = Debug("Menu");
-
 export default class Menu extends React.Component<{}, RouterState> {
+  private static readonly debug: Debug.IDebugger = Debug("Menu");
+
   constructor(props: {}) {
     super(props);
   }
@@ -35,7 +34,7 @@ export default class Menu extends React.Component<{}, RouterState> {
   }
 
   public static async logout(): Promise<void> {
-    debug("logout");
+    Menu.debug("logout");
     await store.dispatch(LoginActions.logout());
   }
 }

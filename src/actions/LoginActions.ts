@@ -26,16 +26,16 @@ export enum LoginActionType {
   LOGOUT_ERROR = "LOGOUT_ERROR",
 }
 
-// TODO move this to class
-const debug: Debug.IDebugger = Debug("LoginActions");
 export default class LoginActions {
+  private static readonly debug: Debug.IDebugger = Debug("LoginActions");
+
   public static login(loginForm: ILoginForm): ThunkAction<Promise<ILoginAction>, IRootState, any> {
     return async (dispatch: Dispatch<IRootState>): Promise<ILoginAction> => {
       dispatch(MessageActions.resetMessages());
       dispatch(this.loginRequest());
       try {
         const loginState: ILoginState = await LoginApi.login(loginForm);
-        debug("login returned token: " + loginState.token);
+        LoginActions.debug("login returned token: " + loginState.token);
         return dispatch(this.loginSuccess(loginState));
       } catch (error) {
         dispatch(MessageActions.error(error.toString()));
@@ -48,7 +48,7 @@ export default class LoginActions {
     return async (dispatch: Dispatch<IRootState>): Promise<ILoginAction> => {
       dispatch(this.logoutRequest());
       try {
-        debug("logout requested");
+        LoginActions.debug("logout requested");
         Jwt.clearToken();
         // TODO how to reset the rootState?
         dispatch(UserActions.resetUsers());
@@ -66,7 +66,7 @@ export default class LoginActions {
   }
 
   public static loginSuccess(loginState: ILoginState): ILoginAction {
-    debug("loginSuccess: storing token to sessionStorage: " + loginState.token);
+    LoginActions.debug("loginSuccess: storing token to sessionStorage: " + loginState.token);
     Jwt.setToken(loginState.token);
     hashHistory.push("/users");
     return {
@@ -80,7 +80,7 @@ export default class LoginActions {
   }
 
   public static loginError(error: Error): ILoginAction {
-    debug(error);
+    LoginActions.debug(error);
     return {
       type: LoginActionType.LOGIN_ERROR,
     };

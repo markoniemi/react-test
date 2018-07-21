@@ -4,8 +4,9 @@ import {ILoginForm} from "../components/LoginForm";
 import User from "../domain/User";
 import {ILoginState} from "../reducers/LoginReducer";
 
-const debug: Debug.IDebugger = Debug("LoginApi");
 export default class LoginApi {
+  private static readonly debug: Debug.IDebugger = Debug("LoginApi");
+
   public static async login(loginForm: ILoginForm): Promise<ILoginState> {
     const request: RequestInit = {
       body: JSON.stringify(loginForm),
