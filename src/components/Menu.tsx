@@ -25,7 +25,7 @@ export default class Menu extends React.Component<{}, RouterState> {
           <NavItem ref="/users"><FormattedMessage id="users"/></NavItem>
         </Nav>
         <Navbar.Form>
-          <Button id="logout" bsStyle="primary" onClick={Menu.logout}>
+          <Button className="pull-right" id="logout" bsStyle="primary" onClick={Menu.logout}>
             <Glyphicon glyph="glyphicon glyphicon-log-out"/>
           </Button>
         </Navbar.Form>
