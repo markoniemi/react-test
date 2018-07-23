@@ -8,11 +8,14 @@ import store from "../stores/Store";
 export interface IEditUser {
   user: User;
 }
+export interface IEditUserActions {
+  saveUser?: (user: User) => Promise<void>;
+}
 
-export default class EditUser extends React.Component<IEditUser, Partial<User>> {
-  constructor(props: IEditUser) {
+export default class EditUser extends React.Component<IEditUser & IEditUserActions, Partial<User>> {
+  constructor(props: IEditUser & IEditUserActions) {
     super(props);
-    this.finishEdit = this.finishEdit.bind(this);
+    this.saveUser = this.saveUser.bind(this);
     this.onChangeUsername = this.onChangeUsername.bind(this);
     this.onChangeEmail = this.onChangeEmail.bind(this);
     this.onKeyPress = this.onKeyPress.bind(this);
@@ -88,7 +91,7 @@ export default class EditUser extends React.Component<IEditUser, Partial<User>> 
           </FormGroup>
           <FormGroup>
             <Col sm={5}>
-              <Button id="saveUser" bsSize="small" className="pull-right" onClick={this.finishEdit}>
+              <Button id="saveUser" bsSize="small" className="pull-right" onClick={this.saveUser}>
                 <Glyphicon glyph="glyphicon glyphicon-ok"/>
               </Button>
             </Col>
@@ -117,11 +120,11 @@ export default class EditUser extends React.Component<IEditUser, Partial<User>> 
 
   private async onKeyPress(event: React.KeyboardEvent<FormControl>): Promise<void> {
     if ("Enter" === event.key) {
-      await this.finishEdit();
+      await this.saveUser();
     }
   }
 
-  private async finishEdit(): Promise<void> {
+  private async saveUser(): Promise<void> {
     // TODO find a better way to map from Partial to strict
     const user: User = {
       _id: this.state._id,
@@ -130,10 +133,6 @@ export default class EditUser extends React.Component<IEditUser, Partial<User>> 
       password: this.state.password,
       username: this.state.username,
     };
-    if (this.state._id) {
-      await store.dispatch(UserActions.editUser(user));
-    } else {
-      await store.dispatch(UserActions.addUser(user));
-    }
+    await this.props.saveUser(user);
   }
 }

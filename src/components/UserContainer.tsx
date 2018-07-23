@@ -4,6 +4,7 @@ import {hashHistory, RouterState} from "react-router";
 import {Action, Dispatch} from "redux";
 import UserActions from "../actions/UserActions";
 import User from "../domain/User";
+import store from "../stores/Store";
 import {IRootState} from "../stores/Store";
 import EditUser from "./EditUser";
 
@@ -12,17 +13,17 @@ export interface IUserContainer {
 }
 
 export interface IUserContainerActions {
-  addUser: () => Promise<void>;
+  saveUser: (user: User) => Promise<void>;
 }
 
-export class UserContainer extends React.Component<IUserContainer, RouterState> {
-  public constructor(props: IUserContainer) {
+export class UserContainer extends React.Component<IUserContainer & IUserContainerActions, RouterState> {
+  public constructor(props: IUserContainer & IUserContainerActions) {
     super(props);
   }
 
   public render(): JSX.Element {
     return (
-      <EditUser user={this.props.user}/>
+      <EditUser user={this.props.user} saveUser={this.props.saveUser}/>
     );
   }
 
@@ -35,9 +36,9 @@ export class UserContainer extends React.Component<IUserContainer, RouterState> 
     return {user};
   }
 
-  public static mapDispatchToProps(dispatch: Dispatch<IUserContainerActions>): any {
+  public static mapDispatchToProps(dispatch: Dispatch<IUserContainerActions>): IUserContainerActions {
     return {
-      newUser: UserContainer.newUser(),
+      saveUser: UserContainer.saveUser,
     };
   }
 
@@ -45,11 +46,15 @@ export class UserContainer extends React.Component<IUserContainer, RouterState> 
     return users.find((user: User): boolean => user._id === id);
   }
 
-  private static newUser(): void {
-
+  public static async saveUser(user: User): Promise<void> {
+    if (user._id) {
+      await store.dispatch(UserActions.editUser(user));
+    } else {
+      await store.dispatch(UserActions.addUser(user));
+    }
   }
 }
 
-export default connect<IUserContainer, any, RouterState>
+export default connect<IUserContainer, IUserContainerActions, RouterState>
 (UserContainer.mapStateToProps, UserContainer.mapDispatchToProps)
 (UserContainer);

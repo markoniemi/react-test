@@ -15,7 +15,7 @@ describe("User container", () => {
     assert(userContainer.user.username, "user1");
   });
   test("render", () => {
-    const wrapper = shallow(<UserContainer user={user1}/>);
+    const wrapper = shallow(<UserContainer user={user1} saveUser={UserContainer.saveUser}/>);
     assert.isNotNull(wrapper.find(UserContainer), "Expected to have component UserContainer");
     assert.isNotNull(wrapper.find(EditUser), "Expected to have component EditUser");
   });
