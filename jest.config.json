@@ -18,6 +18,6 @@
   "testResultsProcessor": "jest-sonar-reporter",
   "jestSonar": {
     "reportPath": "reports",
-    "reportFile": "test-reporter.xml"
+    "reportFile": "test-report.xml"
   }
 }
