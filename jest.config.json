@@ -14,5 +14,10 @@
   "coveragePathIgnorePatterns": ["src/index.tsx"],
   "collectCoverageFrom" : ["src/**"],
   "testURL": "http://localhost:8080",
-  "testResultsProcessor": "./node_modules/jest-junit"
+  "testResultsProcessor": "./node_modules/jest-junit",
+  "testResultsProcessor": "jest-sonar-reporter",
+  "jestSonar": {
+    "reportPath": "reports",
+    "reportFile": "test-reporter.xml"
+  }
 }
