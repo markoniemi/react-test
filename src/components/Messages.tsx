@@ -45,12 +45,10 @@ export class Messages extends React.Component<IMessages, {}> {
     if (type === MessageType.WARN) {
       return "warning";
     }
-    if (type === MessageType.INFO) {
-      return "info";
-    }
     if (type === MessageType.SUCCESS) {
       return "success";
     }
+    return "info";
   }
 }
 

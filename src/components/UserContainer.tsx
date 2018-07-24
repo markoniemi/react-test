@@ -1,11 +1,10 @@
 import * as React from "react";
-import {connect, DispatchProp} from "react-redux";
-import {hashHistory, RouterState} from "react-router";
-import {Action, Dispatch} from "redux";
+import {connect} from "react-redux";
+import {RouterState} from "react-router";
+import {Dispatch} from "redux";
 import UserActions from "../actions/UserActions";
 import User from "../domain/User";
-import store from "../stores/Store";
-import {IRootState} from "../stores/Store";
+import store, {IRootState} from "../stores/Store";
 import EditUser from "./EditUser";
 
 export interface IUserContainer {

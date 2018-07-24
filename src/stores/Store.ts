@@ -1,5 +1,4 @@
-import * as Redux from "redux";
-import {GenericStoreEnhancer, Middleware} from "redux";
+import {applyMiddleware, combineReducers, createStore, GenericStoreEnhancer, Middleware, Store} from "redux";
 import thunk from "redux-thunk";
 import Message from "../domain/Message";
 import User from "../domain/User";
@@ -7,14 +6,14 @@ import loginReducer, {ILoginState} from "../reducers/LoginReducer";
 import messagesReducer from "../reducers/MessagesReducer";
 import usersReducer from "../reducers/UsersReducer";
 
-export const reducers = Redux.combineReducers<IRootState>({
+export const reducers = combineReducers<IRootState>({
   login: loginReducer,
   users: usersReducer,
   messages: messagesReducer,
 });
 
 const middlewares: Middleware[] = [thunk];
-const storeEnhancer: GenericStoreEnhancer = Redux.applyMiddleware(...middlewares);
+const storeEnhancer: GenericStoreEnhancer = applyMiddleware(...middlewares);
 
 export interface IRootState {
   users?: ReadonlyArray<User>;
@@ -22,5 +21,5 @@ export interface IRootState {
   messages?: ReadonlyArray<Message>;
 }
 
-const store: Redux.Store<IRootState> = Redux.createStore<IRootState>(reducers, storeEnhancer);
+const store: Store<IRootState> = createStore<IRootState>(reducers, storeEnhancer);
 export default store;
