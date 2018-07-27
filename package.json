@@ -119,5 +119,9 @@
   },
   "jest-junit": {
     "output": "./reports/test/TESTS.xml"
+  },
+  "jestSonar": {
+    "reportPath": "reports/test",
+    "reportFile": "test-report.xml"
   }
 }

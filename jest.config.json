@@ -15,9 +15,5 @@
   "collectCoverageFrom" : ["src/**"],
   "testURL": "http://localhost:8080",
   "testResultsProcessor": "./node_modules/jest-junit",
-  "testResultsProcessor": "jest-sonar-reporter",
-  "jestSonar": {
-    "reportPath": "reports",
-    "reportFile": "test-report.xml"
-  }
+  "testResultsProcessor": "jest-sonar-reporter"
 }
