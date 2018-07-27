@@ -1,7 +1,7 @@
 
 ## react-test
 
-[![Travis build status](https://travis-ci.org/markoniemi/react-test.svg?branch=master)](https://travis-ci.org/markoniemi/react-test)
+[![CircleCI](https://circleci.com/gh/markoniemi/react-test.svg?style=svg)](https://circleci.com/gh/markoniemi/react-test)
 [![Build Status](https://semaphoreci.com/api/v1/markoniemi/react-test/branches/master/badge.svg)](https://semaphoreci.com/markoniemi/react-test)
 [![Coverage Status](https://img.shields.io/coveralls/markoniemi/react-test/master.svg)](https://coveralls.io/r/markoniemi/react-test?branch=master)
 [![Dependency Status](https://david-dm.org/markoniemi/react-test.svg)](https://david-dm.org/markoniemi/react-test)
