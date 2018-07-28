@@ -12,7 +12,7 @@
   "testRegex": "(/test/.*-(test|it))\\.tsx?",
   "coverageDirectory": "reports/coverage",
   "coveragePathIgnorePatterns": ["src/index.tsx"],
-  "collectCoverageFrom" : ["src/**"],
+  "collectCoverageFrom" : ["src/**", "server/**"],
   "testURL": "http://localhost:8080",
   "testResultsProcessor": "./node_modules/jest-junit",
   "testResultsProcessor": "jest-sonar-reporter"

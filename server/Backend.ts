@@ -1,6 +1,7 @@
 import * as express from "express";
 import {Express, NextFunction, Request, Response} from "express";
 import * as expressRestResource from "express-rest-generator";
+import {ApplicationRequestHandler} from "express-serve-static-core";
 import * as Http from "http";
 import * as jwt from "jsonwebtoken";
 import * as Datastore from "nedb";
@@ -8,22 +9,24 @@ import * as logger from "winston";
 import {ILoginForm} from "../src/components/LoginForm";
 import User from "../src/domain/User";
 import {ILoginState} from "../src/reducers/LoginReducer";
-
+// TODO move into class
 let userDatabase;
-
+// TODO move into class
 const JWT_SECRET: string = "JWT_SECRET";
-
+// TODO split into UserService and AuthenticationService
 export default class Backend {
-
+  // TODO define type
+  private userRepository: any;
   constructor(private host: string, private port: number) {
     this.authenticate = this.authenticate.bind(this);
     this.handleLogin = this.handleLogin.bind(this);
+    userDatabase = new Datastore();
+    this.userRepository = expressRestResource({db: userDatabase});
   }
 
   public start(): Http.Server {
     const app: Express = express();
-    userDatabase = new Datastore();
-    app.use("/api/users", this.authenticate, expressRestResource({db: userDatabase}));
+    app.use("/api/users", this.authenticate, this.userRepository);
     app.use(express.urlencoded());
     app.use(express.json());
     app.post("/api/login", this.handleLogin);
@@ -54,6 +57,7 @@ export default class Backend {
     response.json(loginState);
   }
 
+  // TODO rename -> saveUser/addUser
   public createUser(user: User): void {
     userDatabase.insert(user);
   }
