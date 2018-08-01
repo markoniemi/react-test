@@ -8,22 +8,24 @@ import * as logger from "winston";
 import {ILoginForm} from "../src/components/LoginForm";
 import User from "../src/domain/User";
 import {ILoginState} from "../src/reducers/LoginReducer";
-
+// TODO move into class
 let userDatabase;
-
+// TODO move into class
 const JWT_SECRET: string = "JWT_SECRET";
-
+// TODO split into UserService and AuthenticationService
 export default class Backend {
-
+  // TODO define type
+  private userRepository: any;
   constructor(private host: string, private port: number) {
     this.authenticate = this.authenticate.bind(this);
     this.handleLogin = this.handleLogin.bind(this);
+    userDatabase = new Datastore();
+    this.userRepository = expressRestResource({db: userDatabase});
   }
 
   public start(): Http.Server {
     const app: Express = express();
-    userDatabase = new Datastore();
-    app.use("/api/users", this.authenticate, expressRestResource({db: userDatabase}));
+    app.use("/api/users", this.authenticate, this.userRepository);
     app.use(express.urlencoded());
     app.use(express.json());
     app.post("/api/login", this.handleLogin);
@@ -35,7 +37,7 @@ export default class Backend {
     return httpServer;
   }
 
-  private async handleLogin(request: Request, response: Response, next: NextFunction): Promise<void> {
+  public async handleLogin(request: Request, response: Response, next: NextFunction): Promise<void> {
     const loginForm: ILoginForm = {username: request.body.username, password: request.body.password};
     logger.info("authenticating user: " + loginForm.username);
     const user: User = await this.findUser(loginForm.username);
@@ -54,6 +56,7 @@ export default class Backend {
     response.json(loginState);
   }
 
+  // TODO rename -> saveUser/addUser
   public createUser(user: User): void {
     userDatabase.insert(user);
   }
@@ -79,6 +82,7 @@ export default class Backend {
     return request.header("Authorization");
   }
 
+  // TODO move to JWT class
   private getToken(authorizationHeader: string): string {
     logger.info("authorizationHeader: " + authorizationHeader);
     const parts: string[] = authorizationHeader.split(" ");
