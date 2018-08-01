@@ -53,8 +53,7 @@ export default class Backend {
       user: {username: loginForm.username, password: loginForm.password, email: "", index: 0},
     };
     logger.info("created token: " + loginState.token);
-    response.status(200).contentType("application/json").send(loginState);
-    // response.json(loginState);
+    response.json(loginState);
   }
 
   // TODO rename -> saveUser/addUser

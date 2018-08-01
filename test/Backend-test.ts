@@ -1,18 +1,14 @@
 import {assert} from "chai";
 import * as dotenv from "dotenv";
+import {Response} from "express";
 import "isomorphic-fetch";
-import * as logger from "winston";
+import * as httpMocks from "node-mocks-http";
+import {MockResponse} from "node-mocks-http";
 import Backend from "../server/Backend";
-import Jwt from "../src/api/Jwt";
-import LoginApi from "../src/api/LoginApi";
-import UserApi from "../src/api/UserApi";
+import {ILoginForm} from "../src/components/LoginForm";
 import User from "../src/domain/User";
 import {ILoginState} from "../src/reducers/LoginReducer";
 import {user1} from "./userList";
-import * as httpMocks from "node-mocks-http";
-import {Express, NextFunction, Request, Response} from "express";
-import sinon = require("sinon");
-
 
 const backendHost = process.env.BACKEND_HOST;
 const backendPort = parseInt(process.env.BACKEND_PORT, 10);
@@ -30,14 +26,15 @@ describe("Backend", async () => {
     assert.isNull(user);
     done();
   });
-  test.skip("handlelogin", async (done) => {
+  test("handlelogin", async (done) => {
     const backend: Backend = new Backend(backendHost, backendPort);
     await backend.createUser(user1);
-    const request = httpMocks.createRequest({body: {username: user1.username, password: user1.password}});
-    let response: Response = httpMocks.createResponse();
-    // const resp: Response = await backend.handleLogin(request, response, null);
+    const loginForm: ILoginForm = {username: user1.username, password: user1.password};
+    const request = httpMocks.createRequest({body: loginForm});
+    const response: MockResponse<Response> = httpMocks.createResponse();
+    await backend.handleLogin(request, response, null);
     assert.equal(200, response.statusCode);
-    const loginState: ILoginState = response.json() as any;
+    const loginState: ILoginState = JSON.parse(response._getData());
     assert.isTrue(loginState.isAuthenticated);
     await backend.deleteUsers();
     done();

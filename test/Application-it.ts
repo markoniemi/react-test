@@ -17,14 +17,14 @@ describe("Application", async () => {
     dotenv.config({path: "config/development.env"});
   });
   describe("Login", () => {
-    test("successful login", async (done) => {
+    test.skip("successful login", async (done) => {
       const loginState: ILoginState = await LoginApi.login({username: "user", password: "password"});
       assert.isTrue(loginState.isAuthenticated);
       await LoginApi.logout({username: "user", email: "email", password: "password", index: 0});
       Jwt.clearToken();
       done();
     });
-    test("failed login", async (done) => {
+    test.skip("failed login", async (done) => {
       try {
         const loginState: ILoginState = await LoginApi.login({username: "invalid", password: "invalid"});
         assert.fail();
@@ -34,7 +34,7 @@ describe("Application", async () => {
     });
   });
   describe("User", () => {
-    test("add and remove user", async (done) => {
+    test.skip("add and remove user", async (done) => {
       const loginState: ILoginState = await LoginApi.login({username: "user", password: "password"});
       Jwt.setToken(loginState.token);
       await UserApi.addUser(user1);
