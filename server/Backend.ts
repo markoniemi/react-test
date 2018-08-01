@@ -1,7 +1,6 @@
 import * as express from "express";
 import {Express, NextFunction, Request, Response} from "express";
 import * as expressRestResource from "express-rest-generator";
-import {ApplicationRequestHandler} from "express-serve-static-core";
 import * as Http from "http";
 import * as jwt from "jsonwebtoken";
 import * as Datastore from "nedb";
@@ -38,7 +37,7 @@ export default class Backend {
     return httpServer;
   }
 
-  private async handleLogin(request: Request, response: Response, next: NextFunction): Promise<void> {
+  public async handleLogin(request: Request, response: Response, next: NextFunction): Promise<void> {
     const loginForm: ILoginForm = {username: request.body.username, password: request.body.password};
     logger.info("authenticating user: " + loginForm.username);
     const user: User = await this.findUser(loginForm.username);
@@ -54,7 +53,8 @@ export default class Backend {
       user: {username: loginForm.username, password: loginForm.password, email: "", index: 0},
     };
     logger.info("created token: " + loginState.token);
-    response.json(loginState);
+    response.status(200).contentType("application/json").send(loginState);
+    // response.json(loginState);
   }
 
   // TODO rename -> saveUser/addUser
@@ -83,6 +83,7 @@ export default class Backend {
     return request.header("Authorization");
   }
 
+  // TODO move to JWT class
   private getToken(authorizationHeader: string): string {
     logger.info("authorizationHeader: " + authorizationHeader);
     const parts: string[] = authorizationHeader.split(" ");

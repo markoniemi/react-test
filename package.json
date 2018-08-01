@@ -98,6 +98,7 @@
     "jsonwebtoken": "8.1.1",
     "nedb": "1.8.0",
     "nodemon": "1.17.3",
+    "node-mocks-http": "1.7.0",
     "npm-run-all": "4.1.2",
     "phantomjs-prebuilt": "2.1.16",
     "raf": "3.4.0",
