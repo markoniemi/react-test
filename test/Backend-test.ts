@@ -18,17 +18,17 @@ describe("Backend", async () => {
   });
   test("create user", async (done) => {
     const backend: Backend = new Backend(backendHost, backendPort);
-    await backend.createUser(user1);
-    let user: User = await backend.findUser(user1.username);
+    await backend.getUserService().save(user1);
+    let user: User = await backend.getUserService().findByUsername(user1.username);
     assert(user.username, user1.username);
-    await backend.deleteUsers();
-    user = await backend.findUser(user1.username);
+    await backend.getUserService().delete();
+    user = await backend.getUserService().findByUsername(user1.username);
     assert.isNull(user);
     done();
   });
   test("handlelogin", async (done) => {
     const backend: Backend = new Backend(backendHost, backendPort);
-    await backend.createUser(user1);
+    await backend.getUserService().save(user1);
     const loginForm: ILoginForm = {username: user1.username, password: user1.password};
     const request = httpMocks.createRequest({body: loginForm});
     const response: MockResponse<Response> = httpMocks.createResponse();
@@ -36,7 +36,7 @@ describe("Backend", async () => {
     assert.equal(200, response.statusCode);
     const loginState: ILoginState = JSON.parse(response._getData());
     assert.isTrue(loginState.isAuthenticated);
-    await backend.deleteUsers();
+    await backend.getUserService().delete();
     done();
   });
 });

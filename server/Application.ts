@@ -22,7 +22,7 @@ export default class Application {
     new Server(this.serverHost, this.serverPort, this.backendHost, this.backendPort).start();
     const backend = new Backend(this.backendHost, this.backendPort);
     backend.start();
-    backend.createUser({username: "user", email: "email", password: "password", index: 0});
+    backend.getUserService().save({username: "user", email: "email", password: "password", index: 0});
   }
 
   private initLogs() {
