@@ -1,31 +1,27 @@
 import * as express from "express";
 import {Express, NextFunction, Request, Response} from "express";
-import * as expressRestResource from "express-rest-generator";
 import * as Http from "http";
 import * as jwt from "jsonwebtoken";
-import * as Datastore from "nedb";
 import * as logger from "winston";
 import {ILoginForm} from "../src/components/LoginForm";
 import User from "../src/domain/User";
 import {ILoginState} from "../src/reducers/LoginReducer";
-// TODO move into class
-let userDatabase;
+import UserService from "./UserService";
 // TODO move into class
 const JWT_SECRET: string = "JWT_SECRET";
 // TODO split into UserService and AuthenticationService
 export default class Backend {
-  // TODO define type
-  private userRepository: any;
+  private userService: UserService;
+
   constructor(private host: string, private port: number) {
+    this.userService = new UserService();
     this.authenticate = this.authenticate.bind(this);
     this.handleLogin = this.handleLogin.bind(this);
-    userDatabase = new Datastore();
-    this.userRepository = expressRestResource({db: userDatabase});
   }
 
   public start(): Http.Server {
     const app: Express = express();
-    app.use("/api/users", this.authenticate, this.userRepository);
+    app.use("/api/users", this.authenticate, this.userService.getUserRepository());
     app.use(express.urlencoded());
     app.use(express.json());
     app.post("/api/login", this.handleLogin);
@@ -40,7 +36,7 @@ export default class Backend {
   public async handleLogin(request: Request, response: Response, next: NextFunction): Promise<void> {
     const loginForm: ILoginForm = {username: request.body.username, password: request.body.password};
     logger.info("authenticating user: " + loginForm.username);
-    const user: User = await this.findUser(loginForm.username);
+    const user: User = await this.userService.findByUsername(loginForm.username);
     if (user === null) {
       logger.info("login error");
       response.sendStatus(402);
@@ -54,28 +50,6 @@ export default class Backend {
     };
     logger.info("created token: " + loginState.token);
     response.json(loginState);
-  }
-
-  // TODO rename -> saveUser/addUser
-  public createUser(user: User): void {
-    userDatabase.insert(user);
-  }
-
-  public deleteUsers(): void {
-    userDatabase.remove({}, {multi: true});
-  }
-
-  public async findUser(username: string): Promise<User> {
-    // nedb uses callback instead of promises, wrap findOne and return Promise
-    return new Promise<User>((resolve, reject) => {
-      userDatabase.findOne({username}, (err, doc) => {
-        if (err) {
-          reject(err);
-        } else {
-          resolve(doc as User);
-        }
-      });
-    });
   }
 
   private getAuthorizationHeader(request: any) {
@@ -102,5 +76,9 @@ export default class Backend {
       // TODO throw an exception
       logger.info(`token failed: ${token}`);
     }
+  }
+
+  public getUserService(): UserService {
+    return this.userService;
   }
 }
