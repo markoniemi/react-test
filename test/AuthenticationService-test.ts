@@ -41,7 +41,7 @@ describe("AuthenticationService", async () => {
       headers: {Authorization: `Bearer ${jwtToken}`},
     });
     const response: MockResponse<Response> = httpMocks.createResponse();
-    await authenticationService.authenticateRequest(request, response, next);
+    authenticationService.authenticateRequest(request, response, next);
     assert.equal(200, response.statusCode);
     assert.isTrue(next.calledOnce);
     done();
