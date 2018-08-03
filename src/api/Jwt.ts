@@ -11,6 +11,7 @@ export default class Jwt {
   }
 
   public static isAuthenticated(): boolean {
+    // TODO verify token and timestamp
     return !(Jwt.getToken() === null);
   }
 

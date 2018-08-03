@@ -15,11 +15,11 @@ export default class UserService {
     return this.userRepository;
   }
 
-  // TODO rename -> saveUser/addUser
   public save(user: User): void {
     this.userDatabase.insert(user);
   }
 
+  // TODO rename -> reset/clean/deleteAll
   public delete(): void {
     this.userDatabase.remove({}, {multi: true});
   }
