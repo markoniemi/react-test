@@ -9,7 +9,7 @@
   "license": "MIT",
   "repository": "github:markoniemi/react-test",
   "dependencies": {
-    "bootstrap": "3.3.7",
+    "bootstrap": "4.0.0",
     "css-loader": "0.28.9",
     "debug": "3.1.0",
     "es6-promise": "4.2.4",
