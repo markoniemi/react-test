@@ -37,14 +37,15 @@ export default class AuthenticationService {
   }
 
   public authenticateRequest(request: Request, response: Response, next: NextFunction): void {
-    const token: string = this.getToken(this.getAuthorizationHeader(request));
-    logger.info(token);
-    if (jwt.verify(token, this.JWT_SECRET)) {
+    try {
+      const token: string = this.getToken(this.getAuthorizationHeader(request));
+      logger.info(token);
+      jwt.verify(token, this.JWT_SECRET);
       logger.info(`token authorized: ${token}`);
       next();
-    } else {
-      // TODO throw an exception
-      logger.info(`token failed: ${token}`);
+    } catch (e) {
+      logger.info(`token failed: ${e}`);
+      response.sendStatus(401);
     }
   }
 

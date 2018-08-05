@@ -11,7 +11,7 @@ describe("Backend", async () => {
   beforeEach(() => {
     dotenv.config({path: "config/development.env"});
   });
-  test("create user", async (done) => {
+  test.skip("create user", async (done) => {
     const backend: Backend = new Backend(backendHost, backendPort);
     await backend.getUserService().save(user1);
     let user: User = await backend.getUserService().findByUsername(user1.username);
