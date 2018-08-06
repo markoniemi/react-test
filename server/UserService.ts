@@ -4,8 +4,8 @@ import * as Datastore from "nedb";
 import User from "../src/domain/User";
 
 export default class UserService {
-  private userRepository: Router;
-  private userDatabase: Datastore;
+  private readonly userRepository: Router;
+  private readonly userDatabase: Datastore;
 
   constructor() {
     this.userDatabase = new Datastore();

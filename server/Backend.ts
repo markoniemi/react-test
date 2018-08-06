@@ -9,7 +9,7 @@ export default class Backend {
   private readonly userService: UserService;
   private readonly authenticationService: AuthenticationService;
 
-  constructor(private host: string, private port: number) {
+  constructor(private readonly host: string, private readonly port: number) {
     this.userService = new UserService();
     this.authenticationService = new AuthenticationService(this.userService);
   }
@@ -20,12 +20,9 @@ export default class Backend {
     app.use(express.urlencoded());
     app.use(express.json());
     app.post("/api/login", this.authenticationService.handleLogin);
-
-    const httpServer: Http.Server = app.listen(this.port, () => {
-      logger.info("Backend server runs at http://" + this.host + ":" + this.port);
+    return app.listen(this.port, () => {
+      logger.info(`Backend server runs at http://${this.host}:${this.port}`);
     });
-
-    return httpServer;
   }
 
   public getUserService(): UserService {

@@ -34,6 +34,6 @@ export default class LoginApi {
   }
 
   public static getApiUrl(): string {
-    return "http://" + process.env.HOST + ":" + process.env.PORT + "/api/login/";
+    return `http://${process.env.HOST}:${process.env.PORT}/api/login/`;
   }
 }

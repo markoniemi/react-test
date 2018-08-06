@@ -10,14 +10,14 @@ export default class Server {
   private readonly compiler: Compiler;
   private readonly devServerConfig: Configuration;
 
-  public constructor(private serverHost: string, private serverPort: number,
-                     private backendHost: string, private backendPort: number) {
+  public constructor(private readonly serverHost: string, private readonly serverPort: number,
+                     private readonly backendHost: string, private readonly backendPort: number) {
     this.compiler = Webpack(webpackConfig);
     this.devServerConfig = {
       contentBase: "./public",
       hot: true,
       proxy: {
-        "/api/*": "http://" + backendHost + ":" + backendPort,
+        "/api/*": `http://${backendHost}:${backendPort}`,
       },
       publicPath: "",
     };
@@ -25,14 +25,11 @@ export default class Server {
 
   public start(): Http.Server {
     const server = new WebpackDevServer(this.compiler, this.devServerConfig);
-
-    const httpServer: Http.Server = server.listen(this.serverPort, this.serverHost, (err) => {
+    return server.listen(this.serverPort, this.serverHost, (err) => {
       if (err) {
         logger.error(err.message);
       }
-      logger.info("Local web server runs at http://" + this.serverHost + ":" + this.serverPort);
+      logger.info(`Local web server runs at http://${this.serverHost}:${this.serverPort}`);
     });
-
-    return httpServer;
   }
 }

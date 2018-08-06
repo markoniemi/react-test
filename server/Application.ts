@@ -4,10 +4,10 @@ import Backend from "./Backend";
 import Server from "./Server";
 
 export default class Application {
-  private serverHost: string;
-  private serverPort: number;
-  private backendHost: string;
-  private backendPort: number;
+  private readonly serverHost: string;
+  private readonly serverPort: number;
+  private readonly backendHost: string;
+  private readonly backendPort: number;
 
   constructor() {
     dotenv.config({path: "config/development.env"});
