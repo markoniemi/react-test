@@ -34,7 +34,7 @@ export class Messages extends React.Component<IMessages, {}> {
 
   private renderMessage(message: Message): JSX.Element {
     return (
-      <Alert bsStyle={Messages.mapTypeToStyle(message.type)} key={message._id}>{message.text}</Alert>
+      <Alert bsStyle={Messages.mapTypeToStyle(message.type)} key={message.id}>{message.text}</Alert>
     );
   }
 

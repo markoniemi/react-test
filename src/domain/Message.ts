@@ -6,12 +6,12 @@ export enum MessageType {
 }
 
 export default class Message {
-  public _id?: string;
+  public id?: string;
   public text: string;
   public type: MessageType;
 
   constructor() {
-    this._id = "";
+    this.id = "";
     this.text = "";
     this.type = null;
   }

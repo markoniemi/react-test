@@ -1,6 +1,7 @@
 import {Dispatch} from "react-redux";
 import {Action} from "redux-actions";
 import {ThunkAction} from "redux-thunk";
+import * as uuid from "uuid";
 import Message, {MessageType} from "../domain/Message";
 import {IRootState} from "../stores/Store";
 
@@ -16,15 +17,13 @@ export enum MessageActionType {
 }
 
 export default class MessageActions {
-  private static id = 0;
-
   public static error(text: string): ThunkAction<Promise<IMessageAction>, IRootState, any> {
     return this.addMessage(text, MessageType.ERROR);
   }
+
   public static addMessage(text: string, type: MessageType): ThunkAction<Promise<IMessageAction>, IRootState, any> {
     return async (dispatch: Dispatch<IRootState>): Promise<IMessageAction> => {
-      this.id++;
-      const message: Message = {_id: this.id.toString(), type, text};
+      const message: Message = {id: uuid.v1(), type, text};
       return dispatch({
         type: MessageActionType.ADD_MESSAGE,
         payload: message,
