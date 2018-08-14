@@ -1,14 +1,13 @@
 import {assert} from "chai";
 import * as chrome from "chromedriver";
 import * as dotenv from "dotenv";
-import {Builder, By, Capabilities, logging, until, WebElement} from "selenium-webdriver";
+import {Builder, Capabilities, logging} from "selenium-webdriver";
 import {Driver, Options} from "selenium-webdriver/chrome";
 import * as logger from "winston";
 import User from "../src/domain/User";
 import EditUserPage from "./page/EditUserPage";
 import LoginPage from "./page/LoginPage";
 import UsersPage from "./page/UsersPage";
-import {user1} from "./userList";
 import Entry = logging.Entry;
 
 const jestTimeout: number = 20000;

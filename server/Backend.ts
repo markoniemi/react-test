@@ -8,6 +8,7 @@ import UserService from "./UserService";
 export default class Backend {
   private readonly userService: UserService;
   private readonly authenticationService: AuthenticationService;
+  private server: Http.Server;
 
   constructor(private readonly host: string, private readonly port: number) {
     this.userService = new UserService();
@@ -20,9 +21,14 @@ export default class Backend {
     app.use(express.urlencoded());
     app.use(express.json());
     app.post("/api/login", this.authenticationService.handleLogin);
-    return app.listen(this.port, () => {
+    this.server = app.listen(this.port, () => {
       logger.info(`Backend server runs at http://${this.host}:${this.port}`);
     });
+    return this.server;
+  }
+
+  public async stop(): Promise<void> {
+    await this.server.close();
   }
 
   public getUserService(): UserService {
