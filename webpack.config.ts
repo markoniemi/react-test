@@ -3,6 +3,7 @@ import * as path from "path";
 import webpack = require("webpack");
 
 const webpackConfig: webpack.Configuration = {
+  mode: "development",
   devtool: "source-map",
   entry: {
     app: [
