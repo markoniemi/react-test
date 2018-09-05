@@ -1,4 +1,9 @@
 build:
   image: circleci/node:8-browsers
   commands:
+    - npm install
     - npm test
+cache:
+  mount:
+    - node_modules
+    - .git
