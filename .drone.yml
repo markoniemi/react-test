@@ -1,0 +1,5 @@
+pipeline:
+  build:
+    image: circleci/node:8-browsers
+    commands:
+      - npm test
