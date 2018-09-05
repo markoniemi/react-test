@@ -1,5 +1,6 @@
 build:
   image: circleci/node:8-browsers
+  privileged: true
   commands:
     - npm install
     - npm test
