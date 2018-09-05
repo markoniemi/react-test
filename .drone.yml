@@ -1,5 +1,4 @@
-pipeline:
-  build:
-    image: circleci/node:8-browsers
-    shell: sh
-    commands: npm test
+build:
+  image: circleci/node:8-browsers
+  commands:
+    - npm test
