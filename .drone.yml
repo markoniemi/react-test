@@ -1,9 +1,9 @@
 build:
-  image: mhart/alpine-node:8
+  image: circleci/node:8-browsers
   privileged: true
   commands:
-    - npm install
-    - npm test
+    - sudo npm install
+    - sudo npm test
 cache:
   mount:
     - node_modules
