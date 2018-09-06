@@ -1,5 +1,5 @@
 build:
-  image: circleci/node:8-browsers
+  image: mhart/alpine-node:base-8.11.4
   privileged: true
   commands:
     - npm install
