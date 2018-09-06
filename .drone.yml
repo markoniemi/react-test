@@ -1,5 +1,5 @@
 build:
-  image: mhart/alpine-node:base-8.11.4
+  image: mhart/alpine-node:8
   privileged: true
   commands:
     - npm install
