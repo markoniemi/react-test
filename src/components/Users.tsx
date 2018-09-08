@@ -3,7 +3,7 @@ import {Table} from "react-bootstrap";
 import User from "../domain/User";
 import UserRow from "./UserRow";
 
-interface IUsers {
+export interface IUsers {
   users: ReadonlyArray<User>;
   deleteUser: (user: User) => void;
   editUser: (user: User) => void;

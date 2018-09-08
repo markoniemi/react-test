@@ -54,6 +54,6 @@ export class UserContainer extends React.Component<IUserContainer & IUserContain
   }
 }
 
-export default connect<IUserContainer, IUserContainerActions, RouterState>
+export default connect<IUserContainer, IUserContainerActions, any>
 (UserContainer.mapStateToProps, UserContainer.mapDispatchToProps)
 (UserContainer);

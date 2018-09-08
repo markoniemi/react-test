@@ -11,10 +11,10 @@ import LoginForm from "./LoginForm";
 import UserContainer from "./UserContainer";
 import UsersContainer from "./UsersContainer";
 
-export default class App extends React.Component<any, any> {
+export default class App extends React.Component<{}, {}> {
   private static readonly debug: Debug.IDebugger = Debug("App");
 
-  constructor(props: any) {
+  constructor(props: {}) {
     super(props);
     this.initLog();
   }
