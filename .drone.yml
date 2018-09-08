@@ -1,6 +1,5 @@
 build:
   image: circleci/node:8-browsers
-  privileged: true
   commands:
     - sudo npm install
     - sudo npm test

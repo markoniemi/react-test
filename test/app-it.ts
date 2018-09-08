@@ -1,6 +1,7 @@
 import {assert} from "chai";
 import * as chrome from "chromedriver";
 import * as dotenv from "dotenv";
+import * as sleep from "es7-sleep";
 import {Builder, Capabilities, logging} from "selenium-webdriver";
 import {Driver, Options} from "selenium-webdriver/chrome";
 import * as logger from "winston";
@@ -138,7 +139,7 @@ describe("Selenium", () => {
         await usersPage.waitForPageLoad();
         await usersPage.removeUser("editedUser2");
         await usersPage.waitForPageLoad();
-        await wait(1000);
+        await sleep(1000);
         assert.isFalse(await usersPage.userExists("editedUser2"));
         await usersPage.clickLogout();
         await loginPage.waitForPageLoad();
@@ -163,10 +164,6 @@ async function createChrome(): Promise<Driver> {
     .setChromeOptions(options)
     .setLoggingPrefs(loggingPrefs)
     .build();
-  wait(jestTimeout);
+  sleep(jestTimeout);
   return driver;
-}
-
-async function wait(milliseconds: number): Promise<{}> {
-  return new Promise((resolve) => setTimeout(resolve, milliseconds));
 }

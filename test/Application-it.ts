@@ -1,3 +1,4 @@
+import * as sleep from "es7-sleep";
 import {assert} from "chai";
 import * as dotenv from "dotenv";
 import "isomorphic-fetch";
@@ -11,7 +12,7 @@ import {user1} from "./userList";
 
 describe("Application", async () => {
   beforeAll(async () => {
-    await delay();
+    await sleep(20000);
   });
   beforeEach(() => {
     dotenv.config({path: "config/development.env"});
@@ -49,9 +50,3 @@ describe("Application", async () => {
     });
   });
 });
-
-async function delay(): Promise<void> {
-  setTimeout(() => {
-    return logger.info("wait...");
-  }, 20000);
-}

@@ -1,19 +1,18 @@
 import {assert} from "chai";
 import * as dotenv from "dotenv";
 import {shallow, ShallowWrapper} from "enzyme";
+import * as sleep from "es7-sleep";
 import * as fetchMock from "fetch-mock";
 import * as React from "react";
 import {Button, FormControl} from "react-bootstrap";
 import {Store} from "react-redux";
-import {SinonSpy} from "sinon";
 import UserActions from "../../src/actions/UserActions";
 import UserApi from "../../src/api/UserApi";
 import EditUser, {IEditUser} from "../../src/components/EditUser";
 import {UserContainer} from "../../src/components/UserContainer";
 import User from "../../src/domain/User";
-import store, {IRootState} from "../../src/stores/Store";
+import store from "../../src/stores/Store";
 import {user1} from "../userList";
-import sinon = require("sinon");
 
 describe("EditUser component", () => {
   beforeEach(() => {
@@ -41,8 +40,11 @@ describe("EditUser component", () => {
     fetchMock.postOnce(UserApi.getApiUrl(), user1);
     fetchMock.putOnce(UserApi.getApiUrl() + "1", 200);
     await store.dispatch(UserActions.addUser(user1));
-    const editUserWrapper: ShallowWrapper<IEditUser, Partial<User>> = shallow(<EditUser user={user1} saveUser={UserContainer.saveUser}/>);
-
+    const editUserWrapper: ShallowWrapper<IEditUser, Partial<User>> = shallow(
+      <EditUser
+        user={user1}
+        saveUser={UserContainer.saveUser}
+      />);
     // username
     let formControl: ShallowWrapper<any, any> = editUserWrapper.find(FormControl).at(1);
     assert.equal(formControl.prop("defaultValue"), "user1");
@@ -54,19 +56,21 @@ describe("EditUser component", () => {
     formControl.simulate("change", {target: {value: "newEmail"}});
     assert.equal(editUserWrapper.state().email, "newEmail");
     await editUserWrapper.find(Button).at(0).simulate("click");
-    setTimeout((store: Store<IRootState>) => {
-      assert.equal(store.getState().users.length, 1, "store should have a new user");
-      assert.equal(store.getState().users[0].username, "newUsername");
-      assert.equal(store.getState().users[0].email, "newEmail");
-      done();
-    }, 100, store);
+    await sleep(100);
+    assert.equal(store.getState().users.length, 1, "store should have a new user");
+    assert.equal(store.getState().users[0].username, "newUsername");
+    assert.equal(store.getState().users[0].email, "newEmail");
+    done();
   });
   test("edit with keyboard", async (done) => {
     fetchMock.postOnce(UserApi.getApiUrl(), user1);
     fetchMock.putOnce(UserApi.getApiUrl() + "1", 200);
     await store.dispatch(UserActions.addUser(user1));
-    const editUserWrapper: ShallowWrapper<IEditUser, Partial<User>> = shallow(<EditUser user={user1} saveUser={UserContainer.saveUser}/>);
-
+    const editUserWrapper: ShallowWrapper<IEditUser, Partial<User>> = shallow(
+      <EditUser
+        user={user1}
+        saveUser={UserContainer.saveUser}
+      />);
     // username
     let formControl: ShallowWrapper<any, any> = editUserWrapper.find(FormControl).at(1);
     assert.equal(formControl.prop("defaultValue"), "user1");
@@ -78,11 +82,10 @@ describe("EditUser component", () => {
     formControl.simulate("change", {target: {value: "newEmail"}});
     assert.equal(editUserWrapper.state().email, "newEmail");
     await formControl.simulate("keyPress", {key: "Enter"});
-    setTimeout((store: Store<IRootState>) => {
-      assert.equal(store.getState().users.length, 1, "store should have a new user");
-      assert.equal(store.getState().users[0].username, "newUsername");
-      assert.equal(store.getState().users[0].email, "newEmail");
-      done();
-    }, 100, store);
+    await sleep(100);
+    assert.equal(store.getState().users.length, 1, "store should have a new user");
+    assert.equal(store.getState().users[0].username, "newUsername");
+    assert.equal(store.getState().users[0].email, "newEmail");
+    done();
   });
 });

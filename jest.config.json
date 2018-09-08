@@ -6,7 +6,7 @@
     "js"
   ],
   "transform": {
-    "^.+\\.tsx?$": "<rootDir>/node_modules/ts-jest/preprocessor.js",
+    "^.+\\.tsx?$": "ts-jest",
     "^.+\\.js$": "<rootDir>/node_modules/babel-jest"
   },
   "testRegex": "(/test/.*-(test|it))\\.tsx?",

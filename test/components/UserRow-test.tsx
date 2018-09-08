@@ -1,6 +1,7 @@
 import {assert} from "chai";
 import * as dotenv from "dotenv";
 import {shallow, ShallowWrapper} from "enzyme";
+import * as sleep from "es7-sleep";
 import * as fetchMock from "fetch-mock";
 import * as React from "react";
 import {Button, FormControl} from "react-bootstrap";
@@ -22,15 +23,26 @@ describe("UserRow component", () => {
     store.dispatch(UserActions.resetUsers());
   });
   test("should render a user", () => {
-    const userWrapper = shallow(<UserRow user={user1} editUser={UsersContainer.editUser} saveUser={UsersContainer.saveUser} deleteUser={UsersContainer.deleteUser}/>) as ShallowWrapper<IUserRow, IUserRowState>;
-
+    const userWrapper: ShallowWrapper<IUserRow, IUserRowState> = shallow(
+      <UserRow
+        user={user1}
+        editUser={UsersContainer.editUser}
+        saveUser={UsersContainer.saveUser}
+        deleteUser={UsersContainer.deleteUser}
+      />);
     assert.equal(userWrapper.find("tr").length, 1, "Expected to have element <tr>");
     assert.equal(userWrapper.find("td").at(1).text(), "user1", "Expected to have element <td>");
     assert.equal(userWrapper.find("td").at(2).text(), "email1", "Expected to have element <td>");
   });
   test("should not create error with empty user", () => {
     const emptyUser = new User();
-    const userWrapper = shallow(<UserRow user={emptyUser} editUser={UsersContainer.editUser} saveUser={UsersContainer.saveUser} deleteUser={UsersContainer.deleteUser}/>) as ShallowWrapper<IUserRow, IUserRowState>;
+    const userWrapper: ShallowWrapper<IUserRow, IUserRowState> = shallow(
+      <UserRow
+        user={emptyUser}
+        editUser={UsersContainer.editUser}
+        saveUser={UsersContainer.saveUser}
+        deleteUser={UsersContainer.deleteUser}
+      />);
     assert.equal(userWrapper.state().index, 0);
     assert.equal(userWrapper.state().username, "");
   });
@@ -39,8 +51,13 @@ describe("UserRow component", () => {
     fetchMock.putOnce(UserApi.getApiUrl() + "1", 200);
     await store.dispatch(UserActions.addUser(user1));
     assert.equal(store.getState().users.length, 1, "store should have a new user");
-    const userWrapper = shallow(<UserRow user={user1} editUser={UsersContainer.editUser} saveUser={UsersContainer.saveUser} deleteUser={UsersContainer.deleteUser}/>);
-
+    const userWrapper: ShallowWrapper<IUserRow, IUserRowState> = shallow(
+      <UserRow
+        user={user1}
+        editUser={UsersContainer.editUser}
+        saveUser={UsersContainer.saveUser}
+        deleteUser={UsersContainer.deleteUser}
+      />);
     assert.equal(userWrapper.state().editing, false);
     userWrapper.find("td").at(1).simulate("click");
     assert.equal(userWrapper.state().editing, true);
@@ -63,19 +80,23 @@ describe("UserRow component", () => {
     // finish editing with button
     await userWrapper.find(Button).at(0).simulate("click");
     assert.equal(userWrapper.state().editing, false);
-    setTimeout((store) => {
-      assert.equal(store.getState().users.length, 1, "store should have a new user");
-      assert.equal(store.getState().users[0].username, "newUsername");
-      assert.equal(store.getState().users[0].email, "newEmail");
-      done();
-    }, 1000, store);
+    await sleep(1000);
+    assert.equal(store.getState().users.length, 1, "store should have a new user");
+    assert.equal(store.getState().users[0].username, "newUsername");
+    assert.equal(store.getState().users[0].email, "newEmail");
+    done();
   });
   test("should edit a user with keyboard", async (done) => {
     fetchMock.postOnce(UserApi.getApiUrl(), user1);
     fetchMock.putOnce(UserApi.getApiUrl() + "1", 200);
     await store.dispatch(UserActions.addUser(user1));
-    const userWrapper = shallow(<UserRow user={user1} editUser={UsersContainer.editUser} saveUser={UsersContainer.saveUser} deleteUser={UsersContainer.deleteUser}/>);
-
+    const userWrapper: ShallowWrapper<IUserRow, IUserRowState> = shallow(
+      <UserRow
+        user={user1}
+        editUser={UsersContainer.editUser}
+        saveUser={UsersContainer.saveUser}
+        deleteUser={UsersContainer.deleteUser}
+      />);
     assert.equal(userWrapper.state().editing, false, "should not be in editing state");
     // start edit by clicking email
     userWrapper.find("td").at(1).simulate("click");
@@ -93,23 +114,26 @@ describe("UserRow component", () => {
     // finish editing with enter
     await emailWrapper.find("input").at(0).simulate("keyPress", {key: "Enter"});
     assert.equal(userWrapper.state().editing, false, "should enter view only state");
-    setTimeout((store) => {
-      assert.equal(store.getState().users.length, 1, "store should have a new user");
-      assert.equal(store.getState().users[0].username, "newUsername");
-      assert.equal(store.getState().users[0].email, "newEmail");
-      done();
-    }, 1000, store);
+    await sleep(1000);
+    assert.equal(store.getState().users.length, 1, "store should have a new user");
+    assert.equal(store.getState().users[0].username, "newUsername");
+    assert.equal(store.getState().users[0].email, "newEmail");
+    done();
   });
   test("should delete a user", async (done) => {
     fetchMock.postOnce(UserApi.getApiUrl(), user1);
     fetchMock.deleteOnce(UserApi.getApiUrl() + "1", 200);
     await store.dispatch(UserActions.addUser(user1));
-    const userWrapper = shallow(<UserRow user={user1} editUser={UsersContainer.editUser} saveUser={UsersContainer.saveUser} deleteUser={UsersContainer.deleteUser}/>);
-
+    const userWrapper: ShallowWrapper<IUserRow, IUserRowState> = shallow(
+      <UserRow
+        user={user1}
+        editUser={UsersContainer.editUser}
+        saveUser={UsersContainer.saveUser}
+        deleteUser={UsersContainer.deleteUser}
+      />);
     await userWrapper.find("Button").at(1).simulate("click");
-    setTimeout((store) => {
-      assert.equal(store.getState().users.length, 0);
-      done();
-    }, 1000, store);
+    await sleep(1000);
+    assert.equal(store.getState().users.length, 0);
+    done();
   });
 });

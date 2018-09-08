@@ -1,13 +1,14 @@
 import {assert} from "chai";
 import * as dotenv from "dotenv";
 import {shallow, ShallowWrapper} from "enzyme";
+import * as sleep from "es7-sleep";
 import * as fetchMock from "fetch-mock";
 import * as React from "react";
 import {Button, FormControl} from "react-bootstrap";
 import Jwt from "../../src/api/Jwt";
+import LoginApi from "../../src/api/LoginApi";
 import LoginForm, {ILoginForm} from "../../src/components/LoginForm";
 import {ILoginState} from "../../src/reducers/LoginReducer";
-import LoginApi from "../../src/api/LoginApi";
 
 describe("LoginForm component", () => {
   beforeEach(() => {
@@ -19,16 +20,16 @@ describe("LoginForm component", () => {
   });
   test("should render login form", async () => {
     const loginWrapper: ShallowWrapper<any, ILoginForm> =
-      shallow(<LoginForm />);
+      shallow(<LoginForm/>);
     assert.equal(loginWrapper.find(FormControl).length, 2);
     assert.equal(loginWrapper.find(Button).length, 1);
   });
   test("should change state", () => {
-  // test("should change state", async (done) => {
+    // test("should change state", async (done) => {
     // @ts-ignore: Argument of type
     // const spy: SinonSpy = sinon.spy(LoginForm.prototype, "login");
     const loginWrapper: ShallowWrapper<any, ILoginForm> =
-      shallow(<LoginForm />);
+      shallow(<LoginForm/>);
     // username
     let formControl: ShallowWrapper<any, any> = loginWrapper.find(FormControl).at(0);
     formControl.simulate("change", {target: {value: "user1"}});
@@ -48,7 +49,7 @@ describe("LoginForm component", () => {
     const loginState: ILoginState = {isAuthenticated: true, token: "token"};
     fetchMock.postOnce(LoginApi.getApiUrl(), loginState);
     const loginWrapper: ShallowWrapper<any, ILoginForm> =
-      shallow(<LoginForm />);
+      shallow(<LoginForm/>);
     // username
     let formControl: ShallowWrapper<any, any> = loginWrapper.find(FormControl).at(0);
     formControl.simulate("change", {target: {value: "user1"}});
@@ -58,9 +59,8 @@ describe("LoginForm component", () => {
     formControl.simulate("change", {target: {value: "password1"}});
     // submit
     await loginWrapper.find(Button).at(0).simulate("click");
-    setTimeout(() => {
-      assert.equal(sessionStorage.getItem(Jwt.JWT_TOKEN_KEY), "token");
-      done();
-    }, 100);
+    await sleep(100);
+    assert.equal(sessionStorage.getItem(Jwt.JWT_TOKEN_KEY), "token");
+    done();
   });
 });
