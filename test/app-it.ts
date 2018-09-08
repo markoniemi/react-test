@@ -138,6 +138,7 @@ describe("Selenium", () => {
         await usersPage.waitForPageLoad();
         await usersPage.removeUser("editedUser2");
         await usersPage.waitForPageLoad();
+        await wait(1000);
         assert.isFalse(await usersPage.userExists("editedUser2"));
         await usersPage.clickLogout();
         await loginPage.waitForPageLoad();
@@ -151,9 +152,6 @@ describe("Selenium", () => {
 });
 
 async function createChrome(): Promise<Driver> {
-  setTimeout(() => {
-    logger.info("wait...");
-  }, jestTimeout);
   const chromePath = chrome.path;
   const loggingPrefs = new logging.Preferences();
   loggingPrefs.setLevel(logging.Type.DRIVER, logging.Level.WARNING);
@@ -165,5 +163,10 @@ async function createChrome(): Promise<Driver> {
     .setChromeOptions(options)
     .setLoggingPrefs(loggingPrefs)
     .build();
+  wait(jestTimeout);
   return driver;
+}
+
+async function wait(milliseconds: number): Promise<{}> {
+  return new Promise((resolve) => setTimeout(resolve, milliseconds));
 }
