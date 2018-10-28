@@ -1,11 +1,11 @@
 import "isomorphic-fetch";
 import {Dispatch} from "react-redux";
-import {hashHistory} from "react-router";
 import {Action} from "redux-actions";
 import {ThunkAction} from "redux-thunk";
 import UserApi from "../api/UserApi";
 import User from "../domain/User";
 import {IRootState} from "../stores/Store";
+import hashHistory from "../history";
 
 export interface IUserActionPayload {
   user?: User;

@@ -3,7 +3,6 @@ import {shallow, ShallowWrapper} from "enzyme";
 import "isomorphic-fetch";
 import * as React from "react";
 import {Button} from "react-bootstrap";
-import {RouterState} from "react-router";
 import * as sinon from "sinon";
 import {SinonSpy} from "sinon";
 import UserRow from "../../src/components/UserRow";
@@ -13,7 +12,7 @@ import {user1, users} from "../userList";
 
 describe("UsersContainer component", () => {
   test("should not create error with empty user list", () => {
-    const wrapper: ShallowWrapper<IUsersContainer & IUsersContainerActions, RouterState> = shallow(
+    const wrapper: ShallowWrapper<IUsersContainer & IUsersContainerActions, any> = shallow(
       <UsersContainer
         users={[]}
       />);
@@ -22,7 +21,7 @@ describe("UsersContainer component", () => {
   test("New user button should call addUser", () => {
     // @ts-ignore: Argument of type
     const spy: SinonSpy = sinon.spy(UsersContainer, "newUser");
-    const wrapper: ShallowWrapper<IUsersContainer & IUsersContainerActions, RouterState> = shallow(
+    const wrapper: ShallowWrapper<IUsersContainer & IUsersContainerActions, any> = shallow(
       <UsersContainer
         users={[]}
         newUser={spy}
@@ -37,7 +36,7 @@ describe("UsersContainer component", () => {
     assert(usersContainer.users[0].username, "user1");
   });
   test("render", () => {
-    const wrapper: ShallowWrapper<IUsersContainer & IUsersContainerActions, RouterState> = shallow(
+    const wrapper: ShallowWrapper<IUsersContainer & IUsersContainerActions, any> = shallow(
       <UsersContainer
         users={users}
       />);

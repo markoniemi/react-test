@@ -1,7 +1,5 @@
 import * as Debug from "debug";
-import {browserHistory} from "react-router";
 import {ILoginAction, LoginActionType} from "../actions/LoginActions";
-import {UserActionType} from "../actions/UserActions";
 import User from "../domain/User";
 
 export interface ILoginState {

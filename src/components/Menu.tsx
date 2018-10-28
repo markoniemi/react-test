@@ -2,11 +2,10 @@ import * as Debug from "debug";
 import * as React from "react";
 import {Button, Glyphicon, Nav, Navbar, NavItem} from "react-bootstrap";
 import {FormattedMessage} from "react-intl";
-import {RouterState} from "react-router";
 import LoginActions from "../actions/LoginActions";
 import store from "../stores/Store";
 
-export default class Menu extends React.Component<{}, RouterState> {
+export default class Menu extends React.Component<{}, any> {
   private static readonly debug: Debug.IDebugger = Debug("Menu");
 
   constructor(props: {}) {

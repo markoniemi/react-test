@@ -1,6 +1,5 @@
 import * as React from "react";
 import {connect} from "react-redux";
-import {RouterState} from "react-router";
 import {Dispatch} from "redux";
 import UserActions from "../actions/UserActions";
 import User from "../domain/User";
@@ -15,7 +14,7 @@ export interface IUserContainerActions {
   saveUser: (user: User) => Promise<void>;
 }
 
-export class UserContainer extends React.Component<IUserContainer & IUserContainerActions, RouterState> {
+export class UserContainer extends React.Component<IUserContainer & IUserContainerActions, any> {
   public constructor(props: IUserContainer & IUserContainerActions) {
     super(props);
   }
@@ -26,9 +25,10 @@ export class UserContainer extends React.Component<IUserContainer & IUserContain
     );
   }
 
-  public static mapStateToProps(state: IRootState, props: RouterState): IUserContainer {
+  public static mapStateToProps(state: IRootState, props: any): IUserContainer {
     let user: User = new User();
-    const userId = props.params.id;
+    // TODO use decodeURIComponent?
+    const userId = props.match.params.id;
     if (0 < state.users.length && userId) {
       user = UserContainer.findUserById(state.users, userId);
     }

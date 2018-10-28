@@ -3,13 +3,13 @@ import * as React from "react";
 import {Button, Glyphicon, Panel} from "react-bootstrap";
 import {FormattedMessage} from "react-intl";
 import {connect} from "react-redux";
-import {hashHistory, RouterState} from "react-router";
 import {Dispatch} from "redux";
 import UserActions from "../actions/UserActions";
 import User from "../domain/User";
 import store, {IRootState} from "../stores/Store";
 import Menu from "./Menu";
 import Users from "./Users";
+import hashHistory from "../history";
 
 export interface IUsersContainer {
   users: ReadonlyArray<User>;
@@ -22,7 +22,7 @@ export interface IUsersContainerActions {
   saveUser?: (user: User) => void;
 }
 
-export class UsersContainer extends React.Component<IUsersContainer & IUsersContainerActions, RouterState> {
+export class UsersContainer extends React.Component<IUsersContainer & IUsersContainerActions, any> {
   private static readonly debug: Debug.IDebugger = Debug("UsersContainer");
 
   constructor(props: IUsersContainer) {
@@ -87,6 +87,6 @@ export class UsersContainer extends React.Component<IUsersContainer & IUsersCont
   }
 }
 
-export default connect<IUsersContainer & IUsersContainerActions, any, RouterState>
+export default connect<IUsersContainer & IUsersContainerActions, any, any>
 (UsersContainer.mapStateToProps, UsersContainer.mapDispatchToProps)
 (UsersContainer);

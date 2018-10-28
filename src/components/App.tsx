@@ -1,15 +1,17 @@
 import * as Debug from "debug";
+import {Component} from "react";
 import * as React from "react";
 import {AppContainer} from "react-hot-loader";
 import {IntlProvider} from "react-intl";
 import {Provider} from "react-redux";
-import {hashHistory, RedirectFunction, Route, Router, RouterState} from "react-router";
+import {Route, Router, Switch} from "react-router-dom";
 import Jwt from "../api/Jwt";
 import i18nConfig from "../messages/messages";
 import store from "../stores/Store";
 import LoginForm from "./LoginForm";
 import UserContainer from "./UserContainer";
 import UsersContainer from "./UsersContainer";
+import hashHistory from "../history";
 
 export default class App extends React.Component<{}, {}> {
   private static readonly debug: Debug.IDebugger = Debug("App");
@@ -27,10 +29,12 @@ export default class App extends React.Component<{}, {}> {
           <Provider store={store}>
             <div>
               <Router history={hashHistory}>
-                <Route path="/users" component={UsersContainer} onEnter={this.isAuthenticated}/>
-                <Route path="/users/new" component={UserContainer} onEnter={this.isAuthenticated}/>
-                <Route path="/users/:id" component={UserContainer} onEnter={this.isAuthenticated}/>
-                <Route path="*" component={LoginForm}/>
+                <Switch>
+                  <Route exact={true} path="/users" component={UsersContainer} onEnter={this.isAuthenticated}/>
+                  <Route exact={true} path="/users/new" component={UserContainer} onEnter={this.isAuthenticated}/>
+                  <Route exact={true} path="/users/:id" component={UserContainer} onEnter={this.isAuthenticated}/>
+                  <Route path="*" component={LoginForm}/>
+                </Switch>
               </Router>
             </div>
           </Provider>
@@ -39,7 +43,7 @@ export default class App extends React.Component<{}, {}> {
     );
   }
 
-  private isAuthenticated(nextState: RouterState, replace: RedirectFunction): void {
+  private isAuthenticated(nextState: any, replace: any): void {
     if (!Jwt.isAuthenticated()) {
       App.debug("not authenticated, return to login");
       replace("/");

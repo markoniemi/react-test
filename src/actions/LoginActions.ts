@@ -1,15 +1,13 @@
 import * as Debug from "debug";
 import {Dispatch} from "react-redux";
-import {hashHistory} from "react-router";
 import {Action} from "redux-actions";
 import {ThunkAction} from "redux-thunk";
 import Jwt from "../api/Jwt";
 import LoginApi from "../api/LoginApi";
-import UserApi from "../api/UserApi";
 import {ILoginForm} from "../components/LoginForm";
-import User from "../domain/User";
+import hashHistory from "../history";
 import {ILoginState} from "../reducers/LoginReducer";
-import {default as store, IRootState} from "../stores/Store";
+import {IRootState} from "../stores/Store";
 import MessageActions from "./MessageActions";
 import UserActions from "./UserActions";
 
