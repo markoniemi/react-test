@@ -6,10 +6,10 @@ import {connect} from "react-redux";
 import {Dispatch} from "redux";
 import UserActions from "../actions/UserActions";
 import User from "../domain/User";
+import history from "../history";
 import store, {IRootState} from "../stores/Store";
 import Menu from "./Menu";
 import Users from "./Users";
-import hashHistory from "../history";
 
 export interface IUsersContainer {
   users: ReadonlyArray<User>;
@@ -58,7 +58,7 @@ export class UsersContainer extends React.Component<IUsersContainer & IUsersCont
   }
 
   public static newUser(): void {
-    hashHistory.push("/users/new");
+    history.push("/users/new");
   }
 
   public static async deleteUser(user: User): Promise<void> {
@@ -70,7 +70,7 @@ export class UsersContainer extends React.Component<IUsersContainer & IUsersCont
   }
 
   public static async editUser(user: User): Promise<void> {
-    hashHistory.push("/users/" + user._id);
+    history.push("/users/" + user._id);
   }
 
   public static mapStateToProps(state: IRootState): IUsersContainer {

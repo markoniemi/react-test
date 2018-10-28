@@ -1,17 +1,17 @@
+import {ConnectedRouter} from "connected-react-router";
 import * as Debug from "debug";
-import {Component} from "react";
 import * as React from "react";
 import {AppContainer} from "react-hot-loader";
 import {IntlProvider} from "react-intl";
 import {Provider} from "react-redux";
-import {Route, Router, Switch} from "react-router-dom";
+import {Route, Switch} from "react-router-dom";
 import Jwt from "../api/Jwt";
+import history from "../history";
 import i18nConfig from "../messages/messages";
 import store from "../stores/Store";
 import LoginForm from "./LoginForm";
 import UserContainer from "./UserContainer";
 import UsersContainer from "./UsersContainer";
-import hashHistory from "../history";
 
 export default class App extends React.Component<{}, {}> {
   private static readonly debug: Debug.IDebugger = Debug("App");
@@ -28,14 +28,14 @@ export default class App extends React.Component<{}, {}> {
         <IntlProvider locale={i18nConfig.locale} messages={i18nConfig.messages}>
           <Provider store={store}>
             <div>
-              <Router history={hashHistory}>
+              <ConnectedRouter history={history}>
                 <Switch>
                   <Route exact={true} path="/users" component={UsersContainer} onEnter={this.isAuthenticated}/>
                   <Route exact={true} path="/users/new" component={UserContainer} onEnter={this.isAuthenticated}/>
                   <Route exact={true} path="/users/:id" component={UserContainer} onEnter={this.isAuthenticated}/>
                   <Route path="*" component={LoginForm}/>
                 </Switch>
-              </Router>
+              </ConnectedRouter>
             </div>
           </Provider>
         </IntlProvider>

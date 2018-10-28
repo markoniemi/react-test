@@ -4,8 +4,8 @@ import {Action} from "redux-actions";
 import {ThunkAction} from "redux-thunk";
 import UserApi from "../api/UserApi";
 import User from "../domain/User";
+import history from "../history";
 import {IRootState} from "../stores/Store";
-import hashHistory from "../history";
 
 export interface IUserActionPayload {
   user?: User;
@@ -101,7 +101,7 @@ export default class UserActions {
   }
 
   public static removeUserSuccess(user: User): IUserAction {
-    hashHistory.push("/users");
+    history.push("/users");
     return {
       type: UserActionType.REMOVE_USER_SUCCESS,
       payload: {user},
@@ -133,7 +133,7 @@ export default class UserActions {
   }
 
   public static editUserSuccess(user: User): IUserAction {
-    hashHistory.push("/users");
+    history.push("/users");
     return {
       type: UserActionType.EDIT_USER_SUCCESS,
       payload: {user},
@@ -147,7 +147,7 @@ export default class UserActions {
   }
 
   public static addUserSuccess(user: User): IUserAction {
-    hashHistory.push("/users");
+    history.push("/users");
     return {
       type: UserActionType.ADD_USER_SUCCESS,
       payload: {user},

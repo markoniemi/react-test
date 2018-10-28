@@ -5,7 +5,7 @@ import {ThunkAction} from "redux-thunk";
 import Jwt from "../api/Jwt";
 import LoginApi from "../api/LoginApi";
 import {ILoginForm} from "../components/LoginForm";
-import hashHistory from "../history";
+import history from "../history";
 import {ILoginState} from "../reducers/LoginReducer";
 import {IRootState} from "../stores/Store";
 import MessageActions from "./MessageActions";
@@ -66,7 +66,7 @@ export default class LoginActions {
   public static loginSuccess(loginState: ILoginState): ILoginAction {
     LoginActions.debug("loginSuccess: storing token to sessionStorage: " + loginState.token);
     Jwt.setToken(loginState.token);
-    hashHistory.push("/users");
+    history.push("/users");
     return {
       type: LoginActionType.LOGIN_SUCCESS,
       payload: {
@@ -91,7 +91,7 @@ export default class LoginActions {
   }
 
   public static logoutSuccess(): ILoginAction {
-    hashHistory.push("/");
+    history.push("/");
     return {
       type: LoginActionType.LOGOUT_SUCCESS,
     };
