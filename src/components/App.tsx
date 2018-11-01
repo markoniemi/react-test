@@ -10,6 +10,7 @@ import history from "../history";
 import i18nConfig from "../messages/messages";
 import store from "../stores/Store";
 import LoginForm from "./LoginForm";
+import {ProtectedRoute} from "./ProtectedRoute";
 import UserContainer from "./UserContainer";
 import UsersContainer from "./UsersContainer";
 
@@ -22,7 +23,6 @@ export default class App extends React.Component<{}, {}> {
   }
 
   public render(): JSX.Element {
-    // TODO replace isAuthenticated check with protected routes
     return (
       <AppContainer>
         <IntlProvider locale={i18nConfig.locale} messages={i18nConfig.messages}>
@@ -30,9 +30,9 @@ export default class App extends React.Component<{}, {}> {
             <div>
               <ConnectedRouter history={history}>
                 <Switch>
-                  <Route exact={true} path="/users" component={UsersContainer} onEnter={this.isAuthenticated}/>
-                  <Route exact={true} path="/users/new" component={UserContainer} onEnter={this.isAuthenticated}/>
-                  <Route exact={true} path="/users/:id" component={UserContainer} onEnter={this.isAuthenticated}/>
+                  <ProtectedRoute exact={true} path="/users" component={UsersContainer} authenticationPath={"/"}/>
+                  <ProtectedRoute exact={true} path="/users/new" component={UserContainer} authenticationPath={"/"}/>
+                  <ProtectedRoute exact={true} path="/users/:id" component={UserContainer} authenticationPath={"/"}/>
                   <Route path="*" component={LoginForm}/>
                 </Switch>
               </ConnectedRouter>
@@ -41,13 +41,6 @@ export default class App extends React.Component<{}, {}> {
         </IntlProvider>
       </AppContainer>
     );
-  }
-
-  private isAuthenticated(nextState: any, replace: any): void {
-    if (!Jwt.isAuthenticated()) {
-      App.debug("not authenticated, return to login");
-      replace("/");
-    }
   }
 
   private initLog() {
