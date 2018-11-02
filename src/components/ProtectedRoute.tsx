@@ -4,12 +4,13 @@ import Jwt from "../api/Jwt";
 
 export interface IProtectedRouteProps extends RouteProps {
   authenticationPath: string;
+  authenticationMethod: () => boolean;
 }
 
 export class ProtectedRoute extends Route<IProtectedRouteProps> {
   public render() {
     let redirectPath: string = "";
-    if (!Jwt.isAuthenticated()) {
+    if (!this.props.authenticationMethod()) {
       redirectPath = this.props.authenticationPath;
     }
     if (redirectPath) {

@@ -30,9 +30,9 @@ export default class App extends React.Component<{}, {}> {
             <div>
               <ConnectedRouter history={history}>
                 <Switch>
-                  <ProtectedRoute exact={true} path="/users" component={UsersContainer} authenticationPath={"/"}/>
-                  <ProtectedRoute exact={true} path="/users/new" component={UserContainer} authenticationPath={"/"}/>
-                  <ProtectedRoute exact={true} path="/users/:id" component={UserContainer} authenticationPath={"/"}/>
+                  <ProtectedRoute exact={true} path="/users" component={UsersContainer} authenticationMethod={Jwt.isAuthenticated} authenticationPath={"/"}/>
+                  <ProtectedRoute exact={true} path="/users/new" component={UserContainer} authenticationMethod={Jwt.isAuthenticated} authenticationPath={"/"}/>
+                  <ProtectedRoute exact={true} path="/users/:id" component={UserContainer} authenticationMethod={Jwt.isAuthenticated} authenticationPath={"/"}/>
                   <Route path="*" component={LoginForm}/>
                 </Switch>
               </ConnectedRouter>
