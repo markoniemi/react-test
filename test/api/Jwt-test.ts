@@ -11,4 +11,8 @@ describe("Jwt", () => {
     sessionStorage.setItem(Jwt.JWT_TOKEN_KEY, "token");
     assert.isTrue(Jwt.isAuthenticated());
   });
+  test("isAuthenticated returns false if sessionStorage is cleared", () => {
+    sessionStorage.removeItem(Jwt.JWT_TOKEN_KEY);
+    assert.isFalse(Jwt.isAuthenticated());
+  });
 });
