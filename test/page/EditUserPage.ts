@@ -1,8 +1,8 @@
 import {By, until} from "selenium-webdriver";
 import User from "../../src/domain/User";
-import WebDriverTest from "./WebDriverTest";
+import AbstractPage from "./AbstractPage";
 
-export default class EditUserPage extends WebDriverTest {
+export default class EditUserPage extends AbstractPage {
   public async editUser(user: User) {
     await this.waitForPageLoad();
     await this.enterUsername(user.username);
@@ -11,20 +11,18 @@ export default class EditUserPage extends WebDriverTest {
   }
 
   public async waitForPageLoad() {
-    await this.browser.wait(until.elementLocated(By.id("saveUser")));
+    await this.waitFor(By.id("saveUser"));
   }
 
   public async enterUsername(username: string) {
-    await this.browser.findElement(By.id("username")).clear();
-    await this.browser.findElement(By.id("username")).sendKeys(username);
+    await this.setText(By.id("username"), username);
   }
 
   public async enterEmail(email: string) {
-    await this.browser.findElement(By.id("email")).clear();
-    await this.browser.findElement(By.id("email")).sendKeys(email);
+    await this.setText(By.id("email"), email);
   }
 
   public async clickSaveUser() {
-    await this.browser.findElement(By.id("saveUser")).click();
+    await this.click(By.id("saveUser"));
   }
 }

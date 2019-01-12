@@ -1,7 +1,7 @@
-import {By, until} from "selenium-webdriver";
-import WebDriverTest from "./WebDriverTest";
+import {By, WebElement} from "selenium-webdriver";
+import AbstractPage from "./AbstractPage";
 
-export default class LoginPage extends WebDriverTest {
+export default class LoginPage extends AbstractPage {
   public async open() {
     await this.browser.get(this.baseUrl);
   }
@@ -14,28 +14,26 @@ export default class LoginPage extends WebDriverTest {
   }
 
   public async waitForPageLoad() {
-    await this.browser.wait(until.elementLocated(By.id("username")));
+    await this.waitFor(By.id("username"));
   }
 
   public async enterUsername(username: string) {
-    await this.browser.findElement(By.id("username")).clear();
-    await this.browser.findElement(By.id("username")).sendKeys(username);
+    await this.setText(By.id("username"), username);
   }
 
   public async enterPassword(password: string) {
-    await this.browser.findElement(By.id("password")).clear();
-    await this.browser.findElement(By.id("password")).sendKeys(password);
+    await this.setText(By.id("password"), password);
   }
 
   public async clickLogin() {
-    await this.browser.findElement(By.id("login")).click();
+    await this.click(By.id("login"));
   }
 
   public async waitForErrorMessages() {
-    await this.browser.wait(until.elementLocated(By.id("messages")));
+    await this.waitFor(By.id("messages"));
   }
 
-  public async getErrorMessages() {
+  public async getErrorMessages(): Promise<WebElement> {
     return this.browser.findElement(By.id("messages"));
   }
 }

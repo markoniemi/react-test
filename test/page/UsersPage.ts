@@ -1,23 +1,23 @@
 import {assert} from "chai";
 import {By, until, WebElement} from "selenium-webdriver";
 import User from "../../src/domain/User";
-import WebDriverTest from "./WebDriverTest";
+import AbstractPage from "./AbstractPage";
 
-export default class UsersPage extends WebDriverTest {
+export default class UsersPage extends AbstractPage {
   public async waitForPageLoad() {
-    await this.browser.wait(until.elementLocated(By.xpath("//td[@id='username']")));
+    this.waitFor(By.xpath("//td[@id='username']"));
   }
 
   public async waitForUserRow(username: string) {
-    await this.browser.wait(until.elementLocated(By.xpath("//td[@id='username'][text()='" + username + "']/..")));
+    this.waitFor(By.xpath("//td[@id='username'][text()='" + username + "']/.."));
   }
 
   public async clickAddUser() {
-    await this.browser.findElement(By.id("addUser")).click();
+    await this.click(By.id("addUser"));
   }
 
   public async clickLogout() {
-    await this.browser.findElement(By.id("logout")).click();
+    await this.click(By.id("logout"));
   }
 
   public async assertUser(user: User) {
