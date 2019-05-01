@@ -13,4 +13,6 @@ steps:
 - script: |
     npm install
     npm test
+    npm run coveralls
+    npm run sonarqube
   displayName: 'npm install and build'
