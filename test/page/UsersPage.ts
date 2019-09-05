@@ -1,5 +1,6 @@
 import {assert} from "chai";
-import {By, until, WebElement} from "selenium-webdriver";
+import * as sleep from "es7-sleep";
+import {By, WebElement} from "selenium-webdriver";
 import User from "../../src/domain/User";
 import AbstractPage from "./AbstractPage";
 
@@ -9,6 +10,7 @@ export default class UsersPage extends AbstractPage {
   }
 
   public async waitForUserRow(username: string) {
+    await sleep(1000);
     this.waitFor(By.xpath("//td[@id='username'][text()='" + username + "']/.."));
   }
 
@@ -27,6 +29,7 @@ export default class UsersPage extends AbstractPage {
   }
 
   public async findUserRow(username: string): Promise<WebElement> {
+    await this.waitFor(By.xpath("//td[@id='username'][text()='" + username + "']/.."));
     return this.browser.findElement(By.xpath("//td[@id='username'][text()='" + username + "']/.."));
   }
 
