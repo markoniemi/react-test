@@ -57,7 +57,7 @@
     "@types/fetch-mock": "5.12.2",
     "@types/history": "4.7.2",
     "@types/isomorphic-fetch": "0.0.34",
-    "@types/jest": "23.3.2",
+    "@types/jest": "24.0.18",
     "@types/jsonwebtoken": "7.2.8",
     "@types/nedb": "1.8.5",
     "@types/node": "8.5.9",
