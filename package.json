@@ -26,7 +26,7 @@
     "react-redux": "5.0.7",
     "react-router": "4.3.1",
     "react-router-dom": "4.3.1",
-    "connected-react-router": "4.5.0",
+    "connected-react-router": "5.0.1",
     "reapop": "1.2.0",
     "redux": "3.7.2",
     "redux-actions": "2.6.1",
